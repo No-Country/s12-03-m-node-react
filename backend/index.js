@@ -1,5 +1,4 @@
-import express from 'express';
+import app from './src/app.js';
 import { initServer } from './src/server.js';
 
-const app = express();
 initServer(app);

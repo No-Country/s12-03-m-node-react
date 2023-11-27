@@ -1,9 +1,7 @@
 import { connectDB } from "./config/dbConfig.js";
 import {PORT} from "./config/envConfig.js";
 
-
 export const initServer = async (app) => {
-
     try {
         await connectDB();
         app.listen(PORT, () => {
