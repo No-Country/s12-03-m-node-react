@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "title": "agustin",
+      "role": "admin",
+      "age": 20
+    }
+  ],
+  "pet": [
+    {
+      "id": 1,
+      "name": "some comment",
+      "description": "some description"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
