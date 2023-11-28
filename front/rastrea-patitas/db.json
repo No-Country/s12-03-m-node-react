@@ -2,19 +2,168 @@
   "users": [
     {
       "id": 1,
-      "title": "agustin",
-      "role": "admin",
-      "age": 20
+      "first_name": "agustin",
+      "last_name": "perez",
+      "email": "aperez@me.com",
+      "password": "1234",
+      "registration_method": "email",
+      "registration_date": "2022-01-01",
+      "phone": "123456789",
+      "age": 30,
+      "location": {
+        "city": "cordoba",
+        "state": "cordoba",
+        "country": "argentina"
+      },
+      "last_connection": "2022-01-01",
+      "profile_img": "https://via.placeholder.com/150",
+      "geo_point": ["lat", "lng"]
+    },
+
+    {
+      "id": 2,
+      "first_name": "enzo",
+      "last_name": "perez",
+      "email": "eperez@me.com",
+      "password": "1234",
+      "registration_method": "email",
+      "registration_date": "2022-01-01",
+      "phone": "123456789",
+      "age": 45,
+      "location": {
+        "city": "mendoza",
+        "state": "mendoza",
+        "country": "argentina"
+      },
+      "last_connection": "2022-01-01",
+      "profile_img": "https://via.placeholder.com/150",
+      "geo_point": ["lat", "lng"]
     }
   ],
-  "pet": [
+  "pets": [
     {
       "id": 1,
-      "name": "some comment",
-      "description": "some description"
+      "user_id": {
+        "id": 1,
+        "first_name": "agustin",
+        "last_name": "perez",
+        "email": "aperez@me.com",
+        "password": "1234",
+        "registration_method": "email",
+        "registration_date": "2022-01-01",
+        "phone": "123456789",
+        "age": 30,
+        "location": {
+          "city": "cordoba",
+          "state": "cordoba",
+          "country": "argentina"
+        },
+        "last_connection": "2022-01-01",
+        "profile_img": "https://via.placeholder.com/150",
+        "geo_point": ["lat", "lng"]
+      },
+      "name": "bobby",
+      "age": 5,
+      "species": "perro",
+      "breed": "labrador",
+      "main_color": "negro",
+      "secondary_color": "blanco",
+      "sex": "macho",
+      "description": "Responde al nombre de Bobby",
+      "pet_img": "https://s3-alpha-sig.figma.com/img/40aa/fb52/adb25129780878cf4fb85700ddc8704e?Expires=1702252800&Signature=YKzUyVKXBlLANjlWUNBTPfp4U2SA1LQ5rcs3GAwPEovoClOV9MYrNFf1psrZN9K84xRDLOtDX6pGB176aoY8-q42BGEUVpkmcDb6RyspyNq--cywOEP0lrarNslZPuQxadwnsXAq97Ma6enbMRImWhL2NTl2zzBBSJTShwtlcjxc2FtkhGfiPBnydS96EecJUB48zx1LJs5melwj~NmHwLTK7IwQOOgac4-bfx1KHZzvBisJy5j-NLESk2Q7ksAMAmbTxeTO0WOYmbie1KQdJw0zv2OxbT8i99nEKK63riuvn-QlakM-aCp~0tQ4Y3E-1iXolpxomBJs4b0ZSjNZzA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      "qr": "qr code"
+    },
+    {
+      "id": 2,
+      "user_id": {
+        "id": 2,
+        "first_name": "enzo",
+        "last_name": "perez",
+        "email": "eperez@me.com",
+        "password": "1234",
+        "registration": "2022-01-01",
+        "phone": "123456789",
+        "location": {
+          "city": "mendoza",
+          "country": "argentina"
+        },
+        "last_connection": "2022-01-01",
+        "profile_img": "https://via.placeholder.com/150"
+      },
+      "name": "firulais",
+      "age": 5,
+      "species": "dog",
+      "breed": "salchicha",
+      "main_color": "marron",
+      "secondary_color": "negro",
+      "description": "Responde al nombre de Firus",
+      "img": "https://via.placeholder.com/150",
+      "qr": "qr code"
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "alerts": [
+    {
+      "id": "1",
+      "user_id": {
+        "id": 1,
+        "first_name": "agustin",
+        "last_name": "perez",
+        "email": "aperez@me.com",
+        "password": "1234",
+        "registration_method": "email",
+        "registration_date": "2022-01-01",
+        "phone": "123456789",
+        "age": 30,
+        "location": {
+          "city": "cordoba",
+          "state": "cordoba",
+          "country": "argentina"
+        },
+        "last_connection": "2022-01-01",
+        "profile_img": "https://via.placeholder.com/150",
+        "geo_point": ["lat", "lng"]
+      },
+      "pet_id": {
+        "id": 1,
+        "user_id": {
+          "id": 1,
+          "first_name": "agustin",
+          "last_name": "perez",
+          "email": "aperez@me.com",
+          "password": "1234",
+          "registration_method": "email",
+          "registration_date": "2022-01-01",
+          "phone": "123456789",
+          "age": 30,
+          "location": {
+            "city": "cordoba",
+            "state": "cordoba",
+            "country": "argentina"
+          },
+          "last_connection": "2022-01-01",
+          "profile_img": "https://via.placeholder.com/150",
+          "geo_point": ["lat", "lng"]
+        },
+        "name": "bobby",
+        "age": 5,
+        "species": "perro",
+        "breed": "labrador",
+        "main_color": "negro",
+        "secondary_color": "blanco",
+        "sex": "macho",
+        "description": "Responde al nombre de Bobby",
+        "pet_img": "https://via.placeholder.com/150",
+        "qr": "qr code"
+      },
+      "date": "2022-01-01",
+      "alert_description": "alerta de perdido",
+      "status": "encontrado",
+      "last_location": {
+        "street": "123",
+        "number": "123",
+        "neighborhood": "123"
+      },
+      "geo_point": ["lat", "lng"]
+    }
+  ]
 }
