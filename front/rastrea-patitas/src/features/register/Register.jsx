@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { Button, Input } from '@nextui-org/react'
 import React from 'react'
-import googleIcon from '../../assets/icons/google.svg'
 
 const Register = () => {
   return (
@@ -14,8 +14,8 @@ const Register = () => {
 
       <p className='text-sm m-4'>o</p>
 
-      <Button type="submit" color='secondary' variant="ghost" className='w-[255px] mt-10' >Continuar con Google</Button>
-      <Button type="submit" color='primary' variant="solid" className='w-[255px]' >Continuar con Facebook</Button>
+      <Button startContent={<img src='/src/assets/icons/google.svg' />} type="submit" color='secondary' variant="ghost" className='w-[255px] mt-10' >Continuar con Google</Button>
+      <Button startContent={<img src='/src/assets/icons/facebook.svg' />} type="submit" color='secondary' variant="solid" className='w-[255px]' >Continuar con Facebook</Button>
 
       <p className='text-xs m-4'>Al registrarse, acepta nuestro Términos de servicio y Política de privacidad . Nunca compartimos su información de contacto con terceros.</p>
     </form>

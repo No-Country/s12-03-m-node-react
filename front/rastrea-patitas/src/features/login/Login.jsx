@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Button, Input } from '@nextui-org/react'
 import React from 'react'
 
