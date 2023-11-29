@@ -26,7 +26,7 @@ const Login = () => {
       <p className='text-sm underline text-gray-500 pr-52 cursor-pointer'>Olvidé mi contraseña</p>
 
 
-      <Button type="submit" color='secondary' variant="ghost" className='w-[255px] mt-10' >Ingresar</Button>
+      <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10' >Ingresar</Button>
 
       <p className='text-sm m-4'>o</p>
 
