@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Button, Input } from '@nextui-org/react'
 import React from 'react'
 
@@ -19,9 +20,9 @@ const RegisterData = () => {
         <Button type="submit" color='primary' variant="solid" className='w-[255px]' >Añadir ubicación</Button>
       </div>
 
-      <div className='flex items-center'><Input id='accept' type='radio' variant='ghost' className='w-auto rounded-full' size='3xl' /><label htmlFor='accept' >Acepto <span className='underline text-blue-500 cursor-pointer'>términos y condiciones</span></label></div>
+      <div className='flex items-center gap-2 pt-8'><input id='accept' type='radio' className='w-6 h-6' /><label htmlFor='accept' >Acepto <span className='underline text-blue-500 cursor-pointer'>términos y condiciones</span></label></div>
 
-      <Button type="submit" color='secondary' variant="bordered" className='w-[255px] mt-10' >Crear cuenta</Button>
+      <Button type="submit" color='primary' variant="bordered" className='w-[255px] mt-10' >Crear cuenta</Button>
 
     </form>
   )
