@@ -1,20 +1,23 @@
-import { Button } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Register from "./features/register/Register";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./features/login/Login";
+import RegisterData from "./features/register/RegisterData";
 
+const router = createBrowserRouter([
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/register/data",
+    element: <RegisterData />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  }
+])
 export default function App() {
-
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/users')
-      .then(res => res.json())
-      .then(data => setUsers(data))
-  }, [])
-
-  console.log(users)
-  return (
-    <>
-      <Button color="primary">{users[0]?.first_name.toUpperCase()}</Button>
-    </>
-  )
+  return <RouterProvider router={router} />
 }
