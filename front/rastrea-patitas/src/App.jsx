@@ -4,21 +4,26 @@ import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
+import Onboarding from "./features/onboarding/Onboarding";
 
 const router = createBrowserRouter([
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/register/data",
-    element: <RegisterData />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  }
-])
+	{
+		path: "/register",
+		element: <Register />,
+	},
+	{
+		path: "/register/data",
+		element: <RegisterData />,
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
+	{
+		path: "/onboarding",
+		element: <Onboarding />,
+	},
+]);
 export default function App() {
-  return <RouterProvider router={router} />
+	return <RouterProvider router={router} />;
 }
