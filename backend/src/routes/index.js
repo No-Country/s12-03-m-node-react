@@ -1,14 +1,9 @@
 import express from 'express';
+import petsRouter from './pets.routes';
 
 const app = express();
-const router = express.Router();
 
-router.get("/", (_, res) => {
-    res.json({
-      message: "Hello world",
-    });
-  });
-  
-  app.use("/", router);
 
-  export default app;
+app.use('/', petsRouter)
+
+export default app;
