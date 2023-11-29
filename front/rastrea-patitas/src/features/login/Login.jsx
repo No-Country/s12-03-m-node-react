@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   return (
-    <form className="flex flex-col items-center w-[360px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cove bg-fondo p-10">
+    <form className="flex flex-col items-center w-[360px] md:w-[544px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cove bg-fondo p-10">
       <h1 className="text-xl">Inicia Sesión</h1>
       <h3 className="text-sm pb-8">Ingresa tu email y contraseña</h3>
 

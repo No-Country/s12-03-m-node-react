@@ -13,7 +13,7 @@ const Register = () => {
   }
 
   return (
-    <form className="flex flex-col items-center w-[360px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">
+    <form className="flex flex-col items-center w-[360px] md:w-[544px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">
       <h1 className="text-xl">Registrate</h1>
       <Input type="email" label="Email" placeholder='Ingresa tu email' variant='underlined' color='secondary' />
       <Input type={isVisible ? "text" : "password"} label="Contraseña" placeholder="Ingresa tu contraseña" variant='underlined' color='secondary'
