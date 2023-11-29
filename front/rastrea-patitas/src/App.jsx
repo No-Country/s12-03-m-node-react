@@ -1,11 +1,24 @@
-// React is loaded automatically in the global scope.
+/* eslint-disable no-unused-vars */
+import React from "react";
+import Register from "./features/register/Register";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./features/login/Login";
+import RegisterData from "./features/register/RegisterData";
 
-import Onboarding from "./features/Onboarding";
-
+const router = createBrowserRouter([
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/register/data",
+    element: <RegisterData />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  }
+])
 export default function App() {
-	return (
-		<>
-			<Onboarding />
-		</>
-	);
+  return <RouterProvider router={router} />
 }
