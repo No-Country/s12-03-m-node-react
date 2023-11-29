@@ -1,42 +1,46 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Button } from "@nextui-org/react";
 
 import Info from "./Info";
 import Steps from "./Steps";
+import Actives from "./Actives";
 
-import alert from "./img/alert.svg";
-import disseminate from "./img/disseminate.svg";
-import found from "./img/found.svg";
+import dogQuestions from "./img/dogQuestions.svg";
+
 const Onboarding = () => {
 	return (
-		<main className="p-2">
+		<main>
 			<Info />
 			<Steps />
-			<section className="container mx-auto">
-				<div className="mt-5 flex flex-col gap-5">
-					<div className="flex items-center justify-between">
-						<h2 className="text-lg font-bold text-moradoMain">Búsquedas activas</h2>
-						<Button className="bg-moradoMain border-2  border-moradoMain hover:text-black text-white hover:bg-transparent">
-							Ver más
-						</Button>
-					</div>
-
-					<div className="flex flex-col items-center justify-center gap-5 mt-5">
-						<div className="flex overflow-x-scroll md:overflow-x-auto md:justify-center pb-4" style={{ width: "100%" }}>
-							<div className="flex-shrink-0 w-[200px] h-[300px] overflow-hidden relative">
-								<img src={alert} alt="" className="w-full h-full" />
-							</div>
-							<div className="flex-shrink-0 w-[200px] h-[300px] overflow-hidden relative">
-								<img src={disseminate} alt="" className="w-full h-full" />
-							</div>
-							<div className="flex-shrink-0 w-[250px] h-[300px] overflow-hidden relative">
-								<img src={found} alt="" className="w-full h-full" />
-							</div>
+			<Actives />
+			<div className="w-full bg-[url('src/assets/bg-patitas.svg')] bg-cover mt-20">
+				<div className="w-full bg-moradoMain p-5 relative shadow-dog">
+					<h4 className="text-lg font-bold text-center text-white">Preguntas Frecuentes</h4>
+					<img src={dogQuestions} alt="" className="absolute translate-y-[-100%] top-1 translate-x-1/2 right-1/2" />
+				</div>
+				<section className="container mx-auto pt-10 px-5">
+					<div className="flex flex-col items-center justify-center gap-5">
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Cómo puedo publicar información de una mascota perdida en la página?</h4>
+						</div>
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Cómo puedo realizar el registro de mi mascota en la página?</h4>
+						</div>
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Qué debo hacer si encuentro una mascota perdida con un código QR en su collar?</h4>
+						</div>
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Cómo puedo crear alertas para recibir alertas de mascotas perdidas en mi área?</h4>
+						</div>
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Qué debo hacer si encuentro una mascota perdida con un código QR en su collar?</h4>
+						</div>
+						<div className="p-4 bg-fondo rounded-xl font-bold text-secondary text-sm">
+							<h4>¿Qué debo hacer si recibo una alerta de una mascota perdida que podría haber visto?</h4>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		</main>
 	);
 };
