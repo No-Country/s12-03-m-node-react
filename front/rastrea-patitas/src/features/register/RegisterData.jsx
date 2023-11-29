@@ -4,7 +4,7 @@ import React from 'react'
 
 const RegisterData = () => {
   return (
-    <form className="flex flex-col items-center w-[360px] m-10 gap-2">
+    <form className="flex flex-col items-center w-[360px] m-10 gap-2 bg-fondo p-10">
       <h1 className="text-xl">¡Qué gusto que seas parte!</h1>
       <h3 className="text-sm pb-8">Completá los campos siguientes con tus datos</h3>
 

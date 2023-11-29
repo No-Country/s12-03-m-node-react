@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   return (
-    <form className="flex flex-col items-center w-[360px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover">
+    <form className="flex flex-col items-center w-[360px] m-10 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cove bg-fondo p-10">
       <h1 className="text-xl">Inicia Sesión</h1>
       <h3 className="text-sm pb-8">Ingresa tu email y contraseña</h3>
 
@@ -23,8 +23,7 @@ const Login = () => {
           <button type='button' onClick={toggleVisibility} className='focus-outline-none'>{isVisible ? <FaRegEyeSlash /> : <FaRegEye />}</button>
         }
       />
-      <p className='text-sm underline text-gray-500 pr-52 cursor-pointer'>Olvidé mi contraseña</p>
-
+      <p className='text-sm underline text-gray-500 cursor-pointer pr-36'>Olvidé mi contraseña</p>
 
       <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10' >Ingresar</Button>
 
