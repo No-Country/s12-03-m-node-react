@@ -1,8 +1,19 @@
 import Router from 'express'
 import passport from 'passport'
+import { login, register } from '../controllers/session.controller.js'
 
 const router = Router()
 
-router.post('/register', passport.authenticate('register'), (req, res) => res.status(201).send(req.user))
+router.post(
+    '/register', 
+    passport.authenticate('register'),  
+    register
+)
 
-export default router
+router.post(
+    '/login',
+    passport.authenticate('login'),
+    login
+)
+
+export default router 

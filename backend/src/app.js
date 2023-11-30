@@ -7,6 +7,7 @@ import routes from './routes/index.js';
 import passport from 'passport';
 import initializePassport from './middlewares/passport.middleware.js';
 import session from 'express-session';
+import { SECRET_KEY, SESSION_KEY } from './config/envConfig.js';
 
 const app = express();
 
@@ -16,19 +17,19 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-// Ruta para la documentación
 initializePassport();
 app.use(passport.initialize());
 app.use(
   session({
-    name: 'envs.SESSION_KEY', //Crear estas variables de entorno para manejo de las sesiones
-		secret: 'envs.SECRET_KEY',
+    name: SESSION_KEY,
+		secret: SECRET_KEY,
 		resave: false,
 		saveUninitialized: false,
 	})
 );
 app.use(passport.session());
+
+// Ruta para la documentación
 app.use(
     "/api-docs",
     swaggerUi.serve,

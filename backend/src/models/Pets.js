@@ -58,6 +58,6 @@ const petsSchema = mongoose.Schema({
     timestamps: true,
 })
 
-const Pets = mongoose.model('Pets', petsSchema);
+const Pets = mongoose.model('pets', petsSchema);
 
 export default Pets

@@ -37,4 +37,4 @@ const alertsSchema = mongoose.Schema({
     timestamps: true
 })
 
-const Alerts = mongoose.model('Alerts', alertsSchema)
+const Alerts = mongoose.model('alerts', alertsSchema)
