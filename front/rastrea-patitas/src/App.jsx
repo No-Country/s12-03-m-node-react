@@ -10,15 +10,6 @@ import Home from "./features/home/Home";
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />
-      }
-    ]
-  },
-  {
     path: "/register",
     element: <Register />,
   },
@@ -29,8 +20,12 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/footer",
+    element: <Footer />
   }
 ])
 export default function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
