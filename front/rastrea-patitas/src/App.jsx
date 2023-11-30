@@ -7,8 +7,23 @@ import RegisterData from "./features/register/RegisterData";
 import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
+import Onboarding from "./features/onboarding/Onboarding";
 
 const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Onboarding />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ]
+  },
+
   {
     path: "/register",
     element: <Register />,
@@ -21,10 +36,6 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/footer",
-    element: <Footer />
-  }
 ])
 export default function App() {
   return <RouterProvider router={router} />;
