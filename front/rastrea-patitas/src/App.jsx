@@ -4,9 +4,20 @@ import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
-import Footer from "./features/footer/Footer";
+import Footer from "./ui/Footer";
+import Layout from "./ui/Layout";
+import Home from "./features/home/Home";
 
 const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      }
+    ]
+  },
   {
     path: "/register",
     element: <Register />,
@@ -18,10 +29,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/footer",
-    element : <Footer />
   }
 ])
 export default function App() {
