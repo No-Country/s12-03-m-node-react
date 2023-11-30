@@ -5,25 +5,30 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
 import Footer from "./features/footer/Footer";
+import Onboarding from "./features/onboarding/Onboarding";
 
 const router = createBrowserRouter([
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/register/data",
-    element: <RegisterData />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/footer",
-    element : <Footer />
-  }
-])
+	{
+		path: "/register",
+		element: <Register />,
+	},
+	{
+		path: "/register/data",
+		element: <RegisterData />,
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
+	{
+		path: "/footer",
+		element: <Footer />,
+	},
+	{
+		path: "/onboarding",
+		element: <Onboarding />,
+	},
+]);
 export default function App() {
-  return <RouterProvider router={router} />
+	return <RouterProvider router={router} />;
 }
