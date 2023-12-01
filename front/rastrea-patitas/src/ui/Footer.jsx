@@ -12,7 +12,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#37474F]  h-56 flex flex-row lg:justify-between justify-center px-28 w-screen py-16 fixed bottom-0">
+    <footer className="bg-[#37474F]  h-56 flex flex-row lg:justify-between justify-center px-28 w-screen py-16">
       <div className="  px-6 flex-col font-inter  ">
         <div className=" text-[#fff]">
           <a className=" mb-3" href="#License">
