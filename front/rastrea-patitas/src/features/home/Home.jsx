@@ -4,6 +4,12 @@ import { MdMenu } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import { SlLocationPin } from "react-icons/sl";
+import pet1 from "../../assets/images/pet1.png";
+import pet2 from "../../assets/images/pet2.png";
+import pet3 from "../../assets/images/pet3.png";
+import pet4 from "../../assets/images/pet4.png";
+import pet5 from "../../assets/images/pet5.png";
+import pet6 from "../../assets/images/pet6.png";
 
 
 const Home = () => {
@@ -59,7 +65,7 @@ const Home = () => {
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>Perdido</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-1.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet1} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Señor Mostachito</h2>
@@ -78,7 +84,7 @@ const Home = () => {
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>Perdido</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-2.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet2} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Bobby</h2>
@@ -97,7 +103,7 @@ const Home = () => {
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>Perdido</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-3.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet3} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Hachiko</h2>
@@ -116,7 +122,7 @@ const Home = () => {
                         <button className="text-black text-sm py-1 px-3 rounded-xl leading-tight" style={{ backgroundColor: '#4BE6D0' }}>Busco a <br></br> mi familia</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-4.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet4} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Panqueque</h2>
@@ -135,7 +141,7 @@ const Home = () => {
                         <button className="text-black text-sm py-1 px-3 rounded-xl leading-tight" style={{ backgroundColor: '#4BE6D0' }}>Busco a <br></br> mi familia</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-5.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet5} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Nombre desconocido</h2>
@@ -154,7 +160,7 @@ const Home = () => {
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>Perdido</button>
                     </div>
                     <div className="w-154 h-145">
-                        <img className="object-cover w-full h-full rounded-t-lg" src="./src/assets/images/fruit-6.jpeg.png" alt="pet name" />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet6} alt="pet name" />
                     </div>
                     <div className="m-1">
                         <h2 className="text-sm font-bold justify-start tracking-tight">Mimi</h2>
