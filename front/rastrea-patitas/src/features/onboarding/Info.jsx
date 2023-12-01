@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Button } from "@nextui-org/react";
-
 import pre from "./img/pre.svg";
+import { useNavigate } from "react-router-dom";
 
 const Info = () => {
+const Navigate = useNavigate()
+
 	return (
 		<div className="w-full bg-[url('src/assets/bg-patitas.svg')]  bg-repeat px-5">
 			<section className="container mx-auto">
@@ -27,7 +29,7 @@ const Info = () => {
 							</ul>
 						</div>
 						<div className="flex justify-center lg:justify-start w-full">
-							<Button className="bg-moradoMain border-2  border-moradoMain hover:text-black text-white hover:bg-transparent">
+							<Button onClick={()=>Navigate("/home")} className="bg-moradoMain border-2  border-moradoMain hover:text-black text-white hover:bg-transparent">
 								Empezar Búsqueda
 							</Button>
 						</div>
