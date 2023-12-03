@@ -1,11 +1,15 @@
 import passport from "passport";
 import local from "passport-local"
+import google from 'passport-google-oauth20';
 import jwt from "passport-jwt"
+import { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL } from '../config/envConfig.js';
 import { createHash, evaluatePassword } from "../utils/hash.util.js";
 import Users from "../models/Users.js";
 
 const LocalStrategy = local.Strategy;
-// const JWTStrategy = jwt.Strategy;
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = jwt.ExtractJwt;
+const GoogleStrategy = google.Strategy
 
 const initializePassport = () => {
     passport.use(
@@ -56,6 +60,57 @@ const initializePassport = () => {
 			}
 		)
 	);
+
+	passport.use(
+		new GoogleStrategy(
+			{
+				clientID: GOOGLE_CLIENT_ID,
+				clientSecret: GOOGLE_CLIENT_SECRET,
+				callbackURL: `${BASE_URL}/api/session/auth/google/callback`,
+			},
+			async (accessToken, refreshToken, profile, done) => {
+				const user = profile._json;
+				const registeredUser = await Users.findOne({ email: user.email }).lean()
+				if (!registeredUser) {
+					const newUser = {
+						first_name: user.given_name,
+						last_name: user.family_name,
+						email: user.email,
+						password: null,
+						age: null,
+						registration_method: 'google',
+						registration_date: Date.now(),
+						profile_img: user.picture,
+					};
+					await Users.create(newUser)
+					done(null, newUser);
+				}
+				const userDTO = {
+					name: user.given_name,
+					surname: user.family_name,
+					email: user.email,
+					profileImg: user.picture,
+				};
+				done(null, userDTO);
+			}
+		)
+	);
+
+	passport.use('jwt', new JWTStrategy(
+		{
+			jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+			secretOrKey: SECRET_KEY,
+		}, 
+		async (jwt_payload, done) =>{
+			try {
+				const { _id, iat, exp } = jwt_payload;
+				return done(null, { _id, iat, exp });
+			} catch (error) {
+				return done(error)
+			}
+		}
+    ))
+
 }
 
 passport.serializeUser((user, done) => {
