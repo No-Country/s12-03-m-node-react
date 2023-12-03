@@ -4,8 +4,26 @@ import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
+import Footer from "./ui/Footer";
+import Layout from "./ui/Layout";
+import Home from "./features/home/Home";
+import Onboarding from "./features/onboarding/Onboarding";
 
 const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Onboarding />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ]
+  },
+
   {
     path: "/register",
     element: <Register />,
@@ -17,8 +35,8 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  }
+  },
 ])
 export default function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
