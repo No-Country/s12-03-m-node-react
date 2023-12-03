@@ -42,8 +42,8 @@ const petsSchema = mongoose.Schema({
     timestamps: true,
 })
 
-validateSchemas(petsSchema,petsSchemaValidator)
+validateSchemas(petsSchema, petsSchemaValidator)
 
-const Pets = mongoose.model('Pets', petsSchema);
+const Pets = mongoose.model('pets', petsSchema);
 
 export default Pets
