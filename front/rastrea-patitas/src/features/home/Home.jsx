@@ -17,29 +17,7 @@ const Home = () => {
 
       return (
         <div className='bg-[url("/src/assets/bg-patitas.svg")] h-screen flex flex-col items-center'>
-            <div className="flex flex-col items-center justify-center w-[360px] lg:w-[900px] gap-6 mx-2">
-                <div className="relative flex flex-row bg-white">
-
-                    <div className="flex w-[360px] h-[56px] lg:w-[920px] bg-white">
-                        <div className="absolute w-[24px] h-[24px] top-4 left-[24px] lg:left-[1px]">
-                            <MdMenu className="w-7 h-7" style={{ color: '#4D4295' }}/>
-                        </div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-16 font-bold text-lg" style={{ color: '#37474F' }}>
-                            Inicio
-                        </div>
-                    </div>
-
-                    {/* <div className="absolute top-4 right-4 flex space-x-4 sm:left-auto sm:right-4">
-                        <button className="px-4 py-2 flex items-center justify-center text-white rounded-xl h-[30px]" style={{ backgroundColor: '#4D4295' }}>
-                            Ingresar
-                        </button>
-                        <div className="flex items-center justify-center w-9 h-9 rounded-full" style={{ backgroundColor:'#4D4295' }}>
-                            <RiHome5Fill className="w-6 h-6 text-white"/>
-                        </div>
-                    </div> */}
-
-                </div>
-
+            <div className="flex flex-col items-center justify-center w-[360px] lg:w-[900px] gap-6 mt-8 mx-2">
 
                 <div className="flex items-center justify-center space-x-2">
                     <div className="flex items-center justify-between shadow-md w-[280px] h-[40px] lg:w-[440px] border border-gray-300 rounded-full p-2 bg-white space-x-1">
