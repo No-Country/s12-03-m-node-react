@@ -1,24 +1,24 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {Button} from "@nextui-org/button";
-import {  
+import { Button } from "@nextui-org/button";
+import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem
+  NavbarMenuItem,
 } from "@nextui-org/navbar";
-import {Avatar} from "@nextui-org/avatar";
-import {Link} from "@nextui-org/link";
+import { Avatar } from "@nextui-org/avatar";
+import { Link } from "@nextui-org/link";
 
 import PataIconNav from "../../assets/pata.svg";
 import QrIconNav from "../../assets/qrIcon.svg";
 import ConfigIconNav from "../../assets/configIcon.svg";
 import LogoutIconNav from "../../assets/logoutIcon.svg";
 import soloPatitaLogo from "../../assets/soloPatitaLogo.svg";
-import logo_RastreaPatitas from "../../assets/logos/logo_RastreaPatitas.svg"
+import logo_RastreaPatitas from "../../assets/logos/logo_RastreaPatitas.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header() {
@@ -34,9 +34,8 @@ function Header() {
   }, []);
   const handleResize = () => {
     setWidth(window.innerWidth);
-    
   };
-  console.log(width)
+  console.log(width);
   const headerItems = [
     { id: 1, title: "Perfil", subTitle: "Editar perfil", path: "#", src: "" },
     {
@@ -64,13 +63,16 @@ function Header() {
   ]; //falla el src
   //{headerItems.map((item, index)=>(<NavbarMenuItem key={`${item}-${item.id}`}>{index===0 ? <Avatar      as="button"    className="transition-transform border-solid border-1  border-moradoMain"    color="moradoMain"    name="Jason Hughes"   size="sm" src="https://i.pravatar.cc/150?u=a042581f4e29026704d"/>  :<img src={item.src} alt="logo" />}  <Link className="w-full" href="#" size="lg">  {item.title}                   <br />  {item.subTitle}   </Link></NavbarMenuItem> ) )}
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}  >
+    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       {isLogin === false ? (
         <>
           <NavbarContent>
             <NavbarItem>
               <NavbarBrand>
-                <img src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo} alt="" />
+                <img
+                  src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo}
+                  alt=""
+                />
               </NavbarBrand>
             </NavbarItem>
           </NavbarContent>
@@ -86,7 +88,7 @@ function Header() {
                 variant="ghost"
                 className="border-moradoMain text-moradoMain"
               >
-               Registrarse
+                Registrarse
               </Button>
             </NavbarItem>
           </NavbarContent>
@@ -94,26 +96,32 @@ function Header() {
       ) : (
         <>
           {/*Si esta logueado------------------------------------------------------------- className="hidden sm:flex gap-4" */}
-          <NavbarContent  >
+          <NavbarContent>
             <NavbarMenuToggle
-              
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               icon={<RxHamburgerMenu size={24} />}
             />
             <NavbarItem className="w-full justify-center ">
-              <Link className="w-full justify-center sm:hidden " href="#" size="lg">
+              <Link
+                className="w-full justify-center sm:hidden "
+                href="#"
+                size="lg"
+              >
                 Inicio
               </Link>
             </NavbarItem>
             <NavbarItem>
-              <NavbarBrand  >
-                <img src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo} alt="" />
+              <NavbarBrand>
+                <img
+                  src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo}
+                  alt=""
+                />
               </NavbarBrand>
             </NavbarItem>
           </NavbarContent>
-        
+
           {/*Menu Hamburgesa-------------------------------------------------------------*/}
-          <NavbarMenu className=" w-48 md:w-96  " justify="start" >
+          <NavbarMenu className=" w-48 h-max md:w-96  " justify="start">
             <NavbarMenuItem className=" flex gap-4 ">
               <Avatar
                 as="button"

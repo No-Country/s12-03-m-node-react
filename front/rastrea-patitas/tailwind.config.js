@@ -9,6 +9,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/button.js",
+   
   ],
   theme: {
     extend: {
