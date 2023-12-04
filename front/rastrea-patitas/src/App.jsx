@@ -8,6 +8,7 @@ import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
+import Blog from "./features/blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
-    ]
+    ],
   },
 
   {
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-])
+  {
+    path: "/blog",
+    element: <Blog />,
+  },
+]);
 export default function App() {
   return <RouterProvider router={router} />;
 }
