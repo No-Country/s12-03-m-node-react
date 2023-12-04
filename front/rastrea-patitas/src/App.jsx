@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
 import Footer from "./features/footer/Footer";
+import Header from "./features/header/Header";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/footer",
     element : <Footer />
+  },
+  {
+    path: "/header",
+    element : <Header />
   }
 ])
 export default function App() {

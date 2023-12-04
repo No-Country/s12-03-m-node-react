@@ -20,10 +20,7 @@ export default {
         fondo: "#F5F5FA",
         letra: "#37474F",
         moradoActivo: "#DBD9EA",
-      },
-      fontFamily: {
-        inter: ["Inter", "sans-serif"],
-      },
+      },    
       screens: {
         notebook: {"max":"1100px"},
       },
