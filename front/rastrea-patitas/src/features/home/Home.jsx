@@ -1,23 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { MdMenu } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import { SlLocationPin } from "react-icons/sl";
-import { RiHome5Fill } from "react-icons/ri";
 import pet1 from "../../assets/images/pet1.png";
 import pet2 from "../../assets/images/pet2.png";
 import pet3 from "../../assets/images/pet3.png";
 import pet4 from "../../assets/images/pet4.png";
 import pet5 from "../../assets/images/pet5.png";
 import pet6 from "../../assets/images/pet6.png";
+import Footer from "../../ui/Footer";
+import { useNavigate } from "react-router-dom";
 
 
 const Home = () => {
 
+      const Navigate = useNavigate()
+
       return (
         <div className='bg-[url("/src/assets/bg-patitas.svg")] h-screen flex flex-col items-center'>
-            <div className="flex flex-col items-center justify-center w-[360px] lg:w-[900px] gap-6 mt-8 mx-2">
+            <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
                 <div className="flex items-center justify-center space-x-2">
                     <div className="flex items-center justify-between shadow-md w-[280px] h-[40px] lg:w-[440px] border border-gray-300 rounded-full p-2 bg-white space-x-1">
@@ -29,7 +31,7 @@ const Home = () => {
                         />
                     </div>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full" style={{ backgroundColor:'#4D4295' }}>
-                        <HiOutlineAdjustmentsHorizontal className="w-6 h-6 text-white" />
+                        <HiOutlineAdjustmentsHorizontal onClick={()=>Navigate("/filter")} className="w-6 h-6 text-white"  />
                     </div>
                 </div>
 
@@ -51,7 +53,7 @@ const Home = () => {
                 </div>
 
                 {/* Cards */}
-                <div className="flex flex-wrap justify-center gap-5 lg:gap-8 mx-auto">
+                <div className="flex flex-wrap justify-center gap-5 md:gap-8 lg:gap-8 mx-auto">
                 
                     <div className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] first-letter:flex flex-col relative">
                         <div className="absolute top-0 right-0 mt-2 mr-2">
@@ -168,8 +170,8 @@ const Home = () => {
                     </div>
 
                 </div>
-
             </div>
+            <Footer />
         </div>
     );
   };
