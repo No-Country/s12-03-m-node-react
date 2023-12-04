@@ -8,7 +8,6 @@ import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
-import Header from "./features/header/Header";
 import FilterModal from "./features/FilterModal/FilterModal";
 const router = createBrowserRouter([
   {
@@ -42,9 +41,6 @@ const router = createBrowserRouter([
     element : <Footer />
   },
   {
-    path: "/header",
-    element : <Header />
-  },{
     path: "/filter",
     element : <FilterModal />
   }

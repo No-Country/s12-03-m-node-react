@@ -14,7 +14,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { GoArrowLeft } from "react-icons/go";
 import { IoIosInformationCircle } from "react-icons/io";
 
-import Footer from "../footer/Footer";
+import Footer from "../../ui/Footer";
 function FilterModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const especies = ["Gato", "Perro", "Otro"];
