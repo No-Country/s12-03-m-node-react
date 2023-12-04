@@ -1,17 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  Button,
+import {Button} from "@nextui-org/button";
+import {  
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem,
-  Link,
-  Avatar,
-} from "@nextui-org/react";
+  NavbarMenuItem
+} from "@nextui-org/navbar";
+import {Avatar} from "@nextui-org/avatar";
+import {Link} from "@nextui-org/link";
+
 import PataIconNav from "../../assets/pata.svg";
 import QrIconNav from "../../assets/qrIcon.svg";
 import ConfigIconNav from "../../assets/configIcon.svg";
@@ -22,7 +23,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
