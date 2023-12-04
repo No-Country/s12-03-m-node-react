@@ -24,7 +24,7 @@ const Home = () => {
                         <div className="absolute w-[24px] h-[24px] top-4 left-[24px] lg:left-[1px]">
                             <MdMenu className="w-7 h-7" style={{ color: '#4D4295' }}/>
                         </div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-16 font-bold text-black text-lg">
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-16 font-bold text-lg" style={{ color: '#37474F' }}>
                             Inicio
                         </div>
                     </div>
