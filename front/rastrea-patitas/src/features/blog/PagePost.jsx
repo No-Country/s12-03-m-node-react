@@ -2,6 +2,9 @@ import React from "react";
 import image1 from "./images/image1.webp";
 import Footer from "../../ui/Footer";
 import allpost from "./allPost.json";
+import HeaderBlog from "./HeaderBlog";
+
+
 
 function pagePost(props) {
   const filterdPost = allpost.filter((post) => post.outstanding == true);
@@ -9,6 +12,8 @@ function pagePost(props) {
   return (
     <div className="  w-full">
       <main className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat flex justify-center flex-col px-5'>
+        <HeaderBlog title={'Post'} link={'blog'} />
+
         <img src={image1} alt="image not found" />
         <h4 className=" text-letra text-lg font-bold">
           {filterdPost[0].title}
