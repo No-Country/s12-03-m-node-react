@@ -63,7 +63,13 @@ function Header() {
   ]; //falla el src
   //{headerItems.map((item, index)=>(<NavbarMenuItem key={`${item}-${item.id}`}>{index===0 ? <Avatar      as="button"    className="transition-transform border-solid border-1  border-moradoMain"    color="moradoMain"    name="Jason Hughes"   size="sm" src="https://i.pravatar.cc/150?u=a042581f4e29026704d"/>  :<img src={item.src} alt="logo" />}  <Link className="w-full" href="#" size="lg">  {item.title}                   <br />  {item.subTitle}   </Link></NavbarMenuItem> ) )}
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Navbar
+      isBordered
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      className=" w-full "
+      maxWidth="full"
+    >
       {isLogin === false ? (
         <>
           <NavbarContent>
@@ -76,7 +82,7 @@ function Header() {
               </NavbarBrand>
             </NavbarItem>
           </NavbarContent>
-          <NavbarContent className="flex gap-4">
+          <NavbarContent className="flex gap-4" justify="end">
             <NavbarItem>
               <Button type="submit" className="bg-moradoMain text-white">
                 Ingresar
@@ -101,7 +107,7 @@ function Header() {
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               icon={<RxHamburgerMenu size={24} />}
             />
-            <NavbarItem className="w-full justify-center ">
+            <NavbarItem className="w-full justify-center  sm:hidden">
               <Link
                 className="w-full justify-center sm:hidden "
                 href="#"
@@ -121,7 +127,7 @@ function Header() {
           </NavbarContent>
 
           {/*Menu Hamburgesa-------------------------------------------------------------*/}
-          <NavbarMenu className=" w-48 h-max md:w-96  " justify="start">
+          <NavbarMenu className=" w-48 md:w-1/4  " justify="start">
             <NavbarMenuItem className=" flex gap-4 ">
               <Avatar
                 as="button"

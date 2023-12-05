@@ -5,18 +5,18 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  useDisclosure,
+  useDisclosure
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/react";
+import { Input,Tooltip } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
+import {Select, SelectSection, SelectItem} from "@nextui-org/select";
 import { IoIosCloseCircle } from "react-icons/io";
 import { GoArrowLeft } from "react-icons/go";
 import { IoIosInformationCircle } from "react-icons/io";
-
-import Footer from "../../ui/Footer";
+import TooltipContent from "../tooltip/TooltipContent";
 function FilterModal() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const especies = ["Gato", "Perro", "Otro"];
   const edades = ["Cachorro", "Joven", "Adulto", "Senior"];
   const coloresDelCuerpo = [
@@ -40,7 +40,8 @@ function FilterModal() {
 
   return (
     <>
-      <h1>asdasda</h1>
+      
+
 
       <Button
         onPress={onOpen}
@@ -51,8 +52,11 @@ function FilterModal() {
       <Modal
         isOpen={isOpen}
         placement="top"
-        onOpenChange={onOpenChange}
-        size="sm"
+        size="5xl"
+        className="w-full   "
+        isDismissable={false}
+        onClose={onClose} 
+        
       >
         <ModalContent>
           {(onClose) => (
@@ -102,28 +106,38 @@ function FilterModal() {
                       </Checkbox>
                     ))}
                   </CheckboxGroup>
-                  <label htmlFor="">
-                    Raza
+                  
                     <Input
                       type="text"
-                      label="Escribe una raza"
-                      color="moradoMain"
-                      className="border-b-moradoMain"
+                      label="Raza"
+                      placeholder="Escribe una raza"
+                      color="danger"
                       variant="underlined"
+                      className=""
                     />
-                  </label>
+                
                   <label className="flex flex-col gap-1 ">
                     Sexo
-                    <select name="select">
-                      <option value="value0" selected>
+                    <select
+                      name="select"
+                      className="appearance-none border-solid border-1  border-moradoMain hover:bg-moradoActivo focus:bg-moradoActivo"
+                    >
+                      <option value="value0"  className="bg-moradoActivo" selected>
                         Selecciona una opción
                       </option>
-                      <option value="value1">Hembra</option>
-                      <option value="value2">Macho</option>
-                      <option value="value3">No lo sé</option>
+                      <option value="value1" className="bg-moradoActivo">Hembra</option>
+                      <option value="value2" className="bg-moradoActivo">Macho</option>
+                      <option value="value3" className="bg-moradoActivo border-solid border-3  border-moradoMain hover:bg-black">No lo sé</option>
                     </select>
                   </label>
-
+                  
+                  <Select label=" Sexo" placeholder="Selecciona una opción" variant="underlined" className="max-w-xs" >
+                  
+                  <SelectItem value="value1"> Hembra</SelectItem>
+                  <SelectItem value="value2">  Macho </SelectItem>
+                  <SelectItem value="value3">  No lo sé</SelectItem>
+                  </Select>
+               
                   <CheckboxGroup
                     className="gap-1"
                     label="Edad"
@@ -187,14 +201,12 @@ function FilterModal() {
                   <Button
                     variant="ghost"
                     onPress={onClose}
-                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo border-moradoActivo"
+                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo"
                     color=""
                   >
                     Aplicar filtros
                   </Button>
                 </section>
-
-                <Footer />
               </ModalFooter>
             </>
           )}

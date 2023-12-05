@@ -20,7 +20,7 @@ const Home = () => {
             <div className="flex flex-col items-center justify-center w-[360px] lg:w-[900px] gap-6 mx-2">
                 <div className="relative flex flex-row bg-white">
 
-                    <div className="flex w-[360px] h-[56px] lg:w-[920px] bg-white">
+                <div className="flex w-[360px] h-[56px] lg:w-[920px] bg-white">
                         <div className="absolute w-[24px] h-[24px] top-4 left-[24px] lg:left-[1px]">
                             <MdMenu className="w-7 h-7" style={{ color: '#4D4295' }}/>
                         </div>
