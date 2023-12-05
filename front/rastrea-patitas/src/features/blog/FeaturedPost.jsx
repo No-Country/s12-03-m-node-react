@@ -2,9 +2,11 @@ import React from "react";
 import allpost from "./allPost.json";
 import image1 from "./images/image1.webp";
 import { Button } from "@nextui-org/button";
+import { useNavigate } from "react-router-dom";
 
 function FeaturedPost() {
   const featuredPost = allpost.filter((post) => post.outstanding == true);
+  const Navigate = useNavigate();
 
   return (
     <section className=" px-5  flex flex-col">
@@ -13,7 +15,8 @@ function FeaturedPost() {
       </h6>
       <h4 className=" text-letra text-lg font-bold">{featuredPost[0].title}</h4>
       <p className="text-[#4C4C4C] text-sm font-medium py-1">
-        Por <span className=" text-moradoMain">{featuredPost[0].author}</span>
+        Por{" "}
+        <span className=" text-moradoMain  pr-3">{featuredPost[0].author}</span>
         {featuredPost[0].date}
       </p>
       <span className=" text-sm font-normal text-justify">
@@ -22,7 +25,7 @@ function FeaturedPost() {
       <img src={image1} alt="image not found" />
 
       <div className=" flex   justify-center items-center">
-        <Button className="bg-white h-10 w-20 px-4 border border-morado-main flex mt-6">
+        <Button onClick={()=>Navigate("/post")} className="bg-white h-10 w-20 px-4 border border-morado-main flex mt-6">
           Leer más
         </Button>
       </div>

@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Consejos para encontrar a tu mascota perdida",
     "previewText": "Sabemos lo triste y angustioso que es perder a tu mascota, es tu amigo y lo quieres, pondrás todo tu empeño y con esta guía esperamos darte consejos...",
-    "image": ["image1.webp"],
+    "image": ["./images/image1.webp"],
     "author": "James Angel",
     "date": "Dic 2, 2023",
     "outstanding": true
