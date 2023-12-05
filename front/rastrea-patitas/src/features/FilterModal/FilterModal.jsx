@@ -9,7 +9,7 @@ import {
   ModalFooter,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { Input,Tooltip } from "@nextui-org/react";
+import { Input,Tooltip,Select,SelectItem } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 
 function FilterModal({ handleClose, open }) {
