@@ -15,7 +15,7 @@ const usersSchemaValidator = z.object({
     }).trim().min(1).max(100),
     password: z.string({
         invalid_type_error: 'La contraseña debe ser un String',
-    }).trim().optional(),
+    }).trim().optional().nullable(),
     registration_method: z.string({
         invalid_type_error: 'El metodo de registro debe ser un String',
         required_error: 'El metodo de registro es requerido'
@@ -30,7 +30,7 @@ const usersSchemaValidator = z.object({
     age: z.number({
         invalid_type_error: 'La edad debe ser un numero',
         required_error: 'La edad es requerida'
-    }),
+    }).nullable(),
     last_connection: z.date().optional(),
     location: z.object().optional(),
     geo_point: z.array(z.number()).refine(data => data.length === 0 || data.length === 2, {

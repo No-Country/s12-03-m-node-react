@@ -1,14 +1,10 @@
-import express from 'express';
+import sessionRoutes from './session.routes.js'
+import usersRoutes from './users.routes.js'
+import Router from 'express'
 
-const app = express();
-const router = express.Router();
+const router = Router();
 
-router.get("/", (_, res) => {
-    res.json({
-      message: "Hello world",
-    });
-  });
-  
-  app.use("/", router);
+router.use('/session', sessionRoutes)
+router.use('/users', usersRoutes)
 
-  export default app;
+export default router;

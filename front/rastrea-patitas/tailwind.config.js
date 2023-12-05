@@ -9,6 +9,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/button.js",
+   
   ],
   theme: {
     extend: {
@@ -20,10 +21,7 @@ export default {
         fondo: "#F5F5FA",
         letra: "#37474F",
         moradoActivo: "#DBD9EA",
-      },
-      fontFamily: {
-        inter: ["Inter", "sans-serif"],
-      },
+      },    
       screens: {
         notebook: {"max":"1100px"},
       },
