@@ -10,47 +10,52 @@ import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
 import Blog from "./features/blog/Blog";
 import PagePost from "./features/blog/PagePost";
+import LostAndFound from "./features/lostAndFound/LostAndFound";
 
 const router = createBrowserRouter([
+	{
+		element: <Layout />,
+		children: [
+			{
+				path: "/",
+				element: <Onboarding />,
+			},
+			{
+				path: "/home",
+				element: <Home />,
+			},
+			{
+				path: "/blog",
+				element: <Blog />,
+			},
+			{
+				path: "/post",
+				element: <PagePost />,
+			},
+		],
+	},
 
-  {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Onboarding />,
-      },
-      {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/blog",
-        element: <Blog />,
-      },{
-        path: "/post",
-        element: <PagePost />,
-      },
-    ],
-  },
-
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/register/data",
-    element: <RegisterData />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/footer",
-    element: <Footer />
-  }
-])
+	{
+		path: "/register",
+		element: <Register />,
+	},
+	{
+		path: "/register/data",
+		element: <RegisterData />,
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
+	{
+		path: "/footer",
+		element: <Footer />,
+	},
+	{
+		path: "/lost",
+		element: <LostAndFound />,
+	},
+]);
 export default function App() {
-  return <RouterProvider router={router} />;
+	return <RouterProvider router={router} />;
 }
