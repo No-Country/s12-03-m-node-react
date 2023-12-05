@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import React from "react";
 
-function CardPreviewPost({ image, title, previewText, author, date, linkButton }) {
+function PreviewPost({ image, title, previewText, author, date, linkButton }) {
   return (
     <section>
       <img src={image} alt="image not found " />
@@ -20,4 +20,4 @@ function CardPreviewPost({ image, title, previewText, author, date, linkButton }
   );
 }
 
-export default CardPreviewPost;
+export default PreviewPost;

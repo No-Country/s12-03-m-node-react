@@ -3,7 +3,7 @@ import allpost from "./allPost.json";
 
 import image2 from "./images/image2.webp";
 import image3 from "./images/image3.webp";
-import CardPreviewPost from "./cardPreviewPost";
+import PreviewPost from "./PreviewPost";
 
 function AllPost(props) {
   const filterdPost = allpost.filter((post) => post.outstanding == false);
@@ -14,7 +14,7 @@ function AllPost(props) {
       <h5 className=" text-letra text-lg font-bold mt-7 mb-8">Todos los posts</h5>
 
       {filterdPost.map((post, index) => (
-        <CardPreviewPost
+        <PreviewPost
           image={images[index % images.length]}
           title={post.title}
           author={post.author}
