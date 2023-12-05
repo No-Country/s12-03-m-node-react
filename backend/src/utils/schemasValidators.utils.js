@@ -12,7 +12,7 @@ const usersSchemaValidator = z.object({
     email: z.string({
         invalid_type_error: 'El email debe ser un String',
         required_error: 'El email es requerido'
-    }).trim().min(1).max(100),
+    }).trim().min(1).max(100).nullable(),
     password: z.string({
         invalid_type_error: 'La contraseña debe ser un String',
     }).trim().optional().nullable(),

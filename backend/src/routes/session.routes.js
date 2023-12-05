@@ -26,9 +26,20 @@ router.get(
 router.get(
 	'/auth/google/callback',
 	passport.authenticate('google', {
-		failureRedirect: `${BASE_URL}/iniciar-sesion`,
+		failureRedirect: `${BASE_URL}/iniciar-sesion`
 	}),
 	login,
 );
+
+router.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  (req, res, next) => console.log(req.user),
+  login
+);
+
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: `${BASE_URL}/iniciar-sesion` }),
+  login
+)
 
 export default router 
