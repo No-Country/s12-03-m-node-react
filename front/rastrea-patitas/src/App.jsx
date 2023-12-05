@@ -8,8 +8,11 @@ import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
+import Blog from "./features/blog/Blog";
+import PagePost from "./features/blog/PagePost";
 
 const router = createBrowserRouter([
+
   {
     element: <Layout />,
     children: [
@@ -21,7 +24,7 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
-    ]
+    ],
   },
 
   {
