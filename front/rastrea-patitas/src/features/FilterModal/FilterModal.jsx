@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import {
   Modal,
@@ -5,18 +7,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  useDisclosure
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input,Tooltip } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
-import {Select, SelectSection, SelectItem} from "@nextui-org/select";
-import { IoIosCloseCircle } from "react-icons/io";
-import { GoArrowLeft } from "react-icons/go";
-import { IoIosInformationCircle } from "react-icons/io";
-import TooltipContent from "../tooltip/TooltipContent";
-function FilterModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+function FilterModal({ handleClose, open }) {
   const especies = ["Gato", "Perro", "Otro"];
   const edades = ["Cachorro", "Joven", "Adulto", "Senior"];
   const coloresDelCuerpo = [
@@ -40,23 +36,11 @@ function FilterModal() {
 
   return (
     <>
-      
-
-
-      <Button
-        onPress={onOpen}
-        className="flex flex-col gap-1 hover:bg-moradoMain "
-      >
-        Open Modal
-      </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={open}
         placement="top"
-        size="5xl"
-        className="w-full   "
-        isDismissable={false}
-        onClose={onClose} 
-        
+        onClose={handleClose}
+        size="sm"
       >
         <ModalContent>
           {(onClose) => (
@@ -69,21 +53,21 @@ function FilterModal() {
                 <section>
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo border-moradoActivo"
+                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
                     color=""
                   >
                     Todos
                   </Button>
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo border-moradoActivo"
+                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
                     color=""
                   >
                     Perdidos
                   </Button>
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo border-moradoActivo"
+                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
                     color=""
                   >
                     Encontrados
@@ -98,6 +82,7 @@ function FilterModal() {
                   >
                     {especies.map((element, index) => (
                       <Checkbox
+                        key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1"
                         variant="ghost"
@@ -118,11 +103,8 @@ function FilterModal() {
                 
                   <label className="flex flex-col gap-1 ">
                     Sexo
-                    <select
-                      name="select"
-                      className="appearance-none border-solid border-1  border-moradoMain hover:bg-moradoActivo focus:bg-moradoActivo"
-                    >
-                      <option value="value0"  className="bg-moradoActivo" selected>
+                    <select name="select">
+                      <option value="value0">
                         Selecciona una opción
                       </option>
                       <option value="value1" className="bg-moradoActivo">Hembra</option>
@@ -145,6 +127,7 @@ function FilterModal() {
                   >
                     {edades.map((element, index) => (
                       <Checkbox
+                        key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1"
                         variant="ghost"
@@ -160,6 +143,7 @@ function FilterModal() {
                   >
                     {coloresDelCuerpo.map((element, index) => (
                       <Checkbox
+                        key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1"
                         variant="ghost"
@@ -175,6 +159,7 @@ function FilterModal() {
                   >
                     {tamañoDelCuerpo.map((element, index) => (
                       <Checkbox
+                        key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1 hover:bg-moradoActivo"
                         variant="ghost"
@@ -201,7 +186,7 @@ function FilterModal() {
                   <Button
                     variant="ghost"
                     onPress={onClose}
-                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo"
+                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo"
                     color=""
                   >
                     Aplicar filtros

@@ -8,7 +8,7 @@ import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
-import FilterModal from "./features/FilterModal/FilterModal";
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -38,13 +38,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/footer",
-    element : <Footer />
-  },
-  {
-    path: "/filter",
-    element : <FilterModal />
+    element: <Footer />
   }
-
 ])
 export default function App() {
   return <RouterProvider router={router} />;
