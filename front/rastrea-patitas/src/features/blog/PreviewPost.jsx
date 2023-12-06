@@ -3,7 +3,7 @@ import React from "react";
 
 function PreviewPost({ image, title, previewText, author, date, linkButton }) {
   return (
-    <section>
+    <section className="md:flex-row">
       <img src={image} alt="image not found " />
       <h4 className=" text-letra text-lg font-bold">{title}</h4>
       <p className="text-[#4C4C4C] text-sm font-medium py-3">
