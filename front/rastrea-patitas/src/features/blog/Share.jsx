@@ -18,19 +18,19 @@ function Share() {
     <div className="flex justify-end my-6">
       <p className=" mr-4 text-[#999] text-sm font-medium" >Compartir en: </p>
 
-      <FacebookShareButton  url={currentPageUrl}>
+      <FacebookShareButton  url={currentUrlDep}>
         <FacebookIcon size={32} round={true} className=" mr-3" />
       </FacebookShareButton>
 
-      <TwitterShareButton url={currentPageUrl}>
+      <TwitterShareButton url={currentUrlDep}>
         <XIcon size={32} round={true} className=" mr-3"/>
       </TwitterShareButton>
 
-      <PinterestShareButton url={currentPageUrl} media={currentPageUrl}>
+      <PinterestShareButton url={currentUrlDep} media={currentUrlDep}>
         <PinterestIcon size={32} round={true} className=" mr-3" />
       </PinterestShareButton>
 
-      <EmailShareButton url={currentPageUrl}>
+      <EmailShareButton url={currentUrlDep}>
         <EmailIcon size={32} round={true} />
       </EmailShareButton>
     </div>
