@@ -31,12 +31,26 @@ const petsSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    pet_img: {
-        type: String,
-    },
+    pet_img: [{
+        url: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        public_id: {
+            type: String,
+            required: true
+        }
+    }],
     qr: {
-        type: String,
-        unique: true
+        
+        url: {
+            type: String,
+            trim: true,
+        },
+        public_id: {
+            type: String,
+        }
     }
 },{
     timestamps: true,
