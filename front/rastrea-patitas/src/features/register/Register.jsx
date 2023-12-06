@@ -5,9 +5,12 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const navigate = useNavigate()
+
   const toggleVisibility = () => {
     setIsVisible(!isVisible)
   }
@@ -24,7 +27,7 @@ const Register = () => {
         />
         <Input type={isVisible ? "text" : "password"} label="Confirme la contraseña" placeholder="Vuelve a ingresar contraseña" variant='underlined' color='secondary' endContent={<button type='button' onClick={toggleVisibility} className='focus-outline-none'>{isVisible ? <FaRegEyeSlash /> : <FaRegEye />}</button>} />
 
-        <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10' >Registrarme</Button>
+        <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10' onClick={() => navigate('/register/data')}>Registrarme</Button>
 
         <p className='text-sm m-4'>o</p>
 
