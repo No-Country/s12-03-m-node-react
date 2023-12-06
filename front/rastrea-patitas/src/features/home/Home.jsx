@@ -4,6 +4,13 @@ import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import Footer from "../../ui/Footer";
 import FilterModal from './FilterModal';
+import pet1 from '../../assets/images/pet1.png';
+import pet2 from "../../assets/images/pet2.png";
+import pet3 from "../../assets/images/pet3.png";
+import pet4 from "../../assets/images/pet4.png";
+import pet5 from "../../assets/images/pet5.png";
+import pet6 from "../../assets/images/pet6.png";
+import { SlLocationPin } from "react-icons/sl";
 
 const Home = () => {
     const [open, setOpen] = useState(false);
