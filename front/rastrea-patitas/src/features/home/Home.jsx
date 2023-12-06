@@ -10,7 +10,7 @@ import pet4 from "../../assets/images/pet4.png";
 import pet5 from "../../assets/images/pet5.png";
 import pet6 from "../../assets/images/pet6.png";
 import Footer from "../../ui/Footer";
-import FilterModal from '../FilterModal/FilterModal';
+import FilterModal from './FilterModal';
 
 const Home = () => {
     const [open, setOpen] = useState(false);
