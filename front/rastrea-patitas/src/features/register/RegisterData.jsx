@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Button, Input } from '@nextui-org/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterData = () => {
+  const navigate = useNavigate()
+
   return (
     <div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
       <form className="flex flex-col items-center w-[360px] md:w-[544px] m-10 gap-2 bg-fondo p-10">
@@ -23,7 +26,7 @@ const RegisterData = () => {
 
         <div className='flex items-center'><Input id='accept' type='radio' variant='ghost' className='w-auto rounded-full' size='3xl' /><label htmlFor='accept' >Acepto <span className='underline text-blue-500 cursor-pointer'>términos y condiciones</span></label></div>
 
-        <Button type="submit" color='secondary' variant="bordered" className='w-[255px] mt-10' >Crear cuenta</Button>
+        <Button type="submit" color='secondary' variant="bordered" className='w-[255px] mt-10' onClick={() => navigate('/home')}>Crear cuenta</Button>
 
       </form>
     </div>
