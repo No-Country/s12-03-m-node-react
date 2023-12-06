@@ -20,7 +20,7 @@ const usersSchemaValidator = z.object({
         invalid_type_error: 'El metodo de registro debe ser un String',
         required_error: 'El metodo de registro es requerido'
     }).trim(),
-    registration_date: z.date(),
+    registration_date: z.date().optional(),
     phone: z.string({
         invalid_type_error: 'El celular debe ser un String'
     }).trim().optional(),
@@ -59,10 +59,10 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'El nombre debe ser un String',
         required_error: 'El nombre es requerido'
     }).trim().min(1).max(50),
-    age: z.number({
+    age: z.string({
         invalid_type_error: 'La edad debe ser numerica',
         required_error: 'La edad es requerida'
-    }),
+    }).trim().min(1).max(20),
     species: z.string({
         invalid_type_error: 'La especie tiene que ser un string',
         required_error: 'La especie es requerida'
@@ -85,14 +85,8 @@ const petsSchemaValidator = z.object({
     description: z.string({
         invalid_type_error: 'La descripcion debe ser un string'
     }).trim().min(1).max(300).optional(),
-    pet_img: z.string({
-        invalid_type_error: 'La imagen debe ser un string(URL)',
-        required_error: 'La imagen es requerida'
-    }).trim(),
-    qr: z.string({
-        invalid_type_error: 'El qr debe ser un string',
-        required_error: 'El qr es requerido'
-    }).trim()
+    pet_img: z.array().optional(),
+    qr: z.object().optional()
 })
 
 export {
