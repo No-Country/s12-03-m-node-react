@@ -28,10 +28,6 @@ const router = createBrowserRouter([
 				path: "/blog",
 				element: <Blog />,
 			},
-			{
-				path: "/post",
-				element: <PagePost />,
-			},
 		],
 	},
 
@@ -48,8 +44,16 @@ const router = createBrowserRouter([
 		element: <Login />,
 	},
 	{
-		path: "/footer",
-		element: <Footer />,
+		path: "/post",
+		element: <PagePost />,
+	},
+	{
+		path: "/poster",
+		element: <Poster />,
+	},
+	{
+		path: "/lost",
+		element: <LostAndFound />,
 	},
 ]);
 export default function App() {
