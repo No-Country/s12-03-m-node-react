@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/button";
@@ -20,11 +21,14 @@ import LogoutIconNav from "../assets/logoutIcon.svg";
 import soloPatitaLogo from "../assets/soloPatitaLogo.svg";
 import logo_RastreaPatitas from "../assets/logos/logo_RastreaPatitas.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -35,7 +39,8 @@ function Header() {
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
-  console.log(width);
+
+
   const headerItems = [
     { id: 1, title: "Perfil", subTitle: "Editar perfil", path: "#", src: "" },
     {
@@ -84,7 +89,7 @@ function Header() {
           </NavbarContent>
           <NavbarContent className="flex gap-4" justify="end">
             <NavbarItem>
-              <Button type="submit" className="bg-moradoMain text-white">
+              <Button type="submit" className="bg-moradoMain text-white" onClick={() => navigate("/login")}>
                 Ingresar
               </Button>
             </NavbarItem>
@@ -93,6 +98,7 @@ function Header() {
                 type="submit"
                 variant="ghost"
                 className="border-moradoMain text-moradoMain"
+                onClick={() => navigate("/register")}
               >
                 Registrarse
               </Button>
