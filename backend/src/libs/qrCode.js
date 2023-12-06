@@ -6,6 +6,5 @@ export const generateQRCode = async (text) => {
         return qrCode;
     } catch (error) {
         console.log(error);
-        //todo: implementar logger
     }
 }

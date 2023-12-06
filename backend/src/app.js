@@ -4,12 +4,18 @@ import bodyParser from 'body-parser';
 import swaggerUi from "swagger-ui-express";
 import {specs} from './doc/swaggerConfig.js';
 import routes from './routes/index.js';
+import fileUpload from 'express-fileupload';
 
 const app = express();
 
 //cors
 
 app.use(express.json());
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: './uploads',
+
+}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
