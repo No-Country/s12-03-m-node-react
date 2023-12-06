@@ -9,12 +9,22 @@ import {
   ModalFooter,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { Input,Tooltip,Select,SelectItem } from "@nextui-org/react";
+import { Input, Select, SelectItem,  } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
-
+import IconTooltip from "./IconTooltip";
+import CheckboxCustomFilter from "./CheckboxCustomFilter"
+import IconHembra from "../../assets/filterModalIcons/hembra.svg"
+import IconMacho from "../../assets/filterModalIcons/macho.svg"
+import IconNoLoSe from "../../assets/filterModalIcons/noLoSe.svg"
 function FilterModal({ handleClose, open }) {
   const especies = ["Gato", "Perro", "Otro"];
-  const edades = ["Cachorro", "Joven", "Adulto", "Senior"];
+  const sex= [{id:1, sex:"Hembra", sexReference:IconHembra},{id:2, sex:"Macho", sexReference:IconMacho},{id:2, sex:"No lo sé", sexReference:IconNoLoSe},]
+  const edades = [
+    { age: "0 - 12 meses", ageReference: "Cachorro" },
+    { age: "1 - 2 años", ageReference: "Joven" },
+    { age: "2 - 7 años", ageReference: "Adulto" },
+    { age: "+7 años", ageReference: "Senior" },
+  ];
   const coloresDelCuerpo = [
     "Blanco",
     "Amarillo",
@@ -27,113 +37,108 @@ function FilterModal({ handleClose, open }) {
     "Con manchas",
   ];
   const tamañoDelCuerpo = [
-    "Toy",
-    "Pequeño",
-    "Mediano",
-    "Grande",
-    "Extra Grande",
+    { size: "1 - 24 cm", sizeReference: "Toy" },
+    { size: "25 - 40 cm", sizeReference: "Pequeño" },
+    { size: "41 - 60 cm", sizeReference: "Mediano" },
+    { size: "61 - 75 cm", sizeReference: "Grande" },
+    { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
 
   return (
     <>
-      <Modal
-        isOpen={open}
-        placement="top"
-        onClose={handleClose}
-        size="sm"
-      >
-        <ModalContent>
+      <Modal isOpen={open} placement="top" onClose={handleClose} size="sm">
+        <ModalContent  className="bg-moradoFondo">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Aplica filtros para encontrar mascotas
               </ModalHeader>
-
-              <ModalBody>
-                <section>
+              <ModalBody className="">
+                <section className="flex justify-between">
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
+                    className="border-solid border-1 border-moradoMain hover:bg-moradoActivo hover:border-moradoActivo"
                     color=""
                   >
                     Todos
                   </Button>
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
+                    className="border-solid border-1 border-moradoMain hover:bg-moradoActivo hover:border-moradoActivo"
                     color=""
                   >
                     Perdidos
                   </Button>
                   <Button
                     variant="ghost"
-                    className="border-solid border-1  border-moradoMain hover:bg-moradoActivo"
+                    className="border-solid border-1 border-moradoMain hover:bg-moradoActivo hover:border-moradoActivo"
                     color=""
                   >
                     Encontrados
                   </Button>
                 </section>
 
-                <ModalBody>
+                <ModalBody  className="bg-white rounded-xl">
+                
+                     
+
                   <CheckboxGroup
                     className="gap-1 border-b-moradoMain"
                     label="Especies"
                     orientation="horizontal"
                   >
                     {especies.map((element, index) => (
-                      <Checkbox
+                      <CheckboxCustomFilter
                         key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1"
                         variant="ghost"
                       >
                         {element}
-                      </Checkbox>
+                      </CheckboxCustomFilter>
                     ))}
                   </CheckboxGroup>
-                  
-                    <Input
-                      type="text"
-                      label="Raza"
-                      placeholder="Escribe una raza"
-                      color="danger"
-                      variant="underlined"
-                      className=""
-                    />
-                
-                  <label className="flex flex-col gap-1 ">
-                    Sexo
-                    <select name="select">
-                      <option value="value0">
-                        Selecciona una opción
-                      </option>
-                      <option value="value1" className="bg-moradoActivo">Hembra</option>
-                      <option value="value2" className="bg-moradoActivo">Macho</option>
-                      <option value="value3" className="bg-moradoActivo border-solid border-3  border-moradoMain hover:bg-black">No lo sé</option>
-                    </select>
-                  </label>
-                  
-                  <Select label=" Sexo" placeholder="Selecciona una opción" variant="underlined" className="max-w-xs" >
-                  
-                  <SelectItem value="value1"> Hembra</SelectItem>
-                  <SelectItem value="value2">  Macho </SelectItem>
-                  <SelectItem value="value3">  No lo sé</SelectItem>
-                  </Select>
-               
-                  <CheckboxGroup
-                    className="gap-1"
-                    label="Edad"
+
+                  <Input
+                    type="text"
+                    label="Raza"
+                    placeholder="Escribe una raza"
+                    color="danger"
+                    variant="underlined"
+                    className=""
+                  />               
+
+                 
+                  <CheckboxGroup                    
                     orientation="horizontal"
+                    className="flex "
+                  >
+                    {sex.map((element, index) => (
+                      <CheckboxCustomFilter
+                        key={`${element.id}-${index}`}
+                        value={element.sex}
+                        className="w-full"
+                        variant="ghost"
+                      >
+                       {element.sex}                     
+                      </CheckboxCustomFilter>
+                    ))}
+                  </CheckboxGroup>
+
+                  <CheckboxGroup
+                    label={<IconTooltip labelTitle={"Edad"} data={edades} />}
+                    orientation="horizontal"
+                    className="flex "
                   >
                     {edades.map((element, index) => (
-                      <Checkbox
-                        key={`${element}-${index}`}
-                        value={`${element}-${index}`}
+                      <CheckboxCustomFilter
+                        key={`${element.ageReference}-${index}`}
+                        value={element.ageReference}
                         className="mx-1"
                         variant="ghost"
                       >
-                        {element}
-                      </Checkbox>
+                        {element.ageReference}
+                      </CheckboxCustomFilter>
                     ))}
                   </CheckboxGroup>
                   <CheckboxGroup
@@ -142,30 +147,35 @@ function FilterModal({ handleClose, open }) {
                     orientation="horizontal"
                   >
                     {coloresDelCuerpo.map((element, index) => (
-                      <Checkbox
+                      <CheckboxCustomFilter
                         key={`${element}-${index}`}
                         value={`${element}-${index}`}
                         className="mx-1"
                         variant="ghost"
                       >
                         {element}
-                      </Checkbox>
+                      </CheckboxCustomFilter>
                     ))}
                   </CheckboxGroup>
                   <CheckboxGroup
                     className="gap-1"
-                    label="Tamaño"
+                    label={
+                      <IconTooltip
+                        labelTitle={"Tamaño"}
+                        data={tamañoDelCuerpo}
+                      />
+                    }
                     orientation="horizontal"
                   >
                     {tamañoDelCuerpo.map((element, index) => (
-                      <Checkbox
+                      <CheckboxCustomFilter
                         key={`${element}-${index}`}
-                        value={`${element}-${index}`}
+                        value={element.sizeReference}
                         className="mx-1 hover:bg-moradoActivo"
                         variant="ghost"
                       >
-                        {element}
-                      </Checkbox>
+                        {element.sizeReference}
+                      </CheckboxCustomFilter>
                     ))}
                   </CheckboxGroup>
                   <section>
@@ -186,7 +196,7 @@ function FilterModal({ handleClose, open }) {
                   <Button
                     variant="ghost"
                     onPress={onClose}
-                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo"
+                    className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo"
                     color=""
                   >
                     Aplicar filtros
