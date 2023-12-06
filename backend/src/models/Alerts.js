@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import { alertsSchemaValidator } from '../utils/schemasValidators.utils.js';
+import validateSchemas from '../middlewares/schemasValidators.middlewares.js';
+
 
 const alertsSchema = mongoose.Schema({
     user_id: {
@@ -9,32 +12,28 @@ const alertsSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pets'
     },
-    date:{
+    date: {
         type: Date,
         default: Date.now()
     },
-    alert_description:{
+    alert_description: {
         type: String,
-        trim: true,
-        required: true
     },
     status: {
         type: String,
-        trim: true,
-        required: true
     },
     last_location: {
         type: Object,
-        trim: true,
-        required: true
     },
     geo_point: {
         type: Array,
-        trim: true,
-        required: true
     }
-},{
+}, {
     timestamps: true
 })
 
+validateSchemas(alertsSchema, alertsSchemaValidator)
+
 const Alerts = mongoose.model('Alerts', alertsSchema)
+
+export default Alerts

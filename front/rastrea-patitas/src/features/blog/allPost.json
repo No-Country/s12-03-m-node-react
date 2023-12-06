@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Consejos para encontrar a tu mascota perdida",
+    "previewText": "Sabemos lo triste y angustioso que es perder a tu mascota, es tu amigo y lo quieres, pondrás todo tu empeño y con esta guía esperamos darte consejos...",
+    "image": ["./images/image1.webp"],
+    "author": "James Angel",
+    "date": "Dic 2, 2023",
+    "outstanding": true
+  },
+  {
+    "id": 2,
+    "title": "Consejos para cuidar a tus mascotas durante las fiestas",
+    "previewText": "Sabemos lo triste y angustioso que es perder a tu mascota, es tu amigo y lo quieres, pondrás todo tu empeño y con esta guía esperamos darte consejos...",
+    "image": ["image2.webp"],
+    "author": "Jhon Doe",
+    "date": "Nov 30, 2023",
+    "outstanding": false
+  },
+  {
+    "id": 3,
+    "title": "Preguntas y respuestas sobre alimentación: La leche y los gatos",
+    "previewText": "Sabemos lo triste y angustioso que es perder a tu mascota, es tu amigo y lo quieres, pondrás todo tu empeño y con esta guía esperamos darte consejos...",
+    "image": ["image3.webp"],
+    "author": "Jhon Doe",
+    "date": "Dic 3, 2023",
+    "outstanding": false
+  }
+]
+
