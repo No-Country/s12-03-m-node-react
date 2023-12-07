@@ -48,7 +48,7 @@ export const createPet = async (req, res) => {
       imageUploadResults = await handleImageUpload(req.files.pet_img);
     }
 
-    const petDTO = new PetsDTO({ ...req.body, pet_img: imageUploadResults });
+    const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: imageUploadResults });
     const newPet = new Pets(petDTO);
 
     await newPet.save();
@@ -56,7 +56,6 @@ export const createPet = async (req, res) => {
     const qrData = "http://localhost:3000/api/pets/" + newPet._id;
     const qrImage = await generateQRCode(qrData);
     const qrImageUrl = await handleQRCodeUpload(qrImage);
-    console.log(qrImageUrl)
     newPet.qr =  {
         url: qrImageUrl.url,
         public_id: qrImageUrl.public_id

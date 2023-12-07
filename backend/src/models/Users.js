@@ -39,6 +39,9 @@ const userSchema = mongoose.Schema({
     },
     geo_point: {
         type: Array,
+    },
+    facebook_id: {
+        type: Number
     }
 }, {
     timestamps: true,
