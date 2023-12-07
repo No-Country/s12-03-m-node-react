@@ -15,7 +15,7 @@ const RegisterData = () => {
         <label htmlFor='name' className='text-sm pr-56'>Nombre completo:</label>
         <Input id='name' type="text" placeholder='Nombre y apellido' color='secondary' variant='bordered' />
 
-        <label htmlFor='phone' className='text-sm pr-36 pt-5'>Número de telefono <span className='text-gray-500'>(opcional)</span>:</label>
+        <label htmlFor='phone' className='text-sm pr-36 pt-5'>Número de teléfono <span className='text-gray-500'>(opcional)</span>:</label>
         <Input id='phone' type="tel" placeholder="Ingresá tu número personal" color='secondary' variant='bordered' />
 
         <h3 className="text-sm pb-8 pt-5 pr-4">Zona para recibir alertas <span className='text-gray-500'>(lo podés editar después)</span></h3>
