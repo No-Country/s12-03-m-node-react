@@ -10,6 +10,7 @@ import Onboarding from "./features/onboarding/Onboarding";
 import Blog from "./features/blog/Blog";
 import PagePost from "./features/blog/PagePost";
 import Poster from "./features/pet/Poster";
+import MyPets from "./features/pet/MyPets";
 
 const router = createBrowserRouter([
   {
@@ -26,10 +27,15 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
-      }, {
+      },
+      {
         path: "/post",
         element: <PagePost />,
       },
+      {
+        path: "/my-pets",
+        element: <MyPets />,
+      }
     ],
   },
 
