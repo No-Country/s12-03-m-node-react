@@ -12,8 +12,8 @@ const MyPets = () => {
     <div className='w-[360px] md:w-screen h-screen flex flex-col items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
       <h1 className='font-poppins text-xl font-bold leading-5 tracking-tight'>Mis mascotas</h1>
       <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mis mascotas registradas (2)</h3>
-      <div className='overflow-x-auto'>
-        <Card className="py-4 flex-row">
+      <div className='flex overflow-x-auto gap-2'>
+        <Card className="py-4 flex-row flex-shrink-0">
           <CardBody className="relative py-2">
             <Chip className='absolute z-20 top-[20px] right-5'>En casa</Chip>
             <Image
@@ -29,7 +29,7 @@ const MyPets = () => {
           </CardHeader>
         </Card>
 
-        <Card className="py-4 flex-row">
+        <Card className="py-4 flex-row flex-shrink-0">
           <CardBody className="relative py-2">
             <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
             <Image
@@ -49,10 +49,10 @@ const MyPets = () => {
       <hr className='w-full my-3' />
       <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mascotas perdidas (1)</h3>
 
-      <div className='overflow-x-auto'>
-        <Card className="py-4 flex-row">
+      <div className='flex overflow-x-auto gap-2'>
+        <Card className="py-4 flex-row flex-shrink-0">
           <CardBody className="relative py-2">
-            <Chip className='absolute z-20 top-[20px] right-5'>En casa</Chip>
+            <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
             <Image
               alt="Card background"
               className="object-cover rounded-xl"
@@ -66,7 +66,7 @@ const MyPets = () => {
           </CardHeader>
         </Card>
 
-        <Card className="py-4 flex-row">
+        <Card className="py-4 flex-row flex-shrink-0">
           <CardBody className="relative py-2">
             <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
             <Image
