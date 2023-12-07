@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { usersSchemaValidator } from "../utils/schemasValidators.utils.js";
-import validateSchemas from "../middlewares/schemasValidators.middlewares.js";
 
 const userSchema = mongoose.Schema({
     first_name: {
@@ -41,12 +39,13 @@ const userSchema = mongoose.Schema({
     },
     geo_point: {
         type: Array,
+    },
+    facebook_id: {
+        type: Number
     }
 }, {
     timestamps: true,
 })
-
-validateSchemas(userSchema, usersSchemaValidator)
 
 const Users = mongoose.model("Users", userSchema)
 
