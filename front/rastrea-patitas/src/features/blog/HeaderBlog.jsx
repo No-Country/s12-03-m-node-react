@@ -26,7 +26,7 @@ function HeaderBlog({ title, link }) {
       </div>
 
       {/*pantallas medianas y grandes */}
-      <div className=" hidden md:flex justify-start items-center ml-[-16px]">
+      <div className=" hidden md:flex justify-start items-center ml-[-16px] md:py-10 object-contain">
         <Button
           onClick={() => Navigate(`/${link}`)}
           className=" bg-white text-letra text-base"
