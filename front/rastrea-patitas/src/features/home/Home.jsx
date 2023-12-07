@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
-import Footer from "../../ui/Footer";
 import FilterModal from './FilterModal';
 import pet1 from '../../assets/images/pet1.png';
 import pet2 from "../../assets/images/pet2.png";
@@ -170,7 +169,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
             <FilterModal handleClose={handleClose} open={open} />
         </>
