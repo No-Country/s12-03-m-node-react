@@ -8,7 +8,7 @@ const RegisterData = () => {
 
   return (
     <div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
-      <form className="flex flex-col items-center w-[360px] md:w-[544px] m-10 gap-2 bg-fondo p-10">
+      <form className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-2 bg-fondo p-10">
         <h1 className="text-xl">¡Qué gusto que seas parte!</h1>
         <h3 className="text-sm pb-8">Completá los campos siguientes con tus datos</h3>
 
