@@ -10,7 +10,12 @@ cloudinary.config({
 
 export const uploadImage = async filePath =>   {
     return await cloudinary.uploader.upload(filePath, {
-        folder: 'test'
+        folder: 'development',
+        width: 700,
+        height: 700,
+        crop: "limit",
+        format: 'jpg',
+        quality: 'auto:good'
     })
 }
 

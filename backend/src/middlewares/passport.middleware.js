@@ -2,7 +2,7 @@ import passport from "passport";
 import local from "passport-local"
 import google from 'passport-google-oauth20';
 import jwt from "passport-jwt"
-import facebook from "passport-facebook"
+import facebook from 'passport-facebook';
 import { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } from '../config/envConfig.js';
 import { createHash, evaluatePassword } from "../utils/hash.util.js";
 import Users from "../models/Users.js";
