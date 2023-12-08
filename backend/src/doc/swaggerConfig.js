@@ -1,4 +1,13 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import { routesPetsControllerAPIValue } from "./api/pets.js";
+import { petsComponents } from "./api/petsSchemas.doc.js";
+import { routesUsersControllerAPIValue } from "./api/users.js";
+import { usersComponents } from "./api/usersSchemas.doc.js";
+
+const paths = {
+  ...routesPetsControllerAPIValue,
+  ...routesUsersControllerAPIValue
+};
 
 const options = {
   definition: {
@@ -19,10 +28,11 @@ const options = {
         url: "http://localhost:4000", // URL base de tu API
       },
     ],
-//     paths: {
-//       ...paths,
-//     },
-//     components,
+    paths: {
+      ...paths,
+    },
+    petsComponents,
+    usersComponents,
   },
   apis: ["../src/routes/*.js"], // Ruta a tus archivos de definición de rutas
 };

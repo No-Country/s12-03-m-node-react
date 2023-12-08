@@ -4,16 +4,29 @@ import bodyParser from 'body-parser';
 import swaggerUi from "swagger-ui-express";
 import {specs} from './doc/swaggerConfig.js';
 import routes from './routes/index.js';
+import fileUpload from 'express-fileupload';
 import passport from 'passport';
 import initializePassport from './middlewares/passport.middleware.js';
 import session from 'express-session';
 import { SECRET_KEY, SESSION_KEY } from './config/envConfig.js';
+import cors from 'cors'
 
 const app = express();
 
 //cors
+app.use(cors({
+  origin: ['https://rastreapatitas.vercel.app/', 'http://localhost:3000'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
 
 app.use(express.json());
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: './uploads',
+
+}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 

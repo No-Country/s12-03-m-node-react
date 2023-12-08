@@ -1,6 +1,4 @@
 import mongoose from 'mongoose'
-import { petsSchemaValidator } from '../utils/schemasValidators.utils.js';
-import validateSchemas from '../middlewares/schemasValidators.middlewares.js';
 
 const petsSchema = mongoose.Schema({
     user_id: {
@@ -11,7 +9,7 @@ const petsSchema = mongoose.Schema({
         type: String,
     },
     age: {
-        type: Number,
+        type: String,
     },
     species: {
         type: String,
@@ -31,18 +29,31 @@ const petsSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    pet_img: {
-        type: String,
-    },
+    pet_img: [{
+        url: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        public_id: {
+            type: String,
+            required: true
+        }
+    }],
     qr: {
-        type: String,
-        unique: true
+        
+        url: {
+            type: String,
+            trim: true,
+        },
+        public_id: {
+            type: String,
+        }
     }
 },{
     timestamps: true,
 })
 
-validateSchemas(petsSchema, petsSchemaValidator)
 
 const Pets = mongoose.model('pets', petsSchema);
 
