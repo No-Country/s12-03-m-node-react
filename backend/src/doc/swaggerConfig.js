@@ -25,8 +25,13 @@ const options = {
 
     servers: [
       {
-        url: "http://localhost:4000", // URL base de tu API
+        url: "http://localhost:4000", 
+        description: "Entorno de desarrollo",
       },
+      {
+        url: "https://s12-03-m-node-react.vercel.app/",
+        description: "Entorno de producción",
+      }
     ],
     paths: {
       ...paths,
