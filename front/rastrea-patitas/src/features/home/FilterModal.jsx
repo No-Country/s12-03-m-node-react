@@ -7,20 +7,27 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Input, Select, SelectItem,  } from "@nextui-org/react";
-import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  CheckboxGroup,
+  Checkbox,
+} from "@nextui-org/react";
 import IconTooltip from "./contentFilter/iconCheckbox/tooltip/IconTooltip";
-import CheckboxCustomFilter from "./contentFilter/CheckboxCustomFilter"
-import pinPata from "../../assets/filterModalIcons/pinPata.svg"
-import mapFilter from "../../assets/filterModalIcons/mapFilter.svg"
+import CheckboxCustomFilter from "./contentFilter/CheckboxCustomFilter";
+import pinPata from "../../assets/filterModalIcons/pinPata.svg";
+import mapFilter from "../../assets/filterModalIcons/mapFilter.svg";
 import SelectFilter from "./contentFilter/selectFilter";
 function FilterModal({ handleClose, open }) {
-  const date =["Recientes", "Este mes","Últimos 3 meses","Este año" ]
+  const date = ["Recientes", "Este mes", "Últimos 3 meses", "Este año"];
   const especies = ["Gato", "Perro", "Otro"];
   //Mas adelante const especies = ["Gato", "Perro","Conejo","Roedor","Reptil", "Otro"];
-  const sex= [{id:1, sex:"Hembra", sexReference:"IconHembra"},{id:2, sex:"Macho", sexReference:"IconMacho"},{id:2, sex:"No lo sé", sexReference:"IconNoLoSe"},]
+  const sex = [
+    { id: 1, sex: "Hembra", sexReference: "IconHembra" },
+    { id: 2, sex: "Macho", sexReference: "IconMacho" },
+    { id: 2, sex: "No lo sé", sexReference: "IconNoLoSe" },
+  ];
   const edades = [
     { age: "0 - 12 meses", ageReference: "Cachorro" },
     { age: "1 - 2 años", ageReference: "Joven" },
@@ -48,8 +55,17 @@ function FilterModal({ handleClose, open }) {
 
   return (
     <>
-      <Modal isOpen={open} placement="top" onClose={handleClose} size="sm" backdrop="blur" >
-        <ModalContent  className="bg-moradoFondo">
+      <Modal
+        isOpen={open}
+        placement="top"
+        onClose={handleClose}
+        size="sm"
+        backdrop="blur"
+        classNames={{            
+          closeButton: "text-white bg-moradoMain hover:bg-white/5 active:bg-white/10",          
+        }}
+      >
+        <ModalContent className="bg-moradoFondo">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
@@ -80,10 +96,8 @@ function FilterModal({ handleClose, open }) {
                   </Button>
                 </section>
 
-                <ModalBody  className="bg-white rounded-xl ">
-                
-                     
-                      <CheckboxGroup
+                <ModalBody className="bg-white rounded-xl ">
+                  <CheckboxGroup
                     className="gap-1 border-b-moradoMain "
                     label="Especies"
                     orientation="horizontal"
@@ -98,8 +112,8 @@ function FilterModal({ handleClose, open }) {
                         {element}
                       </CheckboxCustomFilter>
                     ))}
-                    </CheckboxGroup>
-                 {/* Capaz lo piden mas adelante
+                  </CheckboxGroup>
+                  {/* Capaz lo piden mas adelante
                   <SelectFilter data={date} label={"Ordenar por fecha"} placeholder={"Selecciona una fecha"} />
                   <SelectFilter data={especies}  label={"Tipo de animal"} placeholder={"Selecciona un tipo de animal"} />*/}
                   <Input
@@ -109,10 +123,9 @@ function FilterModal({ handleClose, open }) {
                     color="danger"
                     variant="underlined"
                     className=""
-                  />               
+                  />
 
-                 
-                  <CheckboxGroup                    
+                  <CheckboxGroup
                     orientation="horizontal"
                     className="flex "
                     label="Sexo"
@@ -125,9 +138,8 @@ function FilterModal({ handleClose, open }) {
                         variant="ghost"
                         icon={true}
                         i={element.sexReference}
-                       
                       >
-                       {element.sex}                     
+                        {element.sex}
                       </CheckboxCustomFilter>
                     ))}
                   </CheckboxGroup>
@@ -156,10 +168,10 @@ function FilterModal({ handleClose, open }) {
                     {coloresDelCuerpo.map((element, index) => (
                       <CheckboxCustomFilter
                         key={`${element}-${index}`}
-                        value={element}//corregir el tema del valor
+                        value={element} //corregir el tema del valor
                         className="mx-1"
                         variant="ghost"
-                        icon={true}                        
+                        icon={true}
                         colorReference={element}
                       >
                         {element}
@@ -188,12 +200,17 @@ function FilterModal({ handleClose, open }) {
                     ))}
                   </CheckboxGroup>
                   <section className="relative flex  justify-center  items-center ">
-                  <img src={mapFilter} alt="" className=""/>
-                    <Button  startContent={<img src={pinPata} alt=""/>} className=" bg-moradoMain text-white font-semibold absolute ">Ubicación</Button>
+                    <img src={mapFilter} alt="" className="" />
+                    <Button
+                      startContent={<img src={pinPata} alt="" />}
+                      className=" bg-moradoMain text-white font-semibold absolute "
+                    >
+                      Ubicación
+                    </Button>
                   </section>
                 </ModalBody>
               </ModalBody>
-              <ModalFooter className="flex justify-between" >
+              <ModalFooter className="flex justify-between">
                 <>
                   <Button
                     variant="ghost"

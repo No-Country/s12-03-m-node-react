@@ -12,104 +12,105 @@ import {
 } from "@nextui-org/react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import homeIcon from "../../assets/home.svg";
-
 import PataIconNav from "../../assets/pata.svg";
 import QrIconNav from "../../assets/qrIcon.svg";
 import ConfigIconNav from "../../assets/configIcon.svg";
 import LogoutIconNav from "../../assets/logoutIcon.svg";
 import { IoAddCircle } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
-import { useNavigate } from 'react-router';
-
+import { useNavigate } from "react-router";
+import ModalAdvertisement from "./ModalAdvertisement";
 
 function HambugerMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
-   
-     <NavbarContent>
-      <NavbarMenuToggle
-        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        icon={<RxHamburgerMenu size={24} />}
-      />
-      </NavbarContent>     
-      <NavbarMenu className=" w-48 md:w-1/4 px-0 " >
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          icon={<RxHamburgerMenu size={24} />}
+        />
+      </NavbarContent>
+      <NavbarMenu className=" w-48 md:w-1/4 px-0 ">
         <NavbarMenuItem className=" flex gap-4 items-center border-b-1 border-moradoSecundario pl-2 py-6 ">
-          <Avatar
-            as="button"
-            className="transition-transform border-solid border-1  border-moradoMain w-auto"           
-            color="moradoMain"
-            name="Jason Hughes"
-            size="sm"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-          />
-          <Link
-            className="flex-col text-secondary text-xs	items-start "
-            href="#"
-            size="lg"
-          >
-            <span className="text-sm	font-medium"> Perfil</span>
-            Editar perfil
+          <Link className="flex gap-4" href="#" size="lg">
+            <Avatar
+              as="button"
+              className="transition-transform border-solid border-1  border-moradoMain w-auto"
+              color="moradoMain"
+              name="Jason Hughes"
+              size="sm"
+              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Perfil</p>
+              <p> Editar perfil</p>
+            </div>
           </Link>
         </NavbarMenuItem>
 
         <NavbarMenuItem className=" flex gap-4  items-center  border-b-1 border-moradoSecundario pl-2  py-6 ">
-          <img src={homeIcon} alt="logo" />
           <Link
-            className="flex-col text-secondary text-xs items-start"
+            className="flex gap-4"
             href="#"
             size="lg"
-            onClick={() => navigate('/home')} 
+            onClick={() => navigate("/home")}
           >
-            <span className="text-sm font-medium">Inicio</span>
-            Ir a inicio
+            <img src={homeIcon} alt="logo" />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Inicio</p>
+              <p> Ir a inicio</p>
+            </div>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  border-b-1 border-moradoSecundario pl-2 py-6">
-          <img src={PataIconNav} alt="logo" />
-          <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
-            size="lg"
-          >
-            <span className="text-sm	font-medium"> Mis mascotas</span>
-            Ver mis mascotas
+          <Link className="flex gap-4" href="#" size="lg">
+            <img src={PataIconNav} alt="logo" />
+
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm	font-medium"> Mis mascotas</p>
+              <p> Ver mis mascotas</p>
+            </div>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-7">
-          <IoAddCircle size={24} color="#4D4295" />
-          <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
-            size="lg"
-          >
-            <span className="text-sm font-medium"> Reportar</span>
-            Has un anuncio
+          <Link className="flex gap-4" href="#" size="lg" onClick={handleOpen}>
+            <IoAddCircle size={24} color="#4D4295" />
+
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm	font-medium">Reportar</p>
+              <p>Has un anuncio</p>
+            </div>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  border-b-1 border-moradoSecundario pl-2  pb-8">
-          <HiDocumentText size={24} color="#4D4295" />
-          <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
-            size="lg"
-          >
-            <span className="text-sm	font-medium"> Blog</span>
-            Todo sobre mascotas
+          <Link className="flex gap-4" href="#" size="lg">
+            <HiDocumentText size={24} color="#4D4295" />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm	font-medium">Blog</p>
+              <p> Todo sobre mascotas</p>
+            </div>
           </Link>
         </NavbarMenuItem>
 
         <NavbarMenuItem className=" flex gap-4   pl-2  pt-4 pb-10">
-          <img src={ConfigIconNav} alt="logo" />
-          <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
-            size="lg"
-          >
-            <span className="text-sm	font-medium"> Configuración</span>
-            Editar
+          <Link className="flex gap-4" href="#" size="lg">
+            <img src={ConfigIconNav} alt="logo" />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm	font-medium">Configuración</p>
+              <p> Editar</p>
+            </div>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex  " justify="end">
@@ -123,6 +124,7 @@ function HambugerMenu() {
           </Link>
         </NavbarMenuItem>
       </NavbarMenu>
+      <ModalAdvertisement handleClose={handleClose} open={open} />
     </>
   );
 }

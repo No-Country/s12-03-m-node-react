@@ -13,7 +13,6 @@ import {
 } from "@nextui-org/react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import homeIcon from "../../assets/home.svg";
-
 import PataIconNav from "../../assets/pata.svg";
 import QrIconNav from "../../assets/qrIcon.svg";
 import ConfigIconNav from "../../assets/configIcon.svg";
@@ -21,11 +20,15 @@ import LogoutIconNav from "../../assets/logoutIcon.svg";
 import { IoAddCircle } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { useNavigate } from 'react-router';
+import ModalAdvertisement from "./ModalAdvertisement";
 
 
 function HambugerMenu2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -37,55 +40,72 @@ function HambugerMenu2() {
       </NavbarContent>
       <NavbarMenu className=" w-48 md:w-1/4 px-0 " >        
         <NavbarMenuItem className=" flex gap-4  items-center pl-2  ">
-        <RiUserFill color="#4D4295" />
+        
 
           <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
+className="flex gap-4"            href="#"
             size="lg"
             onClick={() => navigate('/login')} 
           >
-            <span className="text-sm font-medium">Iniciar sesión</span>
-            Entra a tu cuenta
+            
+            <RiUserFill color="#4D4295" />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Iniciar sesión</p>
+              <p>Entra a tu cuenta</p>
+            </div>
           </Link>
         </NavbarMenuItem >
         <NavbarMenuItem className=" flex gap-4  items-center  border-b-1 border-moradoSecundario pl-2  pb-6 ">
-        <RiUserAddFill color="#4D4295" />
+     
 
           <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
+className="flex gap-4"            href="#"
             size="lg"
             onClick={() => navigate('/register')} 
           >
-            <span className="text-sm font-medium">Registrarse</span>
-            Crea una cuenta
+               <RiUserAddFill color="#4D4295" />
+           
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Registrarse</p>
+              <p> Crea una cuenta</p>
+            </div>
           </Link>
         </NavbarMenuItem>      
         <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-7">
-          <IoAddCircle size={24} color="#4D4295" />
+         
           <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
+className="flex gap-4"            href="#"
             size="lg"
+            onClick={handleOpen}
           >
-            <span className="text-sm font-medium"> Reportar</span>
-            Has un anuncio
+             <IoAddCircle size={24} color="#4D4295" />
+          
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Reportar</p>
+              <p>  Has un anuncio</p>
+            </div>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  border-b-1 border-moradoSecundario pl-2  pb-8">
-          <HiDocumentText size={24} color="#4D4295" />
+          
           <Link
-            className="flex-col text-secondary text-xs items-start"
-            href="#"
+className="flex gap-4"            href="#"
             size="lg"
             onClick={() => navigate('/blog')} 
           >
-            <span className="text-sm	font-medium"> Blog</span>
-            Todo sobre mascotas
+          <HiDocumentText size={24} color="#4D4295" />
+            <div className="flex-col text-secondary text-xs items-start">
+              {" "}
+              <p className="text-sm font-medium">Blog</p>
+              <p>Todo sobre mascotas</p>
+            </div>
           </Link>
         </NavbarMenuItem>          
       </NavbarMenu>
+     <ModalAdvertisement handleClose={handleClose} open={open}/>
     </>
   );
 }
