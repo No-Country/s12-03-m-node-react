@@ -12,7 +12,7 @@ petsRouter
     .post('', validateSchema(petsSchemaValidator), passport.authenticate('jwt'), createPet)
     .put('/update-info/:id', updatePetInfoById)
     .put('/add-image/:id', addImagesToPetById)
-    .delete('/delete-image/:id/:image_id', deletedImageFromPetById)
+    .delete('/:id/delete-image/:image_id', deletedImageFromPetById)
     .delete('/:id', deletePetById)
 
 export default petsRouter;

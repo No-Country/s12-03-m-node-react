@@ -37,8 +37,9 @@ export const getPetById = async (req, res) => {
 
 export const createPet = async (req, res) => {
   try {
-    let imageUploadResults = [];
+    let petImages
     if (req.files) {
+      let imageUploadResults = [];
       if (Array.isArray(req.files.pet_img) && req.files.pet_img.length > 3) {
         return res
           .status(400)
@@ -46,9 +47,14 @@ export const createPet = async (req, res) => {
       }
 
       imageUploadResults = await handleImageUpload(req.files.pet_img);
+      petImages = imageUploadResults.map(image =>{
+        const idSections = image.public_id.split('/')
+        const imgPublicId = idSections[idSections.length - 1]
+        image.public_id = imgPublicId
+        return image
+      })
     }
-
-    const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: imageUploadResults });
+    const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: petImages });
     const newPet = new Pets(petDTO);
 
     await newPet.save();
@@ -113,13 +119,13 @@ export const deletedImageFromPetById = async (req, res) => {
 
         if (!pet) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La mascota no ha sido encontrada" });
 
-        const image = pet.pet_img.find(img => img._id == image_id);
+        const image = pet.pet_img.find(img => img.public_id == image_id);
 
         if (!image) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La imagen no ha sido encontrada" });
         
         await handleImageDelete(image.public_id);
 
-        await Pets.findByIdAndUpdate(id, { $pull: { pet_img: { _id: image_id } } });
+        await Pets.findByIdAndUpdate(id, { $pull: { pet_img: { public_id: image_id } } });
 
         return res.status(HttpCodes.CODE_SUCCESS).json({ message: "La imagen ha sido eliminada" });
     } catch (error) {

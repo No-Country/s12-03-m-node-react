@@ -2,6 +2,7 @@ import Pets from "../models/Pets.js";
 import Users from "../models/Users.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import { handleImageDelete, handleImageUpload } from "../utils/imageHandle.js";
+import { deletePetById } from "./pets.controller.js";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -82,6 +83,15 @@ export const deleteUser = async (req, res, next) => {
         if (!deletedUser) {
             return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "user not found" });
         }
+        await handleImageDelete(deletedUser.profile_img.public_id);
+        const petsToDelete = await Pets.find({ user_id: id })
+        console.log(petsToDelete);
+        petsToDelete.forEach(async(pet) => {
+            await Pets.deleteOne({ _id: pet._id })
+            pet.pet_img.forEach(async(img)=>{
+                await handleImageDelete(img.public_id);
+            })
+        });
         res.status(HttpCodes.CODE_SUCCESS).send(deletedUser)
     } catch (error) {
         res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).send(error)
