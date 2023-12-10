@@ -22,10 +22,12 @@ import soloPatitaLogo from "../assets/soloPatitaLogo.svg";
 import logo_RastreaPatitas from "../assets/logos/logo_RastreaPatitas.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import HambugerMenu from "../features/hamburgerMenu/HamburgerMenu";
+import HambugerMenu2 from "../features/hamburgerMenu/HamburgerMenu2";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
 
@@ -39,7 +41,6 @@ function Header() {
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
-
 
   const headerItems = [
     { id: 1, title: "Perfil", subTitle: "Editar perfil", path: "#", src: "" },
@@ -79,17 +80,22 @@ function Header() {
         <>
           <NavbarContent>
             <NavbarItem>
-              <NavbarBrand>
-                <img
-                  src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo}
-                  alt=""
-                />
-              </NavbarBrand>
+              <HambugerMenu2 />
             </NavbarItem>
+            <NavbarBrand>
+              <img
+                src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo}
+                alt=""
+              />
+            </NavbarBrand>
           </NavbarContent>
           <NavbarContent className="flex gap-4" justify="end">
             <NavbarItem>
-              <Button type="submit" className="bg-moradoMain text-white" onClick={() => navigate("/login")}>
+              <Button
+                type="submit"
+                className="bg-moradoMain text-white"
+                onClick={() => navigate("/login")}
+              >
                 Ingresar
               </Button>
             </NavbarItem>
@@ -109,17 +115,14 @@ function Header() {
         <>
           {/*Si esta logueado------------------------------------------------------------- className="hidden sm:flex gap-4" */}
           <NavbarContent>
-            <NavbarMenuToggle
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              icon={<RxHamburgerMenu size={24} />}
-            />
+            <HambugerMenu />
             <NavbarItem className="w-full justify-center  sm:hidden">
               <Link
                 className="w-full justify-center sm:hidden "
                 href="#"
                 size="lg"
               >
-                Inicio
+                Esto es en donde esta parado
               </Link>
             </NavbarItem>
             <NavbarItem>
@@ -132,54 +135,6 @@ function Header() {
             </NavbarItem>
           </NavbarContent>
 
-          {/*Menu Hamburgesa-------------------------------------------------------------*/}
-          <NavbarMenu className=" w-48 md:w-1/4  " justify="start">
-            <NavbarMenuItem className=" flex gap-4 ">
-              <Avatar
-                as="button"
-                className="transition-transform border-solid border-1  border-moradoMain"
-                color="moradoMain"
-                name="Jason Hughes"
-                size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              />
-              <Link className="w-full" href="#" size="lg">
-                Perfil
-                <br />
-                Editar perfil
-              </Link>
-            </NavbarMenuItem>
-            <NavbarMenuItem className=" flex gap-4 ">
-              <img src={PataIconNav} alt="logo" />
-              <Link className="w-full" href="#" size="lg">
-                Mis mascotas
-                <br />
-                Ver mis mascotas
-              </Link>
-            </NavbarMenuItem>
-            <NavbarMenuItem className=" flex gap-4 ">
-              <img src={QrIconNav} alt="logo" />
-              <Link className="w-full" href="#" size="lg">
-                QR
-                <br />
-                Gestionar códigos
-              </Link>
-            </NavbarMenuItem>
-            <NavbarMenuItem className=" flex gap-4 ">
-              <img src={ConfigIconNav} alt="logo" />
-              <Link className="w-full text-celesteAcento" href="#" size="lg">
-                Configuración
-                <br />
-                Editar
-              </Link>
-            </NavbarMenuItem>
-            <NavbarMenuItem className=" flex gap-3 " justify="end">
-              <Link className="w-full justify-end " href="#" size="lg">
-                Cerrar sesión
-              </Link>
-              <img src={LogoutIconNav} alt="logo" />
-            </NavbarMenuItem>
-          </NavbarMenu>
         </>
       )}
     </Navbar>
