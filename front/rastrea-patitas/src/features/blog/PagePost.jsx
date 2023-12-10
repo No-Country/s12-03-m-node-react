@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import image1 from "./images/image1.webp";
-import Footer from "../../ui/Footer";
 import allpost from "./allPost.json";
 import HeaderBlog from "./HeaderBlog";
 import image2 from "./images/image1-2.png";
@@ -108,7 +108,6 @@ function pagePost(props) {
 
         <Share />
       </main>
-      <Footer />
     </div>
   );
 }

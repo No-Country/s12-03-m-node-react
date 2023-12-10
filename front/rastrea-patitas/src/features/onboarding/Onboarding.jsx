@@ -6,7 +6,6 @@ import Steps from "./Steps";
 import Actives from "./Actives";
 import Faq from "./Faq";
 import CatAndDog from "./CatAndDog";
-import Footer from "../../ui/Footer";
 
 const Onboarding = () => {
 	return (
@@ -18,7 +17,6 @@ const Onboarding = () => {
 				<Faq />
 				<CatAndDog />
 			</main>
-			<Footer />
 		</>
 	);
 };

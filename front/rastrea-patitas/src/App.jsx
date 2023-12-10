@@ -10,6 +10,7 @@ import Onboarding from "./features/onboarding/Onboarding";
 import Blog from "./features/blog/Blog";
 import PagePost from "./features/blog/PagePost";
 import Poster from "./features/pet/Poster";
+import MyPets from "./features/pet/MyPets";
 import LostAndFound from "./features/lostAndFound/LostAndFound";
 import PetProfile from "./features/petProfile/PetProfile";
 
