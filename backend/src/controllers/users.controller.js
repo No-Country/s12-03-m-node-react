@@ -1,6 +1,8 @@
 import Pets from "../models/Pets.js";
 import Users from "../models/Users.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
+import { handleImageDelete, handleImageUpload } from "../utils/imageHandle.js";
+import { deletePetById } from "./pets.controller.js";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -37,8 +39,12 @@ export const updateUserById = async (req, res, next) => {
     try {
         const { id } = req.params
         const userPayload = req.body
-        if(Object.keys(userPayload).length === 0) {
+        if(Object.keys(userPayload).length === 0 && req.files.length === 0) {
             return res.status(HttpCodes.CODE_BAD_REQUEST).json({ message: "empty payload" });
+        }
+        if (req.files) {
+            const uploadedImage = await handleImageUpload(req.files.profile_img);
+            userPayload.profile_img = uploadedImage[0]
         }
         const user = await Users.findById(id);
         if (!user) {
@@ -51,6 +57,25 @@ export const updateUserById = async (req, res, next) => {
     }
 }
 
+export const deleteImageFromUserById = async (req, res) => {
+    try {
+        const { id, image_id } = req.params;
+        const user = await Users.findById(id);
+
+        if (!user) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "El usuario no ha sido encontrado" });
+
+        if (Object.keys(user.profile_img).length > 2) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La imagen no ha sido encontrada" });
+        
+        await handleImageDelete(image_id);
+
+        await Users.findByIdAndUpdate(id, { profile_img: {} });
+
+        return res.status(HttpCodes.CODE_SUCCESS).json({ message: "La imagen ha sido eliminada" });
+    } catch (error) {
+        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+    }
+}
+
 export const deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params
@@ -58,6 +83,15 @@ export const deleteUser = async (req, res, next) => {
         if (!deletedUser) {
             return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "user not found" });
         }
+        await handleImageDelete(deletedUser.profile_img.public_id);
+        const petsToDelete = await Pets.find({ user_id: id })
+        console.log(petsToDelete);
+        petsToDelete.forEach(async(pet) => {
+            await Pets.deleteOne({ _id: pet._id })
+            pet.pet_img.forEach(async(img)=>{
+                await handleImageDelete(img.public_id);
+            })
+        });
         res.status(HttpCodes.CODE_SUCCESS).send(deletedUser)
     } catch (error) {
         res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).send(error)

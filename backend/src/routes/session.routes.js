@@ -4,12 +4,14 @@ import { login, register } from '../controllers/session.controller.js'
 import { BASE_URL } from '../config/envConfig.js'
 import validateSchema from '../middlewares/schemasValidators.middlewares.js'
 import { usersSchemaValidator } from '../utils/schemasValidators.utils.js'
+import { typeConversor } from '../middlewares/typeConversor.middleware.js'
 
 const router = Router()
 
 router.post(
     '/register', 
-	validateSchema(usersSchemaValidator),
+    typeConversor,
+	  validateSchema(usersSchemaValidator),
     passport.authenticate('register'), 
     register
 )

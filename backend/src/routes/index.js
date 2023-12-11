@@ -7,7 +7,7 @@ const router = Router();
 
 router.use('/session', sessionRoutes)
 router.use('/users', usersRoutes)
-router.use('/', petsRouter)
+router.use('/pets', petsRouter)
 
 export default router;
 
