@@ -19,7 +19,7 @@ function ColorGeneral({isSelected, fill}){
        <circle
          fill={fill}
           stroke="#4d4295"      
-          stroke-width="3" 
+          strokeWidth="3" 
           id="circle345-1"
           cy="16"
           cx="16.0625"
@@ -29,8 +29,8 @@ function ColorGeneral({isSelected, fill}){
        <circle
        fill={fill}
           stroke="#4D4295"
-          stroke-opacity="0.2"
-          stroke-width="1" 
+          strokeOpacity="0.2"
+          strokeWidth="1" 
           id="circle345"
           r="15.5"
           cy="16"
