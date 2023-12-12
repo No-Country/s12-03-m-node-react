@@ -3,8 +3,6 @@ import React from 'react';
 import {Avatar} from "@nextui-org/react";
 
 const ProfilePhoto = () => {
-  // Lógica para subir o eliminar la foto
-
   return (
     <div className="flex justify-center m-10 gap-2">
         <div className="flex items-center">

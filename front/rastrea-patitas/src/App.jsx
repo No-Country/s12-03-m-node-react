@@ -13,6 +13,7 @@ import Poster from "./features/pet/Poster";
 import MyPets from "./features/pet/MyPets";
 import LostAndFound from "./features/lostAndFound/LostAndFound";
 import UserProfile from "./features/userProfile/userProfile";
+import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
 
 
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <UserProfile />
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicies />
   }
 ]);
 export default function App() {

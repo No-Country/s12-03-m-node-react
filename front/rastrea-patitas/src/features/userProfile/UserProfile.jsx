@@ -7,7 +7,6 @@ import UserDetailsCard from './UserDetailsCard';
 const UserProfile = () => {
   return (
     <div className='mx-auto pb-8 w-[360px]'>
-     
       <ProfilePhoto />
       <div className='mb-3'>
         <h2 className='text-lg text-center font-semibold' style={{ color: '#4D4295' }}>Detalles del perfil</h2>
@@ -38,16 +37,10 @@ const UserProfile = () => {
       </div>
 
       <div className="mt-6 ml-4">
-        <a className='font-bold'>
+        <a href="./privacy" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-violet-900">
           Políticas de privacidad
         </a>
       </div>
-
-       {/* <div className="mt-4 text-right">
-        <a href="/politicas_privacidad.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
-          Políticas de privacidad
-        </a>
-      </div> */}
 
       <div className='ml-4 mt-12' style={{ color: '#4D4295' }}>
         <button className="rounded-lg hover:bg-gray-300 border border-gray-400 w-30 gap-2 py-2 px-2 text-xs">Eliminar cuenta</button>
