@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -20,6 +20,20 @@ import pinPata from "../../assets/filterModalIcons/pinPata.svg";
 import mapFilter from "../../assets/filterModalIcons/mapFilter.svg";
 import SelectFilter from "./contentFilter/selectFilter";
 function FilterModal({ handleClose, open }) {
+
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+
   const date = ["Recientes", "Este mes", "Últimos 3 meses", "Este año"];
   const especies = ["Gato", "Perro", "Otro"];
   //Mas adelante const especies = ["Gato", "Perro","Conejo","Roedor","Reptil", "Otro"];
@@ -59,7 +73,7 @@ function FilterModal({ handleClose, open }) {
         isOpen={open}
         placement="top"
         onClose={handleClose}
-        size="sm"
+        size={width> 1024 ? "5xl":width< 640 ? "sm":"md"}
         backdrop="blur"
         classNames={{            
           closeButton: "text-white bg-moradoMain hover:bg-white/5 active:bg-white/10",          
