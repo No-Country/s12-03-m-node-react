@@ -26,7 +26,7 @@ const qrCodeSchema = {
   },
 };
   
-export const petsComponents = {
+const petsComponents = {
   schemas: {
     Pet: {
       type: "object",
@@ -81,3 +81,5 @@ export const petsComponents = {
     },
   },
 };
+
+export {petsComponents}

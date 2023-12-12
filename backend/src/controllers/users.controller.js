@@ -2,7 +2,7 @@ import Pets from "../models/Pets.js";
 import Users from "../models/Users.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import { handleImageDelete, handleImageUpload } from "../utils/imageHandle.js";
-import { deletePetById } from "./pets.controller.js";
+import HttpError from "../utils/error.util.js";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -16,7 +16,7 @@ export const getUsers = async (req, res, next) => {
           }));
         res.status(HttpCodes.CODE_SUCCESS).send(usersWithPets)
     } catch (error) {
-        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+        next(error)
     }
 }
 
@@ -25,13 +25,13 @@ export const getUserById = async (req, res, next) => {
         const { id } = req.params
         const user = await Users.findById(id).lean()
         if(!user) {
-            return res.status(HttpCodes.CODE_NOT_FOUND).send('user not found')
+            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
         }
         const pets = await Pets.find({ user_id: id }).lean()
         user.pets = [...pets]
         res.status(HttpCodes.CODE_SUCCESS).send(user)
     } catch (error) {
-        res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).send(error)
+        next(error)
     }
 }
 
@@ -40,7 +40,7 @@ export const updateUserById = async (req, res, next) => {
         const { id } = req.params
         const userPayload = req.body
         if(Object.keys(userPayload).length === 0 && req.files.length === 0) {
-            return res.status(HttpCodes.CODE_BAD_REQUEST).json({ message: "empty payload" });
+            throw new HttpError('No se ha recibido ningún dato', HttpCodes.CODE_BAD_REQUEST)
         }
         if (req.files) {
             const uploadedImage = await handleImageUpload(req.files.profile_img);
@@ -48,12 +48,12 @@ export const updateUserById = async (req, res, next) => {
         }
         const user = await Users.findById(id);
         if (!user) {
-            return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "user not found" });
+            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
         }
         const updatedUser = await Users.findByIdAndUpdate(id, userPayload, { new: true, overwrite: false });
         return res.status(HttpCodes.CODE_SUCCESS).json(updatedUser);
     } catch (error) {
-        res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).send(error)
+        next(error)
     }
 }
 
@@ -62,9 +62,13 @@ export const deleteImageFromUserById = async (req, res) => {
         const { id, image_id } = req.params;
         const user = await Users.findById(id);
 
-        if (!user) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "El usuario no ha sido encontrado" });
+        if (!user) {
+            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
+        }
 
-        if (Object.keys(user.profile_img).length > 2) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La imagen no ha sido encontrada" });
+        if (Object.keys(user.profile_img).length < 2) {
+            throw new HttpError('Imagen no encontrada', HttpCodes.CODE_NOT_FOUND)
+        }
         
         await handleImageDelete(image_id);
 
@@ -72,7 +76,7 @@ export const deleteImageFromUserById = async (req, res) => {
 
         return res.status(HttpCodes.CODE_SUCCESS).json({ message: "La imagen ha sido eliminada" });
     } catch (error) {
-        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+        next(error)
     }
 }
 
@@ -81,7 +85,7 @@ export const deleteUser = async (req, res, next) => {
         const { id } = req.params
         const deletedUser = await Users.findByIdAndDelete(id)
         if (!deletedUser) {
-            return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "user not found" });
+            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
         }
         await handleImageDelete(deletedUser.profile_img.public_id);
         const petsToDelete = await Pets.find({ user_id: id })
@@ -94,7 +98,7 @@ export const deleteUser = async (req, res, next) => {
         });
         res.status(HttpCodes.CODE_SUCCESS).send(deletedUser)
     } catch (error) {
-        res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).send(error)
+        next(error)
     }
 }
 

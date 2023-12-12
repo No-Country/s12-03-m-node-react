@@ -1,4 +1,4 @@
-export const usersComponents = {
+ const usersComponents = {
   schemas: {
     User: {
       type: "object",
@@ -124,3 +124,5 @@ export const usersComponents = {
     }
   }
 };
+
+export {usersComponents}

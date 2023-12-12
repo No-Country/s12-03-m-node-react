@@ -12,7 +12,7 @@ export const routesPetsControllerAPIValue = {
                   schema: {
                     type: "array",
                     items: {
-                      $ref: "#/petsComponents/schemas/Pet"
+                      $ref: "#/components/schemas/Pet"
                     }
                   }
                 }
@@ -103,7 +103,7 @@ export const routesPetsControllerAPIValue = {
                 content: {
                   "application/json": {
                     schema: {
-                      $ref: "#/petsComponents/schemas/Pet"
+                      $ref: "#/components/schemas/Pet"
                     }
                   }
                 }
@@ -180,7 +180,7 @@ export const routesPetsControllerAPIValue = {
               content: {
                 "application/json": {
                   schema: {
-                    $ref: "#/petsComponents/schemas/Pet"
+                    $ref: "#/components/schemas/Pet"
                   }
                 }
               }
