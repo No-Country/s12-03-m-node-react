@@ -68,6 +68,12 @@
           minItems: 2,
           maxItems: 2,
         },
+        pets: {
+          type: 'array',
+          items: {
+            $ref: '#/components/schemas/pets'
+          }
+        },
         createdAt: {
           type: "string",
           format: "date-time",

@@ -40,7 +40,7 @@ export const updateUserById = async (req, res, next) => {
         const { id } = req.params
         const userPayload = req.body
         if(Object.keys(userPayload).length === 0 && req.files.length === 0) {
-            throw new HttpError('No se ha recibido ningún dato', HttpCodes.CODE_BAD_REQUEST)
+            throw new HttpError('No se ha recibido ningún dato para modificar', HttpCodes.CODE_BAD_REQUEST)
         }
         if (req.files) {
             const uploadedImage = await handleImageUpload(req.files.profile_img);
