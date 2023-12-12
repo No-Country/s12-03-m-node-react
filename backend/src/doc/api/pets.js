@@ -1,5 +1,5 @@
 export const routesPetsControllerAPIValue = {
-    "/pets": {
+    "/api/pets": {
         get: {
           summary: "Obtener una lista de todas las mascotas",
           description: "Devuelve un array de todas las mascotas disponibles.",
@@ -158,7 +158,7 @@ export const routesPetsControllerAPIValue = {
             }
           }
       },
-      "/pets/{id}": {
+      "/api/pets/{id}": {
         get: {
           summary: "Obtener detalles de una mascota específica",
           description: "Devuelve los detalles de la mascota especificada por el ID.",
@@ -286,7 +286,7 @@ export const routesPetsControllerAPIValue = {
             }
           }
       },
-      "/pets/update-info/{id}": {
+      "/api/pets/update-info/{id}": {
         put: {
           summary: "Actualizar información de una mascota específica",
           description: "Actualiza los detalles de la mascota especificada por el ID.",
@@ -408,7 +408,7 @@ export const routesPetsControllerAPIValue = {
           }
         }
       },
-      "/pets/add-image/{id}": {
+      "/api/pets/add-image/{id}": {
         put: {
           summary: "Agregar imágenes a una mascota específica",
           description: "Agrega nuevas imágenes a la mascota especificada por el ID.",
@@ -506,7 +506,7 @@ export const routesPetsControllerAPIValue = {
           }
         }
       },
-      "/pets/delete-image/{id}/{image_id}": {
+      "/api/pets/delete-image/{id}/{image_id}": {
         delete: {
           summary: "Eliminar una imagen específica de una mascota",
           description: "Elimina la imagen especificada de la mascota dada por el ID.",
