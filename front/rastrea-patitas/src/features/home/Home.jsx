@@ -12,7 +12,7 @@ const Home = () => {
 
     return (
         <>        
-            <div className='bg-[url("/src/assets/bg-patitas.svg")] h-screen flex flex-col items-center'>
+            <div className='bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center'>
                 <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
                     <div className="flex items-center justify-center space-x-2">
