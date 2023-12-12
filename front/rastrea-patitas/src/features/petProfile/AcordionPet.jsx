@@ -17,10 +17,11 @@ function AcordionPet({ type, sex, eyes, hair, color }) {
           key="1"
           aria-label="Características de la mascota"
           title="Características de la mascota"
+          className=" text-sm "
         >
           <div>
             <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
-              <p className="text-sm font-bold">Tipo de animal </p>{" "}
+              <li className="text-sm font-bold list-none">Tipo de animal </li>{" "}
               <Chip className=" bg-moradoActivo mb-2">{type}</Chip>
             </div>
 
@@ -30,28 +31,28 @@ function AcordionPet({ type, sex, eyes, hair, color }) {
             </div>
 
             <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
-              <p className="text-sm font-bold">
+              <li className="text-sm font-bold list-none">
                 <Breadcrumbs>
                   <BreadcrumbItem>Apariencia</BreadcrumbItem>
                   <BreadcrumbItem>Ojos</BreadcrumbItem>
                 </Breadcrumbs>{" "}
-              </p>{" "}
+              </li>{" "}
               <Chip className=" bg-moradoActivo mb-2">{eyes}</Chip>
             </div>
 
             <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
-              <p className="text-sm font-bold">
+              <li className="text-sm font-bold list-none">
                 <Breadcrumbs>
                   <BreadcrumbItem >Apariencia</BreadcrumbItem>
                   <BreadcrumbItem>Pelo</BreadcrumbItem>
                 </Breadcrumbs>{" "}
-              </p>{" "}
+              </li>{" "}
               <Chip className=" bg-moradoActivo mb-2">{hair}</Chip>
             </div>
 
             <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
-              <p className="text-sm font-bold"> Edad</p>
-              <p className="text-sm font-normal">1-2</p>{" "}
+              <li className="text-sm font-bold list-none"> Edad</li>
+              <li className="text-sm font-normal list-none">1-2</li>{" "}
               {/* //nose como viene de back */}
               <Chip className=" bg-moradoActivo mb-2">Joven</Chip>{" "}
               {/* //nose como viene de back */}
@@ -63,14 +64,14 @@ function AcordionPet({ type, sex, eyes, hair, color }) {
             </div>
 
             <div className="flex justify-between px-3">
-              <p className="text-sm font-bold">Tamaño* </p>{" "}
-              <p className="text-sm font-normal">25-40 cm</p>
+              <li className="text-sm font-bold list-none">Tamaño* </li>{" "}
+              <li className="text-sm font-normal list-none">25-40 cm</li>
               <Chip className=" bg-moradoActivo mb-2">Pequeño</Chip>
             </div>
-            <p className="text-sm font-normal">
+            <li className="text-sm font-normal list-none">
               *De acuerdo a la longitud que hay desde las patas hasta el lomo
               del animal
-            </p>
+            </li>
           </div>
         </AccordionItem>
       </Accordion>
