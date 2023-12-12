@@ -12,6 +12,10 @@ import PagePost from "./features/blog/PagePost";
 import Poster from "./features/pet/Poster";
 import MyPets from "./features/pet/MyPets";
 import LostAndFound from "./features/lostAndFound/LostAndFound";
+import UserProfile from "./features/userProfile/userProfile";
+import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
+
+
 
 const router = createBrowserRouter([
   {
@@ -60,6 +64,14 @@ const router = createBrowserRouter([
     path: "/lost",
     element: <LostAndFound />,
   },
+  {
+    path: "/profile",
+    element: <UserProfile />
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicies />
+  }
 ]);
 export default function App() {
   return <RouterProvider router={router} />;
