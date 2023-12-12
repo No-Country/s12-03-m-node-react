@@ -1,7 +1,7 @@
 import { BASE_URL } from "../../config/envConfig.js";
 
 export const routesSessionControllerAPIValue = {
-    "/api/session/register": {
+    "/session/register": {
         post: {
           summary: "Registrar un nuevo usuario",
           description: "Crea un nuevo usuario en el sistema. Este endpoint también maneja la carga de una imagen de perfil si se proporciona.",
@@ -111,7 +111,7 @@ export const routesSessionControllerAPIValue = {
           }
         }
       },
-      "/api/session/login": {
+      "/session/login": {
         post: {
           summary: "Iniciar sesión",
           description: "Autentica a un usuario y devuelve un token de acceso si las credenciales son válidas.",
@@ -217,7 +217,7 @@ export const routesSessionControllerAPIValue = {
           }
         }
       },
-      "/api/session/auth/google": {
+      "/session/auth/google": {
         get: {
           summary: "Iniciar sesión con Google",
           description: "Redirige al usuario a la autenticación de Google. Una vez autenticado y redirigido de vuelta, el usuario recibe un token de acceso y su información de perfil, según el esquema de usuario definido.",
@@ -277,7 +277,7 @@ export const routesSessionControllerAPIValue = {
           }
         }
       },
-      "/api/session/auth/google/callback": {
+      "/session/auth/google/callback": {
         get: {
           summary: "Callback de Google después de la autenticación",
           description: "Este endpoint maneja la respuesta de Google después de la autenticación. Si la autenticación es exitosa, crea o recupera un usuario y genera un token de acceso.",
@@ -348,7 +348,7 @@ export const routesSessionControllerAPIValue = {
           }
         }
       },
-      "/api/session/auth/facebook": {
+      "/session/auth/facebook": {
         get: {
           summary: "Iniciar sesión con Facebook",
           description: "Redirige al usuario a la autenticación de Facebook. Este es el primer paso en el flujo de autenticación con Facebook.",
@@ -393,7 +393,7 @@ export const routesSessionControllerAPIValue = {
           }
         }
       },
-      "/api/session/auth/facebook/callback": {
+      "/session/auth/facebook/callback": {
         get: {
           summary: "Callback de Facebook después de la autenticación",
           description: "Este endpoint maneja la respuesta de Facebook después de la autenticación. Si la autenticación es exitosa, se invoca la función 'login' para generar un token de acceso y devolver los datos del usuario.",

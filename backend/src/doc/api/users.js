@@ -1,5 +1,5 @@
 export const routesUsersControllerAPIValue = {
-  "/api/users": {
+  "/users": {
     get: {
       summary: "Obtener una lista de todos los usuarios",
       description: "Devuelve un array de todas los usuarios disponibles.",
@@ -37,7 +37,7 @@ export const routesUsersControllerAPIValue = {
       }
     }
   },
-  "/api/users/{id}": {
+  "/users/{id}": {
     get: {
       summary: "Obtener detalles de un usuario específico",
       description: "Devuelve los detalles del usuario especificado por el ID.",
@@ -251,7 +251,7 @@ export const routesUsersControllerAPIValue = {
         }
       }
     },
-    "/api/users/{id}/delete-image/{image_id}": {
+    "/users/{id}/delete-image/{image_id}": {
       delete: {
         summary: "Eliminar imagen de un usuario específico",
         description: "Elimina la imagen especificada de un usuario dado por el ID de usuario y el ID de la imagen.",
