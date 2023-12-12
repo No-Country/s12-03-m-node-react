@@ -15,64 +15,62 @@ import LostAndFound from "./features/lostAndFound/LostAndFound";
 import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
 
-
-
 const router = createBrowserRouter([
-  {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Onboarding />,
-      },
-      {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/blog",
-        element: <Blog />,
-      },
-      {
-        path: "/post",
-        element: <PagePost />,
-      },
-      {
-        path: "/my-pets",
-        element: <MyPets />,
-      }
-    ],
-  },
+	{
+		element: <Layout />,
+		children: [
+			{
+				path: "/",
+				element: <Onboarding />,
+			},
+			{
+				path: "/home",
+				element: <Home />,
+			},
+			{
+				path: "/blog",
+				element: <Blog />,
+			},
+			{
+				path: "/post",
+				element: <PagePost />,
+			},
+			{
+				path: "/my-pets",
+				element: <MyPets />,
+			},
+		],
+	},
 
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/register/data",
-    element: <RegisterData />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/poster",
-    element: <Poster />,
-  },
-  {
-    path: "/lost",
-    element: <LostAndFound />,
-  },
-  {
-    path: "/profile",
-    element: <UserProfile />
-  },
-  {
-    path: "/privacy",
-    element: <PrivacyPolicies />
-  }
+	{
+		path: "/register",
+		element: <Register />,
+	},
+	{
+		path: "/register/data",
+		element: <RegisterData />,
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
+	{
+		path: "/poster",
+		element: <Poster />,
+	},
+	{
+		path: "/lost",
+		element: <LostAndFound />,
+	},
+	{
+		path: "/profile",
+		element: <UserProfile />,
+	},
+	{
+		path: "/privacy",
+		element: <PrivacyPolicies />,
+	},
 ]);
 export default function App() {
-  return <RouterProvider router={router} />;
+	return <RouterProvider router={router} />;
 }

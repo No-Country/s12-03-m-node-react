@@ -11,6 +11,9 @@ import { Button } from "@nextui-org/react";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 
+import Pdf from "../../ui/Pdf";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+
 const LostAndFound = () => {
 	return (
 		<main className="bg-[url('src/assets/bg-patitas.svg')] bg-repeat">
@@ -171,6 +174,17 @@ const LostAndFound = () => {
 						</AccordionItem>
 					</Accordion>
 				</div>
+				<PDFDownloadLink document={<Pdf />} fileName={`mascota.pdf`}>
+					{({ loading, url, error, blob }) => {
+						if (loading)
+							return <Button className="bg-white h-10 w-20 px-4 border-2 border-moradoMain text-moradoMain">Cargando...</Button>;
+						return <Button className="bg-white h-10 w-20 px-4 border-2 border-moradoMain text-moradoMain">Descargar</Button>;
+					}}
+				</PDFDownloadLink>
+
+				<PDFViewer className="w-full h-screen">
+					<Pdf />
+				</PDFViewer>
 			</div>
 		</main>
 	);
