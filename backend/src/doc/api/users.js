@@ -12,7 +12,7 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "array",
                 items: {
-                  $ref: "#/usersComponents/schemas/User"
+                  $ref: "#/components/schemas/User"
                 }
               }
             }
@@ -59,7 +59,7 @@ export const routesUsersControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/usersComponents/schemas/User"
+                $ref: "#/components/schemas/User"
               }
             }
           }
@@ -118,7 +118,7 @@ export const routesUsersControllerAPIValue = {
         content: {
           "application/json": {
             schema: {
-              $ref: '#/usersComponents/requestBodies/updateUser'
+              $ref: '#/components/requestBodies/updateUser'
             }
           }
         }
@@ -129,7 +129,7 @@ export const routesUsersControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/usersComponents/schemas/User"
+                $ref: "#/components/schemas/User"
               }
             }
           }
@@ -226,6 +226,83 @@ export const routesUsersControllerAPIValue = {
                     message: {
                       type: "string",
                       example: "user not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            description: "Error interno del servidor",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: {
+                      type: "string",
+                      example: "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/delete-image/{image_id}": {
+      delete: {
+        summary: "Eliminar imagen de un usuario específico",
+        description: "Elimina la imagen especificada de un usuario dado por el ID de usuario y el ID de la imagen.",
+        tags: ["User"],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "ID único del usuario",
+            schema: {
+              type: "string"
+            }
+          },
+          {
+            name: "image_id",
+            in: "path",
+            required: true,
+            description: "ID único de la imagen a eliminar",
+            schema: {
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Imagen eliminada con éxito",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: {
+                      type: "string",
+                      example: "La imagen ha sido eliminada"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            description: "Usuario o imagen no encontrada",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: {
+                      type: "string",
+                      example: "Usuario no encontrado o Imagen no encontrada"
                     }
                   }
                 }

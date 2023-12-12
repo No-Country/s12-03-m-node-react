@@ -15,3 +15,4 @@ export const BASE_URL = process.env.BASE_URL
 export const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID
 export const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET
 export const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER
+export const CSS_URL = process.env.CSS_URL
