@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Card, CardHeader, CardBody, Image, Chip, Button } from "@nextui-org/react";
 import pet1 from '../../assets/images/pet1.png'
 import pet2 from '../../assets/images/pet2.png'
 import pet3 from '../../assets/images/pet3.png'
 import qr from '../../assets/qr.svg'
 import pets from '../../assets/my-pets-image.png'
+import { PetsContext } from '../../context/PetsContext';
+import { getPets, getUsers } from '../../services/apiPatitas';
+import axios from 'axios';
 
 const MyPets = () => {
+  const { pets } = useContext(PetsContext)
+  console.log(pets)
+
   return (
     <div className='w-[360px] md:w-screen h-screen flex flex-col items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
       <h1 className='font-poppins text-xl font-bold leading-5 tracking-tight'>Mis mascotas</h1>
