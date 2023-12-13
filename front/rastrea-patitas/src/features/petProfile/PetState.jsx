@@ -1,25 +1,28 @@
-import React from "react";
-import AcordionPet from "./AcordionPet";
+import React, { useState } from "react";
 import { RadioGroup, Radio } from "@nextui-org/react";
+import ChangePetState from "./ChangePetState";
 
-function PetState({editProfile}) {
+
+function PetState({ editProfile }) {
+  const [selectedRadio, setSelectedRadio] = useState("En casa");
+  const [showConfirmation, setShowConfirmation] = useState(true);
+
+ 
   return (
-    <div className=" border-b border-solid border-moradoMain mb-4">
+    <div>
       <p className="mx-4 text-letra font-bold text-sm">
         Estado actual de tu mascota
       </p>
-      <RadioGroup  isDisabled={!editProfile} className=" mx-6 mt-3" defaultValue="En casa" >
-        <Radio  value="En casa">En casa</Radio>
+      <RadioGroup
+        isDisabled={!editProfile}
+        className=" mx-6 mt-3"
+        defaultValue={selectedRadio}
+       
+      >
+        <Radio value="En casa">En casa</Radio>
         <Radio value="Perdido">Perdido</Radio>
-        
       </RadioGroup>
-      <AcordionPet
-        type={"gato"}
-        sex={"macho"}
-        eyes={"Ojos claros"}
-        hair={"Pelo corto"}
-        color={"Bicolor"}
-      />
+      <ChangePetState  petName={'Señor Mostachito'}/>
     </div>
   );
 }

@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
 import img from "./images/mostachito.jpeg";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
-import { BiSolidNotepad } from "react-icons/bi";
-import AcordionPet from "./AcordionPet";
-import AcordionUser from "./AcordionUser";
+import { Button } from "@nextui-org/react";
 import InfoLocation from "./infoLocation";
-import GoogleMaps from "./GoogleMaps";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
+import PetCharacteristics from "./PetCharacteristics";
+import EditPetCharacteristics from "./EditPetCharacteristics";
 
 function PetProfile() {
   const name = "Señor Mostachito";
@@ -23,7 +21,7 @@ function PetProfile() {
   }
 
   function handlerCancelEditProf() {
-    setEditProfile(false)
+    setEditProfile(false);
   }
 
   return (
@@ -63,7 +61,6 @@ function PetProfile() {
             color="primary"
             variant="bordered"
             className="border-moradoMain text-letra font-medium w-36 "
-            
           >
             Guardar perfil
           </Button>
@@ -79,45 +76,21 @@ function PetProfile() {
 
       <InfoLocation ubicacion={"Buenos Aires"} />
 
-      <PetState editProfile={editProfile}/>
+      <PetState editProfile={editProfile} />
+
+      {editProfile ? (
+        <EditPetCharacteristics />
+      ) : (
+        <PetCharacteristics
+          type={"gato"}
+          sex={"macho"}
+          eyes={"Ojos claros"}
+          hair={"Pelo corto"}
+          color={"Bicolor"}
+        />
+      )}
 
       <QrCode />
-
-      {/* <div className=" flex   justify-center items-center p-3 ">
-        <Card className=" w-full">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <h4 className="font-bold  text-letra">Descripción </h4>
-          </CardHeader>
-          <CardBody>
-            <p className="text-sm font-normal text-letra p-1 text-justify">
-              {description}
-            </p>
-          </CardBody>
-        </Card>
-      </div> */}
-
-      {/* <div className=" flex p-3 items-center">
-        <BiSolidNotepad className=" text-moradoMain  flex w-6  h-6 mr-3" />
-        <p className="text-sm font-normal text-letra ">
-          {" "}
-          Notificado el {dateNotif}{" "}
-        </p>
-      </div> */}
-
-      {/* <InfoLocation ubicacion={'Florencio Varela'} />
-      <GoogleMaps  lati={-34.83071416863988} lngi={ -58.27836792867518}/> */}
-
-      {/* <AcordionPet
-        type={"gato"}
-        sex={"macho"}
-        eyes={"Ojos claros"}
-        hair={"Pelo corto"}
-        color={"Bicolor"}
-      /> */}
-      {/* <AcordionUser
-        userName={"Josefina Lopez"}
-        PhoneNumber={"+54 1133086755"}
-      /> */}
     </div>
   );
 }
