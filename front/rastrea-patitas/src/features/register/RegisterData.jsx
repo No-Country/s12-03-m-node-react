@@ -8,14 +8,14 @@ const RegisterData = () => {
 
   return (
     <div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
-      <form className="flex flex-col items-center w-[360px] md:w-[544px] m-10 gap-2 bg-fondo p-10">
+      <form className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-2 bg-fondo p-10">
         <h1 className="text-xl">¡Qué gusto que seas parte!</h1>
         <h3 className="text-sm pb-8">Completá los campos siguientes con tus datos</h3>
 
         <label htmlFor='name' className='text-sm pr-56'>Nombre completo:</label>
         <Input id='name' type="text" placeholder='Nombre y apellido' color='secondary' variant='bordered' />
 
-        <label htmlFor='phone' className='text-sm pr-36 pt-5'>Número de telefono <span className='text-gray-500'>(opcional)</span>:</label>
+        <label htmlFor='phone' className='text-sm pr-36 pt-5'>Número de teléfono <span className='text-gray-500'>(opcional)</span>:</label>
         <Input id='phone' type="tel" placeholder="Ingresá tu número personal" color='secondary' variant='bordered' />
 
         <h3 className="text-sm pb-8 pt-5 pr-4">Zona para recibir alertas <span className='text-gray-500'>(lo podés editar después)</span></h3>
