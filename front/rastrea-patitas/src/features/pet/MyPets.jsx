@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from 'react'
-import { Card, CardHeader, CardBody, Image, Chip, Button } from "@nextui-org/react";
+import React, { useContext } from 'react'
+import { Image } from "@nextui-org/react";
 import pet1 from '../../assets/images/pet1.png'
 import pet2 from '../../assets/images/pet2.png'
-import pet3 from '../../assets/images/pet3.png'
 import qr from '../../assets/qr.svg'
-import pets from '../../assets/my-pets-image.png'
+import petsImage from '../../assets/my-pets-image.png'
 import { PetsContext } from '../../context/PetsContext';
-import { getPets, getUsers } from '../../services/apiPatitas';
-import axios from 'axios';
+import PetCard from './PetCard';
 
 const MyPets = () => {
   const { pets } = useContext(PetsContext)
@@ -19,81 +17,22 @@ const MyPets = () => {
       <h1 className='font-poppins text-xl font-bold leading-5 tracking-tight'>Mis mascotas</h1>
       <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mis mascotas registradas (2)</h3>
       <div className='flex overflow-x-auto gap-2'>
-        <Card className="py-4 flex-row flex-shrink-0">
-          <CardBody className="relative py-2">
-            <Chip className='absolute z-20 top-[20px] right-5'>En casa</Chip>
-            <Image
-              alt="Card background"
-              className="object-cover rounded-xl"
-              src={pet1}
-            ></Image>
-          </CardBody>
-          <CardHeader className="pb-0 flex-col items-center flex-auto">
-            <p className="text-tiny uppercase font-bold">Duquesa</p>
-            <small className="text-default-500 pb-2">Registrada el 08/08/2023</small>
-            <img src={qr} alt='qr' />
-          </CardHeader>
-        </Card>
-
-        <Card className="py-4 flex-row flex-shrink-0">
-          <CardBody className="relative py-2">
-            <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
-            <Image
-              alt="Card background"
-              className="object-cover rounded-xl"
-              src={pet2}
-            ></Image>
-          </CardBody>
-          <CardHeader className="pb-0 flex-col items-center flex-auto">
-            <p className="text-tiny uppercase font-bold">Sonrisita</p>
-            <small className="text-default-500 pb-2">Registrada el 08/08/2023</small>
-            <img src={qr} alt='qr' />
-          </CardHeader>
-        </Card>
+        <PetCard status="En casa" image={pet1} name="Señor Gato" date="08/08/2023" qr={qr} />
+        <PetCard status="Perdida" image={pet2} name="Sonrisita" date="08/08/2023" qr={qr} />
       </div>
 
       <hr className='w-full my-3' />
       <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mascotas perdidas (1)</h3>
 
       <div className='flex overflow-x-auto gap-2'>
-        <Card className="py-4 flex-row flex-shrink-0">
-          <CardBody className="relative py-2">
-            <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
-            <Image
-              alt="Card background"
-              className="object-cover rounded-xl"
-              src={pet2}
-            ></Image>
-          </CardBody>
-          <CardHeader className="pb-0 flex-col items-center flex-auto">
-            <p className="text-tiny uppercase font-bold">Duquesa</p>
-            <small className="text-default-500 pb-2">Registrada el 08/08/2023</small>
-            <img src={qr} alt='qr' />
-          </CardHeader>
-        </Card>
-
-        <Card className="py-4 flex-row flex-shrink-0">
-          <CardBody className="relative py-2">
-            <Chip className='absolute z-20 top-[20px] right-5'>Perdida</Chip>
-            <Image
-              alt="Card background"
-              className="object-cover rounded-xl"
-              src={pet3}
-            ></Image>
-          </CardBody>
-          <CardHeader className="pb-0 flex-col items-center flex-auto">
-            <p className="text-tiny uppercase font-bold">Chino</p>
-            <small className="text-default-500 pb-2">Registrada el 08/08/2023</small>
-            <img src={qr} alt='qr' />
-          </CardHeader>
-        </Card>
+        <PetCard status="Perdida" image={pet2} name="Sonrisita" date="08/08/2023" qr={qr} />
       </div>
 
       <hr className='w-full my-3' />
       <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mascotas encontradas (0)</h3>
       <Image alt="Card background"
         className="object-cover rounded-xl"
-        src={pets}
+        src={petsImage}
       ></Image>
       <p className='text-slate-700 text-center font-lato text-base font-medium leading-7 tracking-tight w-[255px]'>Aún no tienes mascotas encontradas.
         Si encontraste una mascota, regístrala aquí:</p>
