@@ -2,53 +2,52 @@ import { PetsDTO, UpdatePetInfoDTO } from "../dtos/pets.DTO.js";
 import { generateQRCode } from "../libs/qrCode.js";
 import Pets from "../models/Pets.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
+import HttpError from "../utils/error.util.js";
 import {
   handleImageDelete,
   handleImageUpload,
   handleQRCodeUpload,
 } from "../utils/imageHandle.js";
 
-export const getPets = async (req, res) => {
+export const getPets = async (req, res, next) => {
   try {
     const pets = await Pets.find();
     return res.status(HttpCodes.CODE_SUCCESS).json(pets);
   } catch (error) {
-    return res
-      .status(HttpCodes.CODE_INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
+    next(error)
   }
 };
 
-export const getPetById = async (req, res) => {
+export const getPetById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const pet = await Pets.findById(id);
-    if (!pet)
-      return res
-        .status(HttpCodes.CODE_NOT_FOUND)
-        .json({ message: "La mascota no ha sido encontrada" });
+    if (!pet){
+      throw new HttpError('Mascota no encontrada', HttpCodes.CODE_NOT_FOUND)
+    }
     return res.status(HttpCodes.CODE_SUCCESS).json(pet);
   } catch (error) {
-    return res
-      .status(HttpCodes.CODE_INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
+    next(error)
   }
 };
 
-export const createPet = async (req, res) => {
+export const createPet = async (req, res, next) => {
   try {
-    let imageUploadResults = [];
+    let petImages
     if (req.files) {
+      let imageUploadResults = [];
       if (Array.isArray(req.files.pet_img) && req.files.pet_img.length > 3) {
-        return res
-          .status(400)
-          .json({ message: "No se pueden subir más de 3 imágenes" });
+        throw new HttpError('No se pueden subir más de 3 imágenes', HttpCodes.CODE_BAD_REQUEST)
       }
-
       imageUploadResults = await handleImageUpload(req.files.pet_img);
+      petImages = imageUploadResults.map(image =>{
+        const idSections = image.public_id.split('/')
+        const imgPublicId = idSections[idSections.length - 1]
+        image.public_id = imgPublicId
+        return image
+      })
     }
-
-    const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: imageUploadResults });
+    const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: petImages });
     const newPet = new Pets(petDTO);
 
     await newPet.save();
@@ -65,13 +64,11 @@ export const createPet = async (req, res) => {
 
     return res.status(HttpCodes.CODE_SUCCESS_CREATED).json(newPet);
   } catch (error) {
-    return res
-      .status(HttpCodes.CODE_INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
+    next(error)
   }
 };
 
-export const updatePetInfoById = async (req, res) => {
+export const updatePetInfoById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const updateDTO = new UpdatePetInfoDTO(req.body);
@@ -79,21 +76,25 @@ export const updatePetInfoById = async (req, res) => {
 
         return res.status(HttpCodes.CODE_SUCCESS).json(updatedPet);
     } catch (error) {
-        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+      next(error)
     }
 };
 
-export const addImagesToPetById = async (req, res) => {
+export const addImagesToPetById = async (req, res, next) => {
     try {
-        if(!req.files) return res.status(HttpCodes.CODE_BAD_REQUEST).json({ message: "No se han subido imágenes" });
+        if(!req.files) {  
+          throw new HttpError('Faltan las imágenes', HttpCodes.CODE_BAD_REQUEST)
+        }
 
         const { id } = req.params;
         const pet = await Pets.findById(id);
 
-        if (!pet) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La mascota no ha sido encontrada" });
+        if (!pet){
+          throw new HttpError('Mascota no encontrada', HttpCodes.CODE_NOT_FOUND)
+        }
         console.log(pet.pet_img.length)
         if (pet.pet_img.length> 3) {
-            return res.status(HttpCodes.CODE_BAD_REQUEST).json({ message: "No se pueden tener más de 3 imágenes en total" });
+          throw new HttpError('No se pueden subir más de 3 imágenes', HttpCodes.CODE_BAD_REQUEST)
         }
 
         const imageUploadResults = await handleImageUpload(req.files.pet_img);
@@ -102,47 +103,49 @@ export const addImagesToPetById = async (req, res) => {
 
         return res.status(HttpCodes.CODE_SUCCESS).json(updatedPet);
     } catch (error) {
-        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+      next(error)
     }
 }
 
-export const deletedImageFromPetById = async (req, res) => {
+export const deletedImageFromPetById = async (req, res, next) => {
     try {
         const { id, image_id } = req.params;
         const pet = await Pets.findById(id);
 
-        if (!pet) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La mascota no ha sido encontrada" });
+        if (!pet){
+          throw new HttpError('Mascota no encontrada', HttpCodes.CODE_NOT_FOUND)
+        }
 
-        const image = pet.pet_img.find(img => img._id == image_id);
+        const image = pet.pet_img.find(img => img.public_id == image_id);
 
-        if (!image) return res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "La imagen no ha sido encontrada" });
+        if (!image) {
+          throw new HttpError('Imagen no encontrada', HttpCodes.CODE_NOT_FOUND)
+        }
         
         await handleImageDelete(image.public_id);
 
-        await Pets.findByIdAndUpdate(id, { $pull: { pet_img: { _id: image_id } } });
+        await Pets.findByIdAndUpdate(id, { $pull: { pet_img: { public_id: image_id } } });
 
         return res.status(HttpCodes.CODE_SUCCESS).json({ message: "La imagen ha sido eliminada" });
     } catch (error) {
-        return res.status(HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({ message: error.message });
+      next(error)
     }
 }
 
-export const deletePetById = async (req, res) => {
+export const deletePetById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const petToRemove = await Pets.findById(id);
 
-    if (!petToRemove)
-      return res
-        .status(HttpCodes.CODE_NOT_FOUND)
-        .json({ message: "La mascota no ha sido encontrada" });
-
-        for (const img of petToRemove.pet_img) {
-            if (img && img.public_id) {
-                await handleImageDelete(img.public_id);
-            }
+    if (!petToRemove){
+      throw new HttpError('Mascota no encontrada', HttpCodes.CODE_NOT_FOUND)
+    }
+    for (const img of petToRemove.pet_img) {
+        if (img && img.public_id) {
+            await handleImageDelete(img.public_id);
         }
+    }
     await handleImageDelete(petToRemove.qr.public_id);
 
     await Pets.findByIdAndDelete(id);
@@ -150,8 +153,6 @@ export const deletePetById = async (req, res) => {
       .status(HttpCodes.CODE_SUCCESS)
       .json({ message: "La mascota ha sido eliminada" });
   } catch (error) {
-    return res
-      .status(HttpCodes.CODE_INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
+    next(error)
   }
 };

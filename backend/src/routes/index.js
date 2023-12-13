@@ -1,3 +1,4 @@
+import handleErrors from '../middlewares/handleErrors.middlewares.js';
 import petsRouter from './pets.routes.js';
 import sessionRoutes from './session.routes.js'
 import usersRoutes from './users.routes.js'
@@ -9,7 +10,9 @@ const router = Router();
 
 router.use('/session', sessionRoutes)
 router.use('/users', usersRoutes)
-router.use('/', petsRouter)
+router.use('/pets', petsRouter)
+
+router.use(handleErrors)
 
 router.use('/', alertsRoutes);
 

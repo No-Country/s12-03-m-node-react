@@ -6,6 +6,8 @@ import facebook from 'passport-facebook';
 import { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } from '../config/envConfig.js';
 import { createHash, evaluatePassword } from "../utils/hash.util.js";
 import Users from "../models/Users.js";
+import HttpError from "../utils/error.util.js";
+import { HttpCodes } from "../utils/HTTPCodes.util.js";
 
 const LocalStrategy = local.Strategy;
 const JWTStrategy = jwt.Strategy;
@@ -23,8 +25,8 @@ const initializePassport = () => {
                     const newUser = req.body
 					const registeredEmail = await Users.findOne({email})
 					if(registeredEmail){
-						console.log('Unable to create user, email already registered');
-						return done(null, false, 'Unable to create user, email already registered')
+						const error = new HttpError('Email ya registrado', HttpCodes.CODE_UNAUTHORIZED)
+						return done(error, false)
 					}
                     newUser.password = await createHash(password)
 					newUser.registration_method = 'manual'
@@ -45,13 +47,13 @@ const initializePassport = () => {
 				try {
 					const registeredUser = await Users.findOne({ email: user }).lean()
 					if(!registeredUser) {
-						console.log('User not found');
-						return done(null, false, 'User not found')
+						const error = new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
+						return done(error, false)
 					}
 					const passControl = await evaluatePassword(registeredUser, password);
 					if (!passControl) {
-						console.log('wrong user or password');
-						return done(null, false, 'wrong user or password');
+						const error = new HttpError('Usuario o contraseña incorrecta', HttpCodes.CODE_UNAUTHORIZED)
+						return done(error, false)
 					}
 					const finalUser = { ...registeredUser };
 					delete finalUser.password;

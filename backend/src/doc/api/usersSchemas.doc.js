@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 export const usersComponents = {
+=======
+ const usersComponents = {
+>>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
   schemas: {
     User: {
       type: "object",
@@ -68,6 +72,15 @@ export const usersComponents = {
           minItems: 2,
           maxItems: 2,
         },
+<<<<<<< HEAD
+=======
+        pets: {
+          type: 'array',
+          items: {
+            $ref: '#/components/schemas/pets'
+          }
+        },
+>>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
         createdAt: {
           type: "string",
           format: "date-time",
@@ -123,4 +136,10 @@ export const usersComponents = {
       }
     }
   }
+<<<<<<< HEAD
 };
+=======
+};
+
+export {usersComponents}
+>>>>>>> 933fea5621714dc58ba73e6a527d84727315d235

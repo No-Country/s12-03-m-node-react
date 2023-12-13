@@ -3,6 +3,7 @@ import { deletedImage, uploadImage } from '../libs/cloudinary.js'
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
+import { CLOUDINARY_FOLDER } from '../config/envConfig.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +31,7 @@ export const handleImageUpload = async (files) => {
 
 export const handleImageDelete = async (public_id) => {
     try {
-        await deletedImage(public_id);
+        await deletedImage(CLOUDINARY_FOLDER + '/' + public_id);
     } catch (error) {
         console.error("Error deleting image: ", error);
         throw error; 
