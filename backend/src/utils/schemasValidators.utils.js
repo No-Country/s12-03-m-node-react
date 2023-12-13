@@ -12,7 +12,7 @@ const usersSchemaValidator = z.object({
     email: z.string({
         invalid_type_error: 'El email debe ser un String',
         required_error: 'El email es requerido'
-    }).trim().min(1).max(100),
+    }).trim().min(1).max(100).nullable(),
     password: z.string({
         invalid_type_error: 'La contraseña debe ser un String',
     }).trim().optional().nullable(),
@@ -24,9 +24,7 @@ const usersSchemaValidator = z.object({
     phone: z.string({
         invalid_type_error: 'El celular debe ser un String'
     }).trim().optional(),
-    profile_img: z.string({
-        invalid_type_error: 'La imagen debe ser un String(URL)'
-    }).trim().optional(),
+    profile_img: z.object().optional(),
     age: z.number({
         invalid_type_error: 'La edad debe ser un numero',
         required_error: 'La edad es requerida'
