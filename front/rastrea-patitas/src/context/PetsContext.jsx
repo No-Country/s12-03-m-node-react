@@ -7,21 +7,19 @@ import { getPets } from "../services/apiPatitas";
 const PetsContext = createContext();
 
 const PetsProvider = ({ children }) => {
-  const [pets, setPets] = useState(null);
+	const [pets, setPets] = useState(null);
 
-  useEffect(() => {
-    getPets().then((data) => {
-      setPets(data)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }, [])
+	useEffect(() => {
+		getPets()
+			.then((data) => {
+				setPets(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
-  return (
-    <PetsContext.Provider value={{ pets, setPets }}>
-      {children}
-    </PetsContext.Provider>
-  )
-}
+	return <PetsContext.Provider value={{ pets, setPets }}>{children}</PetsContext.Provider>;
+};
 
-export { PetsContext, PetsProvider }
+export { PetsContext, PetsProvider };
