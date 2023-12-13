@@ -3,34 +3,35 @@ import { deletedImage, uploadImage } from '../libs/cloudinary.js'
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
+import { CLOUDINARY_FOLDER } from '../config/envConfig.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const handleImageUpload = async (files) => {
-    try {
-        if(!Array.isArray(files)) files = [files];
+    if (!Array.isArray(files)) files = [files];
 
-        let urls = [];
-        for (const file of files) {
+    let urls = [];
+    for (const file of files) {
+        try {
             const result = await uploadImage(file.tempFilePath);
-            await fs.remove(file.tempFilePath);
-            
             urls.push({
                 url: result.secure_url,
                 public_id: result.public_id
             });
+        } catch (error) {
+            console.error("Error uploading image: ", error);
+            throw error;
+        } finally {
+            await fs.remove(file.tempFilePath);
         }
-        return urls;
-    } catch (error) {
-        console.error("Error uploading image: ", error);
-        throw error; 
     }
-}
+    return urls;
+};
 
 export const handleImageDelete = async (public_id) => {
     try {
-        await deletedImage(public_id);
+        await deletedImage(CLOUDINARY_FOLDER + '/' + public_id);
     } catch (error) {
         console.error("Error deleting image: ", error);
         throw error; 

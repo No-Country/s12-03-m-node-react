@@ -8,11 +8,18 @@ import fileUpload from 'express-fileupload';
 import passport from 'passport';
 import initializePassport from './middlewares/passport.middleware.js';
 import session from 'express-session';
-import { SECRET_KEY, SESSION_KEY } from './config/envConfig.js';
+import { SECRET_KEY, SESSION_KEY, CSS_URL } from './config/envConfig.js';
+import cors from 'cors'
 
 const app = express();
 
 //cors
+app.use(cors({
+  origin: ['https://rastreapatitas.vercel.app/', 'http://localhost:3000'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
 
 app.use(express.json());
 app.use(fileUpload({
@@ -35,11 +42,11 @@ app.use(
 );
 app.use(passport.session());
 
-// Ruta para la documentación
+
 app.use(
     "/api-docs",
     swaggerUi.serve,
-    swaggerUi.setup(specs, { explorer: true })
+    swaggerUi.setup(specs, { customCssUrl: CSS_URL })
   );
 
 app.use("/api", routes)

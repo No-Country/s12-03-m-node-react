@@ -12,26 +12,18 @@ const usersSchemaValidator = z.object({
     email: z.string({
         invalid_type_error: 'El email debe ser un String',
         required_error: 'El email es requerido'
-    }).trim().min(1).max(100),
+    }).trim().min(1).max(100).nullable(),
     password: z.string({
         invalid_type_error: 'La contraseña debe ser un String',
     }).trim().optional().nullable(),
-    registration_method: z.string({
-        invalid_type_error: 'El metodo de registro debe ser un String',
-        required_error: 'El metodo de registro es requerido'
-    }).trim(),
-    registration_date: z.date().optional(),
     phone: z.string({
         invalid_type_error: 'El celular debe ser un String'
     }).trim().optional(),
-    profile_img: z.string({
-        invalid_type_error: 'La imagen debe ser un String(URL)'
-    }).trim().optional(),
+    profile_img: z.object().optional(),
     age: z.number({
         invalid_type_error: 'La edad debe ser un numero',
         required_error: 'La edad es requerida'
     }).nullable(),
-    last_connection: z.date().optional(),
     location: z.object().optional(),
     geo_point: z.array(z.number()).refine(data => data.length === 0 || data.length === 2, {
         message: 'El arreglo debe tener exactamente dos elementos'
