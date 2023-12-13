@@ -5,10 +5,10 @@ const alerRouter = express.Router();
 
 
 alerRouter
-         .post('/alerts', createAlert)         
-         .get('/alerts', getAllAlerts)
-         .get('/alerts/:id', getAlertById)
-         .put('/alerts/:id', updateAlertById)
-         .delete('/alerts/:id', deleteAlertById)
+        .get('/', getAllAlerts)
+        .get('/:id', getAlertById)
+        .post('/', createAlert)         
+        .put('/:id', updateAlertById)
+        .delete('/:id', deleteAlertById)
 
 export default alerRouter;

@@ -22,9 +22,6 @@ const alertsSchema = mongoose.Schema({
     status: {
         type: String,
     },
-    last_location: {
-        type: Object,
-    },
     geo_point: {
         type: Array,
     }

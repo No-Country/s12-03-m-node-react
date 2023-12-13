@@ -40,7 +40,6 @@ const alertsSchemaValidator = z.object({
         invalid_type_error: 'El status debe ser un String',
         required_error: 'El status requerido'
     }).trim().min(1).max(255),
-    last_location: z.object({}),
     geo_point: z.array(z.number()).refine(data => data.length === 2, {
         message: 'El Arreglo es requerido y debe tener exactamente dos elementos'
     })

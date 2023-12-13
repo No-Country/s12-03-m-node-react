@@ -12,11 +12,7 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "array",
                 items: {
-<<<<<<< HEAD
-                  $ref: "#/usersComponents/schemas/User"
-=======
                   $ref: "#/components/schemas/User"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                 }
               }
             }
@@ -29,11 +25,6 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "Internal server error"
-=======
                   status:{
                     type: "number",
                     example: 500
@@ -41,7 +32,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Error interno del servidor"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -73,11 +63,7 @@ export const routesUsersControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-<<<<<<< HEAD
                 $ref: "#/usersComponents/schemas/User"
-=======
-                $ref: "#/components/schemas/User"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
               }
             }
           }
@@ -89,11 +75,6 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "user not found"
-=======
                   status:{
                     type: "number",
                     example: 404
@@ -121,7 +102,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Acceso denegado"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -135,11 +115,6 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "Internal server error"
-=======
                   status:{
                     type: "number",
                     example: 500
@@ -147,7 +122,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Error interno del servidor"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -174,11 +148,6 @@ export const routesUsersControllerAPIValue = {
       requestBody: {
         required: true,
         content: {
-<<<<<<< HEAD
-          "application/json": {
-            schema: {
-              $ref: '#/usersComponents/requestBodies/updateUser'
-=======
           "multipart/form-data": {
             schema: {
               type: "object",
@@ -213,7 +182,6 @@ export const routesUsersControllerAPIValue = {
                   description: "Imagen de perfil del usuario"
                 }
               }
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
             }
           }
         }
@@ -224,31 +192,18 @@ export const routesUsersControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-<<<<<<< HEAD
-                $ref: "#/usersComponents/schemas/User"
-=======
                 $ref: "#/components/schemas/User"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
               }
             }
           }
         },
         "400": {
-<<<<<<< HEAD
-          description: "Solicitud incorrecta, datos inválidos",
-=======
           description: "Faltan datos para modificar al usuario",
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
           content: {
             "application/json": {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "Datos proporcionados inválidos"
-=======
                   status:{
                     type: "number",
                     example: 400
@@ -276,7 +231,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Acceso denegado"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -290,11 +244,6 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "user not found"
-=======
                   status:{
                     type: "number",
                     example: 404
@@ -302,7 +251,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Usuario no encontrado"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -316,11 +264,6 @@ export const routesUsersControllerAPIValue = {
               schema: {
                 type: "object",
                 properties: {
-<<<<<<< HEAD
-                  message: {
-                    type: "string",
-                    example: "Internal server error"
-=======
                   status:{
                     type: "number",
                     example: 500
@@ -328,7 +271,6 @@ export const routesUsersControllerAPIValue = {
                   message: {
                     type: "string",
                     example: "Error interno del servidor"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                   }
                 }
               }
@@ -376,11 +318,6 @@ export const routesUsersControllerAPIValue = {
                 schema: {
                   type: "object",
                   properties: {
-<<<<<<< HEAD
-                    message: {
-                      type: "string",
-                      example: "user not found"
-=======
                     status:{
                       type: "number",
                       example: 404
@@ -469,7 +406,6 @@ export const routesUsersControllerAPIValue = {
                     message: {
                       type: "string",
                       example: "Usuario no encontrado o Imagen no encontrada"
->>>>>>> 933fea5621714dc58ba73e6a527d84727315d235
                     }
                   }
                 }
