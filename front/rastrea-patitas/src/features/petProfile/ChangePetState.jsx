@@ -2,6 +2,7 @@ import { Button, Card } from "@nextui-org/react";
 import React from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "@nextui-org/react";
+import GoogleMaps from "./GoogleMaps";
 
 function ChangePetState({ petName }) {
   return (
@@ -33,13 +34,33 @@ function ChangePetState({ petName }) {
             type="description"
             placeholder="Describe si tenia alguna particularidad"
             className="border-b border-moradoMain focus:outline-none m-4"
-
           />
         </div>
 
         <p className=" text-sm text-letra font-bold mx-4 my-4">
           Ubicación donde se perdió
         </p>
+        <GoogleMaps />
+
+        <div className=" mx-4 my-4">
+          {" "}
+          <p className=" text-sm text-letra font-bold ">
+            Añadir descripción{" "}
+            <span className=" text-[#D9D9D9] ">(hasta 200 caracteres)</span>
+          </p>
+          <Input className="border border-moradoMain rounded-md h-[130px]" />
+          {/*falta validar la longitud */}
+        </div>
+
+        <div className=" w-full flex justify-center">
+          <Button
+            color="primary"
+            variant="bordered"
+            className="border-moradoMain text-moradoMain font-medium w-36  mb-4"
+          >
+            Publicar
+          </Button>
+        </div>
       </Card>
     </div>
   );

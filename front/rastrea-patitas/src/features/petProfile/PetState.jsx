@@ -20,7 +20,7 @@ function PetState({ editProfile }) {
        
       >
         <Radio value="En casa">En casa</Radio>
-        <Radio value="Perdido">Perdido</Radio>
+        <Radio onClick={() => console.log("radio")} value="Perdido">Perdido</Radio>
       </RadioGroup>
       <ChangePetState  petName={'Señor Mostachito'}/>
     </div>
