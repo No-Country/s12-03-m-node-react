@@ -152,21 +152,13 @@ export const routesUsersControllerAPIValue = {
             schema: {
               type: "object",
               properties: {
-                first_name: {
+                full_name: {
                   type: "string",
                   example: "Aureliano",
-                },
-                last_name: {
-                  type: "string",
-                  example: "Buendía",
                 },
                 phone: {
                   type: "string",
                   example: "+5491111111111",
-                },
-                age: {
-                  type: "number",
-                  example: 22
                 },
                 geo_point: {
                   type: 'array',
@@ -176,6 +168,10 @@ export const routesUsersControllerAPIValue = {
                   },
                   minItems: 2,
                   maxItems: 2,
+                },
+                location: {
+                  type: "string",
+                  example: "Macondo",
                 },
                 profile_img: {
                   type: "file",
@@ -305,6 +301,26 @@ export const routesUsersControllerAPIValue = {
                     message: {
                       type: "string",
                       example: "El usuario ha sido eliminado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            description: "El token de acceso no contiene el id del usuario requerido",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    status:{
+                      type: "number",
+                      example: 401
+                    },
+                    message: {
+                      type: "string",
+                      example: "Acceso denegado"
                     }
                   }
                 }

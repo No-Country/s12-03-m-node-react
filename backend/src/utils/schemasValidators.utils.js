@@ -18,10 +18,6 @@ const usersSchemaValidator = z.object({
         required_error: 'El celular es requerido '
     }).trim(),
     profile_img: z.object().optional(),
-    age: z.number({
-        invalid_type_error: 'La edad debe ser un numero',
-        required_error: 'La edad es requerida'
-    }).nullable().optional(),
     location: z.string({
         invalid_type_error: 'La localización debe ser un string',
     }).optional(),
