@@ -22,21 +22,21 @@ const getPets = async () => {
 
 const loginWithGoogle = async () => {
   try {
-    const result = await axios.get(`${URL}/session/auth/google/callback`)
+    const result = await axios.get(`${URL}/session/auth/google`)
     return result.data
   } catch (error) {
     console.log(error)
   }
 }
 
-/* const loginWithFacebook = async () => {
+const loginWithFacebook = async () => {
   try {
     const result = await axios.get(`${URL}/session/auth/facebook`)
     return result.data
   } catch (error) {
     console.log(error)
   }
-} */
+}
 
 const login = async (data) => {
   try {
@@ -64,4 +64,4 @@ const registerUser = async (data) => {
   }
 }
 
-export { getUsers, getPets, loginWithGoogle, login, registerUser }
+export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser }
