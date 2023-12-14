@@ -18,16 +18,16 @@ const Poster = () => {
 		setTimeout(() => {
 			window.print();
 			setIsPrinting(false);
-		}, 1000);
+		}, 100);
 	}
 	return (
-		<div className='w-[360px] md:w-screen bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center justify-center m-2'>
+		<div className='w-[360px] md:w-screen bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center justify-center mb-2'>
 			<div className="bg-[#9087CA] w-screen flex justify-center items-center py-5">
 				<h1 className="text-3xl font-bold text-white">Perdido</h1>
 			</div>
 
 			<h3 className="text-3xl font-bold pb-3 pt-3">Señor Mostachito</h3>
-			<div className="flex items-center justify-between w-[360px] gap-2">
+			<div className="flex items-center justify-between w-[360px] gap-2 ml-2">
 				<img src={pet1} alt="pet1" className="w-32 h-32 md:w-60 md:h-60" />
 
 				<div className="flex flex-col gap-2">
@@ -82,10 +82,11 @@ const Poster = () => {
 
 			{!isPrinting &&
 				<>
-					<div className="rounded-lg flex items-center justify-between w-[300px] gap-2 m-1 shadow-sm shadow-outline shadow-offset-xs hover:shadow-lg bg-white cursor-pointer font-bold mt-14">
-						<p className="font-lato text-sm leading-4 text-[#37474F]">Exportar</p><LiaFileDownloadSolid onClick={printPoster} className="w-6 h-6" />
+					<div className="rounded-lg flex items-center justify-between w-[300px] gap-2 mx-4 px-2 shadow-sm shadow-outline shadow-offset-xs hover:shadow-lg bg-white cursor-pointer font-bold mt-14">
+						<p className="font-lato text-sm leading-4 text-[#37474F]">Exportar</p>
+						<LiaFileDownloadSolid onClick={printPoster} className="w-6 h-6" />
 					</div>
-					<div className="rounded-lg flex items-center justify-between w-[300px] gap-2 m-1 shadow-sm shadow-outline shadow-offset-xs hover:shadow-lg bg-white cursor-pointer font-bold">
+					<div className="rounded-lg flex items-center justify-between w-[300px] gap-2 mx-4 px-2 shadow-sm shadow-outline shadow-offset-xs hover:shadow-lg bg-white cursor-pointer font-bold">
 						<p className="font-lato text-sm leading-4 text-[#37474F]">Compartir</p><Share page={'poster'} />
 					</div>
 				</>
