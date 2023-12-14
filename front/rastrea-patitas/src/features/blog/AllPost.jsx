@@ -10,8 +10,8 @@ function AllPost(props) {
   const images = [image2, image3];
 
   return (
-    <section className=" px-5  flex flex-col">
-      <h5 className=" text-letra text-lg font-bold mt-7 mb-8">Todos los posts</h5>
+    <section className=" flex flex-col px-24">
+      <h5 className=" text-letra text-lg font-bold mt-7 mb-8 md:text-3xl">Todos los posts</h5>
 
       {filterdPost.map((post, index) => (
         <PreviewPost

@@ -2,6 +2,8 @@ import React from "react";
 import { IoIosInformationCircle } from "react-icons/io";
 import { Button, Tooltip } from "@nextui-org/react";
 import TooltipContent from "./TooltipContent";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+
 function IconTooltip({ labelTitle, data }) {
   return (
     <>
@@ -24,7 +26,7 @@ function IconTooltip({ labelTitle, data }) {
     
         >
           <button>
-            <IoIosInformationCircle />
+            <IoIosInformationCircle color="#4BE6D0" title="#4BE6D0" className="bg-black rounded-full" />
           </button>
         </Tooltip>
       </section>
