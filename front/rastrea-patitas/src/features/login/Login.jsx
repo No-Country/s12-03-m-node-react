@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form'
-import { loginWithGoogle, login } from '../../services/apiPatitas';
+import { loginWithGoogle, login, loginWithFacebook } from '../../services/apiPatitas';
 
 
 const Login = () => {
@@ -28,6 +28,11 @@ const Login = () => {
 
   const onGoogleClick = async () => {
     const user = await loginWithGoogle()
+    console.log(user)
+  }
+
+  const onFacebookClick = async () => {
+    const user = await loginWithFacebook()
     console.log(user)
   }
 
@@ -54,8 +59,7 @@ const Login = () => {
           }
           {...register('password', {
             required: "El campo contraseña es requerido", minLength: { value: 6, message: "La contraseña debe tener al menos 6 caracteres" },
-            maxLength: { value: 12, message: "La contraseña debe tener como maximo 12 caracteres" },
-
+            maxLength: { value: 50, message: "La contraseña debe tener como maximo 50 caracteres" },
           })}
         />
         <p className='text-red-500 text-sm'>{errors.password?.message}</p>
@@ -66,7 +70,7 @@ const Login = () => {
         <p className='text-sm m-4'>o</p>
 
         <Button onClick={onGoogleClick} startContent={<FcGoogle size={24} />} type="button" color='secondary' variant="ghost" className='w-[255px] mt-10' >Continuar con Google</Button>
-        <Button startContent={<FaFacebook size={24} />} type="submit" color='primary' variant="solid" className='w-[255px]' >Continuar con Facebook</Button>
+        <Button onClick={onFacebookClick} startContent={<FaFacebook size={24} />} type="button" color='primary' variant="solid" className='w-[255px]' >Continuar con Facebook</Button>
 
         <h3 className="text-sm pb-8">¿No tenés cuenta? <span onClick={() => navigate('/register')} className='underline cursor-pointer'>Registrate aquí</span></h3>
       </form>
