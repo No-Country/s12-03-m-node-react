@@ -23,12 +23,8 @@ export const getUsers = async (req, res, next) => {
 export const getUserById = async (req, res, next) => {
     try {
         const { id } = req.params
-        const user = await Users.findById(id).lean()
-        if(!user) {
-            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
-        }
-        const pets = await Pets.find({ user_id: id }).lean()
-        user.pets = [...pets]
+        const user = await Users.findById(id)
+        if(!user) res.status(HttpCodes.CODE_NOT_FOUND).send('user not found')
         res.status(HttpCodes.CODE_SUCCESS).send(user)
     } catch (error) {
         next(error)
@@ -39,17 +35,8 @@ export const updateUserById = async (req, res, next) => {
     try {
         const { id } = req.params
         const userPayload = req.body
-        if(Object.keys(userPayload).length === 0 && req.files.length === 0) {
-            throw new HttpError('No se ha recibido ningún dato', HttpCodes.CODE_BAD_REQUEST)
-        }
-        if (req.files) {
-            const uploadedImage = await handleImageUpload(req.files.profile_img);
-            userPayload.profile_img = uploadedImage[0]
-        }
         const user = await Users.findById(id);
-        if (!user) {
-            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
-        }
+        if (!user) res.status(HttpCodes.CODE_NOT_FOUND).json({ message: "user not found" });
         const updatedUser = await Users.findByIdAndUpdate(id, userPayload, { new: true, overwrite: false });
         return res.status(HttpCodes.CODE_SUCCESS).json(updatedUser);
     } catch (error) {
@@ -84,18 +71,6 @@ export const deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params
         const deletedUser = await Users.findByIdAndDelete(id)
-        if (!deletedUser) {
-            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
-        }
-        await handleImageDelete(deletedUser.profile_img.public_id);
-        const petsToDelete = await Pets.find({ user_id: id })
-        console.log(petsToDelete);
-        petsToDelete.forEach(async(pet) => {
-            await Pets.deleteOne({ _id: pet._id })
-            pet.pet_img.forEach(async(img)=>{
-                await handleImageDelete(img.public_id);
-            })
-        });
         res.status(HttpCodes.CODE_SUCCESS).send(deletedUser)
     } catch (error) {
         next(error)

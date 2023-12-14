@@ -1,6 +1,12 @@
 import swaggerJsdoc from "swagger-jsdoc";
-import {  paths } from "./api/index.js";
+import { routesPetsControllerAPIValue } from "./api/pets.js";
+import { routesUsersControllerAPIValue } from "./api/users.js";
 import { components } from "./api/schemas.js";
+
+const paths = {
+  ...routesPetsControllerAPIValue,
+  ...routesUsersControllerAPIValue
+};
 
 const options = {
   definition: {
@@ -22,7 +28,7 @@ const options = {
         description: "Entorno de desarrollo",
       },
       {
-        url: "https://s12-03-m-node-react.vercel.app",
+        url: "https://s12-03-m-node-react.vercel.app/",
         description: "Entorno de producción",
       }
     ],

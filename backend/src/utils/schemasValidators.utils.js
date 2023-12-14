@@ -8,7 +8,7 @@ const usersSchemaValidator = z.object({
     last_name: z.string({
         invalid_type_error: 'El apellido debe ser un String',
         required_error: 'El apellido es requerido'
-    }).trim().min(1).max(100),
+    }).trim().min(1).max(100).optional(),
     email: z.string({
         invalid_type_error: 'El email debe ser un String',
         required_error: 'El email es requerido'
@@ -23,7 +23,7 @@ const usersSchemaValidator = z.object({
     age: z.number({
         invalid_type_error: 'La edad debe ser un numero',
         required_error: 'La edad es requerida'
-    }).nullable(),
+    }).nullable().optional(),
     location: z.object().optional(),
     geo_point: z.array(z.number()).refine(data => data.length === 0 || data.length === 2, {
         message: 'El arreglo debe tener exactamente dos elementos'
@@ -40,7 +40,6 @@ const alertsSchemaValidator = z.object({
         invalid_type_error: 'El status debe ser un String',
         required_error: 'El status requerido'
     }).trim().min(1).max(255),
-    last_location: z.object({}),
     geo_point: z.array(z.number()).refine(data => data.length === 2, {
         message: 'El Arreglo es requerido y debe tener exactamente dos elementos'
     })
