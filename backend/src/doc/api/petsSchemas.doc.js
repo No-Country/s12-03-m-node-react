@@ -31,26 +31,26 @@ const petsComponents = {
     Pet: {
       type: "object",
       properties: {
-          user_id: {
-              type: "string",
-              description: "ID único del usuario, referenciando a la colección Users",
-              example: "507f1f77bcf86cd799439011",
-          },
         _id: {
-          type: "string",
+          type: "ObjectId",
           example: "656f6b462e011c0899f069e3",
+        },
+        user_id: {
+            type: "ObjectId",
+            description: "ID único del usuario, referenciando a la colección Users",
+            example: "507f1f77bcf86cd799439011",
         },
         name: {
           type: "string",
           example: "Rako",
         },
         age: {
-          type: "number",
-          example: 7,
+          type: "string",
+          example: "senior",
         },
         species: {
           type: "string",
-          example: "Dog",
+          example: "perro",
         },
         breed: {
           type: "string",
@@ -60,9 +60,21 @@ const petsComponents = {
           type: "string",
           example: "azul",
         },
+        hair: {
+          type: "string",
+          example: "corto",
+        },
         sex: {
           type: "string",
           example: "male",
+        },
+        eyes: {
+          type: "string",
+          example: "oscuros",
+        },
+        size: {
+          type: "string",
+          example: "toy",
         },
         pet_img: {
           type: "array",

@@ -9,7 +9,10 @@ import image3 from "./img/3.png";
 
 import qr from "./img/qr.svg";
 import CardSearch from "../../ui/CardSearch";
+import { usePetsContext } from "../../context/usePetsContext";
 const Actives = () => {
+	const { pets } = usePetsContext();
+	console.log(pets);
 	return (
 		<section className="container xl:max-w-7xl mx-auto">
 			<div className="mt-5 flex flex-col gap-5 ">

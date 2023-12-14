@@ -22,6 +22,7 @@ export default {
         letra: "#37474F",
         moradoActivo: "#DBD9EA",
         moradoFondo: "#F5F5FA",//Se usa para el fondo del modal
+        moradoSecundario:"#9087CA"
       },    
       screens: {
         notebook: {"max":"1100px"},

@@ -4,16 +4,12 @@ const usersComponents = {
       type: "object",
       properties: {
         _id: {
-          type: "string",
+          type: "ObjectId",
           example: "656f6b462e011c0899f069e3",
         },
-        first_name: {
+        full_name: {
             type: "string",
             example: "Aureliano",
-        },
-        last_name: {
-          type: "string",
-          example: "Buendía",
         },
         email: {
           type: "string",
@@ -39,25 +35,13 @@ const usersComponents = {
           type: "string",
           example: "https://super-cute-profile-img.example"
         },
-        age: {
-          type: "number",
-          example: 22
-        },
         last_connection: {
           type: "date",
           example: "2023-11-29T15:58:11.439+00:00"
         },
         location: {
-          type: 'object',
-          properties: {
-            province: {
-              type: 'string',
-            },
-            locality: {
-              type: 'string',
-            },
-          },
-          required: ['province', 'locality'],
+          type: 'string',
+          example: 'Paso del Sapo'
         },
         geo_point: {
           type: 'array',
@@ -71,8 +55,9 @@ const usersComponents = {
         pets: {
           type: 'array',
           items: {
-            $ref: '#/components/schemas/pets'
-          }
+            $ref: '#/petsComponents/schemas/pets'
+          },
+          example: [{}]
         },
         createdAt: {
           type: "string",
@@ -85,50 +70,6 @@ const usersComponents = {
       },
     },
   },
-  requestBodies: {
-    updateUser: {
-      type: 'object',
-      properties: {
-        first_name: {
-          type: "string",
-          example: "Aureliano",
-        },
-        last_name: {
-          type: "string",
-          example: "Buendía",
-        },
-        phone: {
-          type: "string",
-          example: "+5491111111111",
-        },
-        age: {
-          type: "number",
-          example: 22
-        },
-        location: {
-          type: 'object',
-          properties: {
-            province: {
-              type: 'string',
-            },
-            locality: {
-              type: 'string',
-            },
-          },
-          required: ['province', 'locality'],
-        },
-        geo_point: {
-          type: 'array',
-          items: {
-            type: 'number',
-            format: 'float',
-          },
-          minItems: 2,
-          maxItems: 2,
-        },
-      }
-    }
-  }
 };
 
 export {usersComponents}
