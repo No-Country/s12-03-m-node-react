@@ -4,15 +4,21 @@ import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./features/login/Login";
 import RegisterData from "./features/register/RegisterData";
-import Footer from "./ui/Footer";
 import Layout from "./ui/Layout";
 import Home from "./features/home/Home";
 import Onboarding from "./features/onboarding/Onboarding";
 import Blog from "./features/blog/Blog";
 import PagePost from "./features/blog/PagePost";
+import Poster from "./features/pet/Poster";
+import MyPets from "./features/pet/MyPets";
+import LostAndFound from "./features/lostAndFound/LostAndFound";
+import PetProfile from "./features/petProfile/PetProfile";
+import UserProfile from "./features/userProfile/UserProfile";
+import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
+
+
 
 const router = createBrowserRouter([
-
   {
     element: <Layout />,
     children: [
@@ -27,10 +33,15 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
-      },{
+      },
+      {
         path: "/post",
         element: <PagePost />,
       },
+      {
+		path: "/petProfile",
+		element : <PetProfile />
+	  },
     ],
   },
 
@@ -47,10 +58,22 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/footer",
-    element: <Footer />
+    path: "/poster",
+    element: <Poster />,
+  },
+  {
+    path: "/lost",
+    element: <LostAndFound />,
+  },
+  {
+    path: "/profile",
+    element: <UserProfile />
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicies />
   }
-])
+]);
 export default function App() {
   return <RouterProvider router={router} />;
 }

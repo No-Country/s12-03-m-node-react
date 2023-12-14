@@ -3,6 +3,7 @@ import { alertsSchemaValidator } from '../utils/schemasValidators.utils.js';
 import validateSchemas from '../middlewares/schemasValidators.middlewares.js';
 import { HttpCodes } from '../utils/HTTPCodes.util.js';
 import HttpError from '../utils/error.util.js';
+import Pets from '../models/Pets.js';
 
 //------ Obtener todos los registros-------
 export const getAllAlerts = async (req, res, next) => {
@@ -10,9 +11,9 @@ export const getAllAlerts = async (req, res, next) => {
     const { filter } = req.query
     let alerts
     if(filter){
-      alerts = await Alerts.find({ status: filter});
+      alerts = await Alerts.find({ status: filter}).populate('pet_id');;
     }else{
-      alerts = await Alerts.find();
+      alerts = await Alerts.find().populate('pet_id');;
     }
     return res.status(HttpCodes.CODE_SUCCESS).json(alerts);
   } catch (error) {
@@ -23,7 +24,7 @@ export const getAllAlerts = async (req, res, next) => {
 // ------Obtener un registro por ID-------
 export const getAlertById = async (req, res, next) => {
   try {
-    const alert = await Alerts.findById(req.params.id);
+    const alert = await Alerts.findById(req.params.id).populate('pet_id');
     if (!alert){
       throw new HttpError('Alerta no encontrada', HttpCodes.CODE_NOT_FOUND)
     }
@@ -36,10 +37,21 @@ export const getAlertById = async (req, res, next) => {
 // ------Crear un nuevo registro-----
 export const createAlert = async (req, res, next) => {
   try {
-    const newAlert = new Alerts(req.body);
-    validateSchemas(newAlert, alertsSchemaValidator);
+    const { _id } = req.user
+    const ownedPets = await Pets.find({ user_id: _id })
+    if(ownedPets.length === 0){
+      throw new HttpError('Este usuario no posee ninguna mascota', HttpCodes.CODE_BAD_REQUEST)
+    }
+    const pet = ownedPets.find((pet) => pet._id == req.body.pet_id)
+    if(!pet){
+      throw new HttpError('Este usuario no es propietario de esta mascota', HttpCodes.CODE_BAD_REQUEST)
+    }
+    const newAlert = new Alerts({...req.body, user_id: _id});
     const savedAlert = await newAlert.save();
-    res.status(201).json(savedAlert);
+    if (!savedAlert) {
+      throw new HttpError('Error al crear alerta', HttpCodes.CODE_INTERNAL_SERVER_ERROR)
+    }
+  return res.status(HttpCodes.CODE_SUCCESS_CREATED).json(savedAlert);
   } catch (error) {
     next(error)
   }
@@ -53,7 +65,10 @@ export const updateAlertById = async (req, res, next) => {
       req.body,
       { new: true }
     );
-    res.json(updatedAlert);
+    if (!updatedAlert) {
+      throw new HttpError('No se ha encontrado la alerta', HttpCodes.CODE_NOT_FOUND)
+    }
+    return res.status(HttpCodes.CODE_SUCCESS).json(updatedAlert);
   } catch (error) {
     next(error)
   }
@@ -62,8 +77,11 @@ export const updateAlertById = async (req, res, next) => {
 // ------Eliminar un registro por ID---------
 export const deleteAlertById = async (req, res, next) => {
   try {
-    await Alerts.findByIdAndDelete(req.params.id);
-    res.status(204).end();
+    const deletedAlert = await Alerts.findByIdAndDelete(req.params.id);
+    if (!deletedAlert) {
+      throw new HttpError('No se ha encontrado la alerta', HttpCodes.CODE_NOT_FOUND)
+    }
+    return res.status(HttpCodes.CODE_SUCCESS).json(deletedAlert);
   } catch (error) {
     next(error)
   }
