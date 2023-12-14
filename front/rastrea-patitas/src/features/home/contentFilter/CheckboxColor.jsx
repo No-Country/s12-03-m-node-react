@@ -33,7 +33,7 @@ function CheckboxColor({ typeIcon, isSelected }) {
 
   return (
     <div className="flex flex-col  items-center">
-      {color && <ColorGeneral isSelected={isSelected} fill={color.fill} />}
+      {color && <ColorGeneral isSelected={isSelected} fill={color.fill!==false? color.fill:undefined} />}
       {colorEspecial && hw()}
       <h1>{typeIcon}</h1>
     </div>

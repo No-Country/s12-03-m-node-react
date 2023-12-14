@@ -39,15 +39,15 @@ function ColorAtigrado({isSelected}) {
          r="16"
          fill="#cecece"
          id="circle2"
-         clip-path="url(#clipPath303)"
+         clipPath="url(#clipPath303)"
          transform="translate(-0.75)" 
-         stroke={isSelected===true && "#4d4295"}   
-         stroke-width="4" 
+         stroke={isSelected===true ? "#4d4295":undefined}   
+         strokeWidth="4" 
          />
       <g
          mask="none"
          id="g9"
-         clip-path="url(#clipPath299)"
+         clipPath="url(#clipPath299)"
          transform="translate(-0.75)"
          
          >

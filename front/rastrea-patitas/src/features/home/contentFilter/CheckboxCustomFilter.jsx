@@ -31,10 +31,10 @@ function CustomCheckboxFilter(props) {
     getInputProps,
     icon,
     i,
-    colorReference,
+    colorreference,
 
   } = useCheckbox({
-    defaultSelected: true,
+    // defaultSelected: true, al quitar esto elimina un error pero no se para que sirve esto
     ...props,
   });
 
@@ -70,7 +70,7 @@ function CustomCheckboxFilter(props) {
 
       </>
       : 
-      props.colorReference  ?      
+      props.colorreference  ?      
        <>
        <CheckboxColor typeIcon={props.value} isSelected={isSelected} /> 
       </>

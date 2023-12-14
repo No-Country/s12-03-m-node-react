@@ -18,7 +18,7 @@ import IconTooltip from "./contentFilter/iconCheckbox/tooltip/IconTooltip";
 import CheckboxCustomFilter from "./contentFilter/CheckboxCustomFilter";
 import pinPata from "../../assets/filterModalIcons/pinPata.svg";
 import mapFilter from "../../assets/filterModalIcons/mapFilter.svg";
-import SelectFilter from "./contentFilter/selectFilter";
+import SelectFilter from "./contentFilter/SelectFilter";
 function FilterModal({ handleClose, open }) {
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -186,7 +186,7 @@ function FilterModal({ handleClose, open }) {
                         className="mx-1"
                         variant="ghost"
                         icon={true}
-                        colorReference={element}
+                        colorreference={element}
                       >
                         {element}
                       </CheckboxCustomFilter>
