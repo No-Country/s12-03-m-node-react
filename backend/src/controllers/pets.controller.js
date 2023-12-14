@@ -1,3 +1,4 @@
+import { BASE_URL } from "../config/envConfig.js";
 import { PetsDTO, UpdatePetInfoDTO } from "../dtos/pets.DTO.js";
 import { generateQRCode } from "../libs/qrCode.js";
 import Pets from "../models/Pets.js";
@@ -52,7 +53,7 @@ export const createPet = async (req, res, next) => {
 
     await newPet.save();
 
-    const qrData = "http://localhost:3000/api/pets/" + newPet._id;
+    const qrData =  `${BASE_URL}/api/pets/${newPet._id}`;
     const qrImage = await generateQRCode(qrData);
     const qrImageUrl = await handleQRCodeUpload(qrImage);
     newPet.qr =  {

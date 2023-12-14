@@ -1,11 +1,13 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import { routesPetsControllerAPIValue } from "./api/pets.js";
 import { routesUsersControllerAPIValue } from "./api/users.js";
+import { routesAlertControllerAPIValue } from "./api/alert.js";
 import { components } from "./api/schemas.js";
 
 const paths = {
   ...routesPetsControllerAPIValue,
-  ...routesUsersControllerAPIValue
+  ...routesUsersControllerAPIValue,
+  ...routesAlertControllerAPIValue
 };
 
 const options = {

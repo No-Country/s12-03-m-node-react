@@ -22,9 +22,15 @@ const alertsSchema = mongoose.Schema({
     status: {
         type: String,
     },
+    last_location: {
+        type: String,
+    },
     geo_point: {
         type: Array,
-    }
+    },
+    special_characteristics: {
+        type: String,
+    },
 }, {
     timestamps: true
 })

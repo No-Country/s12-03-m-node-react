@@ -17,16 +17,22 @@ const petsSchema = mongoose.Schema({
     breed: {
         type: String,
     },
+    size: {
+        type: String,
+    },
     main_color: {
         type: String,
     },
-    secondary_color: {
+    hair: {
+        type: String,
+    },
+    eyes: {
+        type: String,
+    },
+    size: {
         type: String,
     },
     sex: {
-        type: String,
-    },
-    description: {
         type: String,
     },
     pet_img: [{

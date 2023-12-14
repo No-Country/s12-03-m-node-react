@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    first_name: {
-        type: String,
-    },
-    last_name: {
+    full_name: {
         type: String,
     },
     email: {
@@ -34,14 +31,11 @@ const userSchema = mongoose.Schema({
             type: String,
         }
     },
-    age: {
-        type: Number,
-    },
     last_connection: {
         type: Date,
     },
     location: {
-        type: Object,
+        type: String,
     },
     geo_point: {
         type: Array,

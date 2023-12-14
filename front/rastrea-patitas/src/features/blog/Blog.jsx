@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import FeaturedPost from "./FeaturedPost";
-import Footer from "../../ui/Footer";
 import AllPost from "./AllPost.jsx";
 
 function Blog() {
@@ -10,7 +10,6 @@ function Blog() {
         <FeaturedPost />
         <AllPost />
       </main>
-      <Footer />
     </div>
   );
 }
