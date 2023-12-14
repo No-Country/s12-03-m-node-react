@@ -11,10 +11,10 @@ const router = Router();
 router.use('/session', sessionRoutes)
 router.use('/users', usersRoutes)
 router.use('/pets', petsRouter)
+router.use('/alerts', alertsRoutes);
 
 router.use(handleErrors)
 
-router.use('/', alertsRoutes);
 
 export default router;
 
