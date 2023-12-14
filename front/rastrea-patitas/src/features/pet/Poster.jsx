@@ -10,14 +10,17 @@ import logo from "../../assets/logos/logo_RastreaPatitas.svg";
 import { Chip } from "@nextui-org/react";
 import { LiaFileDownloadSolid } from "react-icons/lia";
 import Share from "../blog/Share";
+import { useNavigate } from "react-router-dom";
 
 const Poster = () => {
 	const [isPrinting, setIsPrinting] = useState(false);
+	const navigate = useNavigate()
 	const printPoster = () => {
 		setIsPrinting(true);
 		setTimeout(() => {
 			window.print();
 			setIsPrinting(false);
+			navigate("/home")
 		}, 100);
 	}
 	return (
