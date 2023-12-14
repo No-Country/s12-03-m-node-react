@@ -2,15 +2,16 @@
 import React, { useState } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
-import { SlLocationPin } from "react-icons/sl";
-import pet1 from "../../assets/images/pet1.png";
+import Footer from "../../ui/Footer";
+import FilterModal from './FilterModal';
+import pet1 from '../../assets/images/pet1.png';
 import pet2 from "../../assets/images/pet2.png";
 import pet3 from "../../assets/images/pet3.png";
 import pet4 from "../../assets/images/pet4.png";
 import pet5 from "../../assets/images/pet5.png";
 import pet6 from "../../assets/images/pet6.png";
-import Footer from "../../ui/Footer";
-import FilterModal from '../FilterModal/FilterModal';
+import { SlLocationPin } from "react-icons/sl";
+
 
 const Home = () => {
     const [open, setOpen] = useState(false);
@@ -49,7 +50,6 @@ const Home = () => {
                             <div className="w-[100px] h-[30px] lg:w-[110px] bg-white rounded-full border border-indigo-800 flex justify-center items-center hover:bg-gray-300 hover:border-transparent">
                                 <div className="text-black text-sm lg:text-[1rem] leading-tight">Encontrados</div>
                             </div>
-
                         </div>
                     </div>
 
@@ -169,7 +169,6 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <Footer />

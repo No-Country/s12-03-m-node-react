@@ -11,14 +11,12 @@ import Footer from "../../ui/Footer";
 const Onboarding = () => {
 	return (
 		<>
-
 			<main>
 				<Info />
 				<Steps />
 				<Actives />
 				<Faq />
 				<CatAndDog />
-
 			</main>
 			<Footer />
 		</>
