@@ -5,29 +5,44 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { registerUser } from '../../services/apiPatitas';
+
 
 const Register = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const navigate = useNavigate()
+
+  const { handleSubmit, register, formState: { errors } } = useForm()
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible)
   }
 
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
+    try {
+      const response = await registerUser(data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   return (
     <div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
-      <form className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">
+      <form onSubmit={onSubmit} className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">
         <h1 className="text-xl">Registrate</h1>
-        <Input type="email" label="Email" placeholder='Ingresa tu email' variant='underlined' color='secondary' />
+        <Input type="email" label="Email" placeholder='Ingresa tu email' variant='underlined' color='secondary' {...register("email", { required: true })} />
         <Input type={isVisible ? "text" : "password"} label="Contraseña" placeholder="Ingresa tu contraseña" variant='underlined' color='secondary'
           endContent={
             <button type='button' onClick={toggleVisibility} className='focus-outline-none'>{isVisible ? <FaRegEyeSlash /> : <FaRegEye />}</button>
           }
+          {...register("password", { required: true })}
         />
-        <Input type={isVisible ? "text" : "password"} label="Confirme la contraseña" placeholder="Vuelve a ingresar contraseña" variant='underlined' color='secondary' endContent={<button type='button' onClick={toggleVisibility} className='focus-outline-none'>{isVisible ? <FaRegEyeSlash /> : <FaRegEye />}</button>} />
+        <Input type={isVisible ? "text" : "password"} label="Confirme la contraseña" placeholder="Vuelve a ingresar contraseña" variant='underlined' color='secondary' endContent={<button type='button' onClick={toggleVisibility} className='focus-outline-none'>{isVisible ? <FaRegEyeSlash /> : <FaRegEye />}</button>}
+        />
 
-        <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10' onClick={() => navigate('/register/data')}>Registrarme</Button>
+        <Button type="submit" color='primary' variant="ghost" className='w-[255px] mt-10'>Registrarme</Button>
 
         <p className='text-sm m-4'>o</p>
 
