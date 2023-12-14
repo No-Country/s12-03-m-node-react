@@ -25,7 +25,7 @@ const Home = () => {
                             />
                         </div>
                         <div className="flex items-center justify-center w-9 h-9 rounded-full" style={{ backgroundColor: '#4D4295' }}>
-                            <HiOutlineAdjustmentsHorizontal onClick={handleOpen} className="w-6 h-6 text-white" />
+                            <HiOutlineAdjustmentsHorizontal onClick={handleOpen} className="w-6 h-6 text-white cursor-pointer" />
                         </div>
                     </div>
 

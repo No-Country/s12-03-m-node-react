@@ -12,8 +12,9 @@ import PagePost from "./features/blog/PagePost";
 import Poster from "./features/pet/Poster";
 import MyPets from "./features/pet/MyPets";
 import LostAndFound from "./features/lostAndFound/LostAndFound";
-import UserProfile from "./features/userProfile/userProfile";
+import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
+import EditUserProfile from "./features/userProfile/EditUserProfile";
 
 
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
   {
     path: "/privacy",
     element: <PrivacyPolicies />
+  },
+  {
+    path: "/profile-edit",
+    element: <EditUserProfile />
   }
 ]);
 export default function App() {

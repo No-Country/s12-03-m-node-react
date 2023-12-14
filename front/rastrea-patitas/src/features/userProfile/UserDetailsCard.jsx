@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { FiEdit } from "react-icons/fi";
-import PropTypes from 'prop-types';
 
 
-
-const UserDetailsCard = ({first_name,  last_name, email, password, phone, postalCode, city, address }) => {
+/* eslint-disable-next-line react/prop-types */
+const UserDetailsCard = ({first_name,  last_name, email, password, phone, postalCode, city, address, onEditClick }) => {
     return (
       <div className="mb-6 relative">
        <div className="flex flex-row justify-end items-start mb-6">
         <div className="flex items-center m-1">
-          <button className='text-sm' style={{ color: '#37474f' }}>Editar</button>
+          <button className='text-sm' onClick={onEditClick} style={{ color: '#37474f' }}>Editar</button>
           <div className="ml-2">
             <FiEdit />
           </div>
@@ -30,15 +29,6 @@ const UserDetailsCard = ({first_name,  last_name, email, password, phone, postal
     );
   };
 
-  UserDetailsCard.propTypes = {
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    email: PropTypes.string,
-    password: PropTypes.string,
-    phone: PropTypes.string,
-    postalCode: PropTypes.string,
-    city: PropTypes.string,
-    address: PropTypes.string,
-  };
+
 
   export default UserDetailsCard;
