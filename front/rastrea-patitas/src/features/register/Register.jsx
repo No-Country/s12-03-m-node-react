@@ -19,13 +19,13 @@ const Register = () => {
   }
 
   const onSubmit = handleSubmit(async (data) => {
-    const userData = {
-      email: data.email,
-      password: data.password
+    console.log(data)
+    try {
+      const response = await registerUser(data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
-
-    const response = await registerUser(userData)
-    console.log(response)
   })
 
   return (
