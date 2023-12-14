@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
-import { usersSchemaValidator } from "../utils/schemasValidators.utils.js";
-import validateSchemas from "../middlewares/schemasValidators.middlewares.js";
 
 const userSchema = mongoose.Schema({
-    first_name: {
-        type: String,
-    },
-    last_name: {
+    full_name: {
         type: String,
     },
     email: {
@@ -28,25 +23,29 @@ const userSchema = mongoose.Schema({
         type: String,
     },
     profile_img: {
-        type: String,
-    },
-    age: {
-        type: Number,
+        url: {
+            type: String,
+            trim: true,
+        },
+        public_id: {
+            type: String,
+        }
     },
     last_connection: {
         type: Date,
     },
     location: {
-        type: Object,
+        type: String,
     },
     geo_point: {
         type: Array,
+    },
+    facebook_id: {
+        type: Number
     }
 }, {
     timestamps: true,
 })
-
-validateSchemas(userSchema, usersSchemaValidator)
 
 const Users = mongoose.model("Users", userSchema)
 
