@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Age, Size } from "./constans.js";
 
 const usersSchemaValidator = z.object({
     first_name: z.string({
@@ -50,10 +51,18 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'El nombre debe ser un String',
         required_error: 'El nombre es requerido'
     }).trim().min(1).max(50),
-    age: z.string({
-        invalid_type_error: 'La edad debe ser numerica',
-        required_error: 'La edad es requerida'
-    }).trim().min(1).max(20),
+    age: z.nativeEnum(Age, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case 'invalid_enum_value':
+                    return { message: `La edad solo puede ser: Cachorro, Joven, Adulto, o Senior` };
+                case 'invalid_type':
+                    return { message: 'La edad es requerida y debe ser un valor válido' };
+                default:
+                    return { message: 'Error en el campo edad' };
+            }
+        },
+    }),
     species: z.string({
         invalid_type_error: 'La especie tiene que ser un string',
         required_error: 'La especie es requerida'
@@ -62,6 +71,18 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'La raza debe ser un string',
         required_error: 'La raza es requerida'
     }).trim().min(1).max(50),
+    size: z.nativeEnum(Size, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case 'invalid_enum_value':
+                    return { message: `El tamaño debe ser Toy, Pequeño, Mediano, Grande, o Extra grande` };
+                case 'invalid_type':
+                    return { message: 'El tamaño es requerido' };
+                default:
+                    return { message: 'Error en el campo tamaño' };
+            }
+        },
+    }),
     main_color: z.string({
         invalid_type_error: 'El color primario debe ser un string',
         required_error: 'El colo primario es requerido'
