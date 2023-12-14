@@ -5,10 +5,23 @@ import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 
+import { usePetsContext } from '../../context/usePetsContext'
+
 const Home = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const { pets } = usePetsContext(); 
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredPets = pets ? pets.filter((pet) =>
+    pet.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ) : [];
 
     return (
         <>        
@@ -22,6 +35,7 @@ const Home = () => {
                                 type="text"
                                 className="w-full outline-none focus:outline-none p-1"
                                 placeholder="Buscar..."
+                                onChange={handleSearch}
                             />
                         </div>
                         <div className="flex items-center justify-center w-9 h-9 rounded-full" style={{ backgroundColor: '#4D4295' }}>
@@ -45,7 +59,7 @@ const Home = () => {
                         </div>
                     </div>
                     
-                    <CardsHome />
+                    <CardsHome filteredPets={filteredPets} />
              
                 </div>
             </div>

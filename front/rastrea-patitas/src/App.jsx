@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
