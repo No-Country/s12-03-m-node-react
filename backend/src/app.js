@@ -10,7 +10,7 @@ import initializePassport from "./middlewares/passport.middleware.js";
 import session from "express-session";
 import { SECRET_KEY, SESSION_KEY, CSS_URL } from "./config/envConfig.js";
 import cors from "cors";
-import { date } from "zod";
+import path from "path";
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
 	fileUpload({
 		useTempFiles: true,
-		tempFileDir: "./tmp",
+		tempFileDir: path.join(process.cwd(), 'tmp'),
 	})
 );
 app.use(cookieParser());

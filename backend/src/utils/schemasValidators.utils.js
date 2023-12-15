@@ -97,10 +97,6 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'Los ojos debe ser un string',
         required_error: 'Los ojos es requerido'
     }).trim().min(1).max(50),
-    size: z.string({
-        invalid_type_error: 'El tamaño debe ser un string',
-        required_error: 'El tamaño es requerido'
-    }).trim().min(1).max(50),
     sex: z.string({
         invalid_type_error: 'El sexo debe ser un string',
         required_error: 'El sexo es requerido'
