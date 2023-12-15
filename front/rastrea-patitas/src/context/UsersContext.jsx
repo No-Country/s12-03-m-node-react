@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { createContext, useEffect, useState } from "react";
-import { getUsers } from "../services/apiPatitas";
+import { getUsers } from "../services/api";
 
 const UsersContext = createContext();
 

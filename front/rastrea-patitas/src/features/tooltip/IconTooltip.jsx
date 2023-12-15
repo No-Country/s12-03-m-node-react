@@ -8,7 +8,7 @@ function IconTooltip({ labelTitle, data }) {
   return (
     <>
       <section className="flex gap-2">
-        <p>{labelTitle}</p>
+        <p className="text-lg	">{labelTitle}</p>
         <Tooltip
           showArrow
           placement="right"
