@@ -14,8 +14,7 @@ import MyPets from "./features/pet/MyPets";
 import LostAndFound from "./features/lostAndFound/LostAndFound";
 import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
-
-
+import MyPetsStatus from "./features/pet/MyPetsStatus";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/my-pets",
         element: <MyPets />,
+      },
+      {
+        path: "/my-pets/:status",
+        element: <MyPetsStatus />,
       }
     ],
   },
