@@ -11,7 +11,7 @@ function CheckboxColor({ typeIcon, isSelected }) {
     { color: "Gris", fill: "#000000" },
     { color: "Negro", fill: "#949494" },
     { color: "Marrón", fill: "#C17560" },
-    { color: "Naranjo", fill: "#FF9A6C" },
+    { color: "Naranja", fill: "#FF9A6C" },
     { color: "Amarillo", fill: "#ECE4A1" },
     { color: "Blanco", fill: "#FFFFFF" },
   ];
@@ -19,21 +19,29 @@ function CheckboxColor({ typeIcon, isSelected }) {
   const color = coloresComunes.find((e) => e.color === typeIcon);
   const colorEspecial = coloresEspeciales.find((e) => e === typeIcon);
   const [manejador, setManejador] = useState(colorEspecial);
-  
+  const [valid, setValid] = useState(isSelected);
   function hw() {
     if (manejador === "Bicolor") {
-      return <ColorByN isSelected={isSelected} />;
+      return <ColorByN isSelected={valid} />;
     }
     if (manejador === "Atigrado") {
-      return <ColorAtigrado isSelected={isSelected} />;
+      return <ColorAtigrado isSelected={valid} />;
     } else {
-      return <ColorConManchas isSelected={isSelected} />;
+      return <ColorConManchas isSelected={valid} />;
     }
   }
 
   return (
     <div className="flex flex-col  items-center">
-      {color && <ColorGeneral isSelected={isSelected} fill={color.fill!==false? color.fill:undefined} />}
+      {color && (
+        <>
+          {" "}
+          <ColorGeneral
+            isSelected={valid}
+            fill={color.fill !== false ? color.fill : undefined}
+          />{" "}
+        </>
+      )}
       {colorEspecial && hw()}
       <h1>{typeIcon}</h1>
     </div>
