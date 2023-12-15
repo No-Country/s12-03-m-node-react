@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import Register from "./features/register/Register";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -15,6 +16,7 @@ import LostAndFound from "./features/lostAndFound/LostAndFound";
 import PetProfile from "./features/petProfile/PetProfile";
 import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
+import EditUserProfile from "./features/userProfile/EditUserProfile";
 import MyPetsStatus from "./features/pet/MyPetsStatus";
 
 const router = createBrowserRouter([
@@ -38,13 +40,9 @@ const router = createBrowserRouter([
         element: <PagePost />,
       },
       {
-        path: "/my-pets",
-        element: <MyPets />,
+        path: "/petProfile/:id",
+        element : <PetProfile />
       },
-      {
-        path: "/my-pets/:status",
-        element: <MyPetsStatus />,
-      }
     ],
   },
 
@@ -75,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/privacy",
     element: <PrivacyPolicies />
+  },
+  {
+    path: "/profile-edit",
+    element: <EditUserProfile />
   }
 ]);
 export default function App() {
