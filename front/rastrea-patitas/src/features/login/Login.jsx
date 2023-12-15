@@ -1,21 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { Button, Input } from "@nextui-org/react";
 import React, { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 
 import { useUserContext } from "../../context/useUserContext";
 
+import Cookie from "js-cookie";
+
 const Login = () => {
 	const [isVisible, setIsVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
+
 	const {
 		handleSubmit,
 		register,
 		formState: { errors },
 		setError,
-		clearErrors,
 	} = useForm();
 	const { loginUser } = useUserContext();
 	const toggleVisibility = () => {
@@ -23,16 +26,28 @@ const Login = () => {
 	};
 	const navigate = useNavigate();
 
+	const { setUser, user } = useUserContext();
+
 	const onSubmit = handleSubmit(async (data) => {
+		setLoading(true);
 		try {
 			const response = await loginUser(data);
+
 			if (response.status === 404) {
 				setError("password", { type: "custom", message: response.data.response });
+				setLoading(false);
 			} else if (response.status === 401) {
 				setError("password", { type: "custom", message: response.data.response });
+				setLoading(false);
 				return;
 			} else {
-				console.log(response);
+				setUser(response.user);
+				const token = response.token.split(" ")[1];
+				Cookie.set("token", token);
+				setLoading(false);
+				if (user) {
+					navigate("/home");
+				}
 			}
 		} catch (error) {
 			console.log(error);
@@ -85,30 +100,15 @@ const Login = () => {
 
 				<p className="text-sm underline text-gray-500 cursor-pointer pr-36">Olvidé mi contraseña</p>
 
-				<Button type="submit" color="primary" variant="ghost" className="w-[255px] mt-10">
-					Ingresar
-				</Button>
-
-				{/* <p className="text-sm m-4">o</p> */}
-
-				{/* 				<Button
-					onClick={onGoogleClick}
-					startContent={<FcGoogle size={24} />}
-					type="button"
-					color="secondary"
-					variant="ghost"
-					className="w-[255px] mt-10">
-					Continuar con Google
-				</Button>
-				<Button
-					onClick={onFacebookClick}
-					startContent={<FaFacebook size={24} />}
-					type="button"
-					color="primary"
-					variant="solid"
-					className="w-[255px]">
-					Continuar con Facebook
-				</Button> */}
+				{loading ? (
+					<Button disabled isLoading color="primary" variant="ghost" className="w-[255px] mt-10">
+						cargando...
+					</Button>
+				) : (
+					<Button type="submit" color="primary" variant="ghost" className="w-[255px] mt-10">
+						Iniciar Sesión
+					</Button>
+				)}
 
 				<h3 className="text-sm pb-8">
 					¿No tenés cuenta?{" "}

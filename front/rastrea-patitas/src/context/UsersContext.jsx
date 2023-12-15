@@ -2,12 +2,12 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { createContext, useState } from "react";
-import { getUsers, login } from "../services/apiPatitas";
+import { getUsers, login } from "../services/api";
 
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
-	const [user, setUser] = useState([]);
+	const [user, setUser] = useState(null);
 
 	const loginUser = async (user) => {
 		try {
