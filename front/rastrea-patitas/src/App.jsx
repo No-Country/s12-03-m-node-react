@@ -54,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/pet-profile/:id",
         element: <PetProfile />
+      },
+      {
+        path: "/my-pets/:status/:id",
+        element: <PetProfile />
       }
     ],
   },
