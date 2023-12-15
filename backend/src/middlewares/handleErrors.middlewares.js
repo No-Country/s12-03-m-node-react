@@ -1,7 +1,7 @@
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import { removeTempFiles } from "../utils/fsDelete.js";
 
-const handleErrors = (error, req, res) => {
+const handleErrors = (error, req, res, next) => {
 	console.log('ERROR => ', error);
 
 	if (req.files && req.files.pet_img) removeTempFiles(req.files.pet_img)
