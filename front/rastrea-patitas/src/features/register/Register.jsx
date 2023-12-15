@@ -6,7 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../services/apiPatitas';
+import { registerUser } from '../../services/api';
 
 
 const Register = () => {

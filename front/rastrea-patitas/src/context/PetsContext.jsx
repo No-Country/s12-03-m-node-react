@@ -2,13 +2,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { createContext, useEffect, useState } from "react";
-import { getPets } from "../services/apiPatitas";
+import { getPets } from "../services/api";
 
 const PetsContext = createContext();
 
 const PetsProvider = ({ children }) => {
 	const [pets, setPets] = useState(null);
-	const [pet, setPet] = useState(null); 
+	const [pet, setPet] = useState(null);
 
 	const getPetByID = async (_id) => {
 		try {
