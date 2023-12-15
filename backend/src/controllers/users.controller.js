@@ -9,8 +9,10 @@ export const getUsers = async (req, res, next) => {
         const users = await Users.find({})
         const usersWithPets = await Promise.all(users.map(async (user) => {
             const pets = await Pets.find({ user_id: user._id });
+            const userObject = user.toObject()
+            delete userObject.password
             return {
-              ...user.toObject(),
+              ...userObject,
               pets: pets.map((pet) => pet.toObject()),
             };
           }));
@@ -23,9 +25,12 @@ export const getUsers = async (req, res, next) => {
 export const getUserById = async (req, res, next) => {
     try {
         const { id } = req.params
-        const user = await Users.findById(id)
+        const user = await Users.findById(id).lean()
         if(!user) res.status(HttpCodes.CODE_NOT_FOUND).send('user not found')
-        res.status(HttpCodes.CODE_SUCCESS).send(user)
+        const pets = await Pets.find({ user_id: id })
+        const userWithPets = { ...user, pets}
+        delete userWithPets.password
+        res.status(HttpCodes.CODE_SUCCESS).send(userWithPets)
     } catch (error) {
         next(error)
     }
