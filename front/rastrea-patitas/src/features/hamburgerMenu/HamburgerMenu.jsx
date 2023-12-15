@@ -92,7 +92,12 @@ function HambugerMenu() {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  border-b-1 border-moradoSecundario pl-2  pb-8">
-          <Link className="flex gap-4" href="#" size="lg"             onClick={() => navigate("/blog")}>
+          <Link
+            className="flex gap-4"
+            href="#"
+            size="lg"
+            onClick={() => navigate("/blog")}
+          >
             <HiDocumentText size={24} color="#4D4295" />
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start">
               {" "}
@@ -102,19 +107,9 @@ function HambugerMenu() {
           </Link>
         </NavbarMenuItem>
 
-        <NavbarMenuItem className=" flex gap-4   pl-2  pt-4 pb-10">
-          <Link className="flex gap-4" href="#" size="lg">
-            <img src={ConfigIconNav} alt="logo" />
-            <div className="font-['Poppins'] flex-col text-secondary text-xs items-start">
-              {" "}
-              <p className="text-sm	font-medium">Configuración</p>
-              <p> Editar</p>
-            </div>
-          </Link>
-        </NavbarMenuItem>
         <NavbarMenuItem className=" flex  " justify="end">
           <Link
-            className="font-['Poppins'] w-full justify-end text-secondary text-xs gap-1 pt-4 border-t-1 border-moradoSecundario "
+            className="font-['Poppins'] w-full justify-end text-secondary text-xs gap-1 pt-4 border-t-1  "
             href="#"
             size="lg"
           >
