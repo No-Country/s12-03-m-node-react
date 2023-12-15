@@ -15,8 +15,7 @@ import LostAndFound from "./features/lostAndFound/LostAndFound";
 import PetProfile from "./features/petProfile/PetProfile";
 import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
-
-
+import MyPetsStatus from "./features/pet/MyPetsStatus";
 
 const router = createBrowserRouter([
   {
@@ -39,9 +38,13 @@ const router = createBrowserRouter([
         element: <PagePost />,
       },
       {
-		path: "/petProfile",
-		element : <PetProfile />
-	  },
+        path: "/my-pets",
+        element: <MyPets />,
+      },
+      {
+        path: "/my-pets/:status",
+        element: <MyPetsStatus />,
+      }
     ],
   },
 
