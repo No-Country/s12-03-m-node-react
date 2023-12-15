@@ -2,26 +2,24 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { createContext, useEffect, useState } from "react";
-import { getUsers } from "../services/apiPatitas";
+import { getUsers } from "../services/api";
 
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
-  const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    getUsers().then((data) => {
-      setUsers(data)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }, [])
+	useEffect(() => {
+		getUsers()
+			.then((data) => {
+				setUsers(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
-  return (
-    <UsersContext.Provider value={{ users, setUsers }}>
-      {children}
-    </UsersContext.Provider>
-  )
-}
+	return <UsersContext.Provider value={{ users, setUsers }}>{children}</UsersContext.Provider>;
+};
 
-export { UsersContext, UsersProvider }
+export { UsersContext, UsersProvider };

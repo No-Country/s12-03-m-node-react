@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form'
-import { loginWithGoogle, login, loginWithFacebook } from '../../services/apiPatitas';
+import { loginWithGoogle, login, loginWithFacebook } from '../../services/api';
 
 
 const Login = () => {

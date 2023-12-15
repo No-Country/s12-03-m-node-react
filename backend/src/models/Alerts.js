@@ -10,7 +10,7 @@ const alertsSchema = mongoose.Schema({
     },
     pet_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pets'
+        ref: 'pets'
     },
     date: {
         type: Date,
@@ -23,16 +23,17 @@ const alertsSchema = mongoose.Schema({
         type: String,
     },
     last_location: {
-        type: Object,
+        type: String,
     },
     geo_point: {
         type: Array,
-    }
+    },
+    special_characteristics: {
+        type: String,
+    },
 }, {
     timestamps: true
 })
-
-validateSchemas(alertsSchema, alertsSchemaValidator)
 
 const Alerts = mongoose.model('Alerts', alertsSchema)
 

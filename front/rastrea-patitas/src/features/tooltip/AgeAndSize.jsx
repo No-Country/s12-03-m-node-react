@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip, Button } from "@nextui-org/react";
-import medidasAnimales from "../../../../../assets/filterModalIcons/tooltipIcons/medidasAnimales.svg";
-function TooltipContent({ labelTitle, data }) {
+import medidasAnimales from "../../assets/filterModalIcons/tooltipIcons/medidasAnimales.svg";
+function AgeAndSize({ labelTitle, data }) {
   return (
     <>
       <ul className="w-48">
@@ -16,7 +16,7 @@ function TooltipContent({ labelTitle, data }) {
         {data && (
           <li className="mt-2 border-[0.1rem] border-moradoMain border-b-0">
             {data.map((element) => (
-              <ul className="flex justify-between border-b-[0.1rem] border-moradoMain p-1 ">
+              <ul key={element} className="flex justify-between border-b-[0.1rem] border-moradoMain p-1 ">
                 <li>{element.ageReference || element.sizeReference}</li>
                 <li>{element.age || element.size}</li>
               </ul>
@@ -27,4 +27,4 @@ function TooltipContent({ labelTitle, data }) {
     </>
   );
 }
-export default TooltipContent;
+export default AgeAndSize;
