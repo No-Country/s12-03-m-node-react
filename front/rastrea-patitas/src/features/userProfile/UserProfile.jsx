@@ -2,9 +2,13 @@
 import React from 'react';
 import ProfilePhoto from './ProfilePhoto';
 import UserDetailsCard from './UserDetailsCard';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserProfile = () => {
+
+  const navigate = useNavigate();
+  
   return (
     <div className='mx-auto pb-8 w-[360px]'>
       <ProfilePhoto />
@@ -22,6 +26,7 @@ const UserProfile = () => {
               email="lucia@gmail.com"
               password="********"
               phone="123456789"
+              onEditClick={()=>navigate("/profile-edit")}
           />
         </div>
       </div>

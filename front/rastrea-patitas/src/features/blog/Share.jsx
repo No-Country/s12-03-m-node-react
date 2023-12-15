@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   EmailShareButton,
@@ -10,25 +12,25 @@ import {
   PinterestIcon,
 } from "react-share";
 
-function Share() {
+function Share({ page }) {
   const currentUrlDep = window.location.href; // para deploy
   const currentPageUrl = "https://rastreapatitas.vercel.app/post"; // para rama local
 
   return (
     <div className="flex justify-end my-6">
-      <p className=" mr-4 text-[#999] text-sm font-medium md:text-lg" >Compartir en: </p>
+      {page !== 'poster' && <p className=" mr-4 text-[#999] text-sm font-medium" >Compartir en: </p>}
 
-      <FacebookShareButton  url={currentUrlDep}>
+      <FacebookShareButton url={currentUrlDep}>
         <FacebookIcon size={32} round={true} className=" mr-3" />
       </FacebookShareButton>
 
       <TwitterShareButton url={currentUrlDep}>
-        <XIcon size={32}  round={true} className=" mr-3 "/>
+        <XIcon size={32} round={true} className=" mr-3" />
       </TwitterShareButton>
 
-      <PinterestShareButton url={currentUrlDep} media={currentUrlDep}>
+      {page !== 'poster' && <PinterestShareButton url={currentUrlDep} media={currentUrlDep}>
         <PinterestIcon size={32} round={true} className=" mr-3" />
-      </PinterestShareButton>
+      </PinterestShareButton>}
 
       <EmailShareButton url={currentUrlDep}>
         <EmailIcon size={32} round={true} />

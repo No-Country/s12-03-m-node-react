@@ -20,6 +20,41 @@ const getPets = async () => {
 	}
 };
 
+const getAlerts = async () => {
+	try {
+		const result = await axios.get(`${URL}/alerts`);
+		return result.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const login = async (data) => {
+	try {
+		const result = await axios.post(`${URL}/session/login`, data, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		return result.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const registerUser = async (data) => {
+	try {
+		const result = await axios.post(`${URL}/session/register`, data, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		return result.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const loginWithGoogle = async () => {
 	try {
 		const result = await axios.get(`${URL}/session/auth/google`);
@@ -38,31 +73,4 @@ const loginWithFacebook = async () => {
 	}
 };
 
-const login = async (data) => {
-	try {
-		const result = await axios.post(`${URL}/session/login`, data, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-
-		return result.data;
-	} catch (error) {
-		return error.response;
-	}
-};
-
-const registerUser = async (data) => {
-	try {
-		const result = await axios.post(`${URL}/session/register`, data, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		return result.data;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser };
+export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser, getAlerts };

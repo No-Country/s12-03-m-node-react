@@ -23,7 +23,6 @@ import { HiDocumentText } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import ModalAdvertisement from "./ModalAdvertisement";
 
-
 function HambugerMenu2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -33,7 +32,6 @@ function HambugerMenu2() {
 
   return (
     <>
-     
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -63,7 +61,7 @@ function HambugerMenu2() {
             size="lg"
             onClick={() => navigate("/register")}
           >
-            <RiUserAddFill size={24}  color="#4D4295" />
+            <RiUserAddFill size={24} color="#4D4295" />
 
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start md:text-base">
               {" "}
@@ -72,7 +70,7 @@ function HambugerMenu2() {
             </div>
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem className=" flex gap-4  items-center  border-b-1 border-moradoSecundario pl-2  pb-6 ">
+        <NavbarMenuItem className=" flex gap-4  items-center  border-b-1 border-moradoSecundario pl-2  py-6 ">
           <Link
             className="flex gap-4"
             href="#"
@@ -87,8 +85,8 @@ function HambugerMenu2() {
             </div>
           </Link>
         </NavbarMenuItem>
-        
-        <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-7">
+
+        <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-6">
           <Link className="flex gap-4" href="#" size="lg" onClick={handleOpen}>
             <IoAddCircle size={24} color="#4D4295" />
 
@@ -110,7 +108,7 @@ function HambugerMenu2() {
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start md:text-base">
               {" "}
               <p className="text-sm font-medium md:text-lg">Blog</p>
-              <p >Todo sobre mascotas</p>
+              <p>Todo sobre mascotas</p>
             </div>
           </Link>
         </NavbarMenuItem>
