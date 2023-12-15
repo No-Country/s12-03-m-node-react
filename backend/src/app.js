@@ -17,7 +17,7 @@ const app = express();
 //cors
 app.use(
 	cors({
-		origin: ["https://rastreapatitas.vercel.app/", "http://localhost:5173", "https://s12-03-m-node-react.vercel.app/api-docs/"],
+		origin: ["https://rastreapatitas.vercel.app", "http://localhost:5173", "https://s12-03-m-node-react.vercel.app/api-docs"],
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 		credentials: true,
 	})
