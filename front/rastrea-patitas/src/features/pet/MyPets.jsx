@@ -11,12 +11,22 @@ import { PetsContext } from '../../context/PetsContext';
 import PetCard from './PetCard';
 import RegisteredPetCard from './RegisteredPetCard';
 import heart from '../../assets/icons/heart.svg'
+import { useNavigate } from 'react-router-dom';
+import { IoMdAddCircle } from "react-icons/io";
 
 const MyPets = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className='w-[360px] md:w-screen h-auto flex flex-col items-left md:items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
+    <div className='w-[336px] md:w-screen h-auto flex flex-col items-left md:items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
       <h1 className='font-poppins text-xl font-bold leading-5 tracking-tight'>Mis mascotas</h1>
-      <h3 className='text-slate-700 font-lato text-base font-light leading-7'>Mis mascotas registradas (2)</h3>
+
+      <div className='flex items-center gap-2 mb-4'>
+        <h3 onClick={() => navigate('/my-pets/registered')} className='text-slate-700 font-lato text-base font-light leading-7 cursor-pointer'>
+          Mis mascotas registradas (2)
+        </h3>
+        <IoMdAddCircle onClick={() => console.log('click')} color='#03DAC5' className='w-9 h-9 cursor-pointer' />
+      </div>
       <div className='flex overflow-x-auto gap-2 h-[200px] md:h-[270px]'>
         <RegisteredPetCard status="En casa" image={pet1} name="Señor Gato" date="08/08/2023" qr={qr} />
         <RegisteredPetCard status="Perdida" image={pet2} name="Sonrisita" date="08/08/2023" qr={qr} />
