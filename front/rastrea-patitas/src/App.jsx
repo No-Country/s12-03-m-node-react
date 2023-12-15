@@ -40,9 +40,21 @@ const router = createBrowserRouter([
         element: <PagePost />,
       },
       {
-        path: "/petProfile/:id",
-        element : <PetProfile />
+        path: "/my-pets",
+        element: <MyPets />,
       },
+      {
+        path: "/my-pets/:status",
+        element: <MyPetsStatus />,
+      },
+      {
+        path: "/my-pets/:status/:id",
+        element: <PetProfile />
+      },
+      {
+        path: "/pet-profile/:id",
+        element: <PetProfile />
+      }
     ],
   },
 
@@ -61,10 +73,6 @@ const router = createBrowserRouter([
   {
     path: "/poster",
     element: <Poster />,
-  },
-  {
-    path: "/lost",
-    element: <LostAndFound />,
   },
   {
     path: "/profile",
