@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-import { createContext, useEffect, useState } from "react";
-import { getUsers } from "../services/api";
+import { createContext, useState } from "react";
+import { getUsers, login } from "../services/api";
 
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
-	const [users, setUsers] = useState([]);
+	const [user, setUser] = useState(null);
 
-	useEffect(() => {
-		getUsers()
-			.then((data) => {
-				setUsers(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+	const loginUser = async (user) => {
+		try {
+			const response = await login(user);
 
-	return <UsersContext.Provider value={{ users, setUsers }}>{children}</UsersContext.Provider>;
+			return response;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	return <UsersContext.Provider value={{ loginUser, user, setUser }}>{children}</UsersContext.Provider>;
 };
 
 export { UsersContext, UsersProvider };
