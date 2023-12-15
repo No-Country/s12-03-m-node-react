@@ -1,19 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { useState, useEffect } from "react";
-import { Button } from "@nextui-org/button";
-import {
+import React, { useState, useEffect } from "react";
+import {Button,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Avatar } from "@nextui-org/avatar";
-import { Link } from "@nextui-org/link";
-
+  NavbarMenuItem,Avatar,Link
+} from "@nextui-org/react";
 import PataIconNav from "../assets/pata.svg";
 import QrIconNav from "../assets/qrIcon.svg";
 import ConfigIconNav from "../assets/configIcon.svg";
@@ -99,42 +94,33 @@ function Header() {
                 Ingresar
               </Button>
             </NavbarItem>
-            <NavbarItem>
-              <Button
-                type="submit"
-                variant="ghost"
-                className="border-moradoMain text-moradoMain"
-                onClick={() => navigate("/register")}
-              >
-                Registrarse
-              </Button>
-            </NavbarItem>
           </NavbarContent>
         </>
       ) : (
         <>
           {/*Si esta logueado------------------------------------------------------------- className="hidden sm:flex gap-4" */}
-          <NavbarContent>
-            <HambugerMenu />
+          <NavbarContent justify="start">
+            <NavbarItem>
+      
+              <HambugerMenu />
+            </NavbarItem>
+            
             <NavbarItem className="w-full justify-center  sm:hidden">
               <Link
-                className="w-full justify-center sm:hidden "
+                className="w-full justify-center sm:hidden text-dark font-['Poppins'] font-semibold	 "
                 href="#"
                 size="lg"
               >
-                Esto es en donde esta parado
+                Inicio
               </Link>
             </NavbarItem>
-            <NavbarItem>
-              <NavbarBrand>
-                <img
-                  src={width > 400 ? logo_RastreaPatitas : soloPatitaLogo}
-                  alt=""
-                />
-              </NavbarBrand>
-            </NavbarItem>
+             <img
+                src={width > 639 ? logo_RastreaPatitas : soloPatitaLogo}
+                alt=""
+              />
+           
+           
           </NavbarContent>
-
         </>
       )}
     </Navbar>
