@@ -2,11 +2,15 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Card, CardHeader, CardBody, Image, Chip } from "@nextui-org/react";
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const RegisteredPetCard = ({ status, image, name, date, qr }) => {
+  const navigate = useNavigate();
   return (
-    <Card className="py-2 my-2 flex-row flex-shrink-0 h-[170px] md:h-[240px]">
+   <Link to={`/my-pets/${status}/${name}`}>
+    <Card  className="py-2 my-2 flex-row flex-shrink-0 h-[170px] md:h-[240px]">
       <CardBody className="relative py-0">
         <Chip className='absolute z-20 top-[10px] right-5'>{status}</Chip>
         <Image
@@ -23,6 +27,7 @@ const RegisteredPetCard = ({ status, image, name, date, qr }) => {
         <img src={qr} width={100} alt='qr' />
       </CardHeader>
     </Card>
+   </Link>
   )
 }
 
