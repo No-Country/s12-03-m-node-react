@@ -2,14 +2,18 @@
 import React from 'react';
 import { SlLocationPin } from "react-icons/sl";
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line react/prop-types */
 const CardsHome = ({ filteredPets }) => {
 
+    const navigate = useNavigate()
+
+
     return(
         <div className="flex flex-wrap justify-center gap-5 md:gap-8 lg:gap-8 mx-auto">
-            {filteredPets.map(pet => (
-                <div key={pet.name} className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] first-letter:flex flex-col relative">
+            {filteredPets.map((pet, index) => (
+                <div className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] first-letter:flex flex-col relative" key={index} onClick={() => navigate(`/petProfile/${pet._id}`)}>
                     <div className="absolute top-0 right-0 mt-2 mr-2">
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>{pet.status}</button>
                     </div>

@@ -41,9 +41,9 @@ const router = createBrowserRouter([
         element: <PagePost />,
       },
       {
-		path: "/petProfile",
-		element : <PetProfile />
-	  },
+        path: "/petProfile/:id",
+        element : <PetProfile />
+      },
     ],
   },
 

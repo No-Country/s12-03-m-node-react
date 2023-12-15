@@ -8,6 +8,16 @@ const PetsContext = createContext();
 
 const PetsProvider = ({ children }) => {
 	const [pets, setPets] = useState(null);
+	const [pet, setPet] = useState(null); 
+
+	const getPetByID = async (_id) => {
+		try {
+			const petByID = await getPets(`/pet/${_id}`);
+			setPet(petByID);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
 		getPets()
@@ -19,7 +29,7 @@ const PetsProvider = ({ children }) => {
 			});
 	}, []);
 
-	return <PetsContext.Provider value={{ pets, setPets }}>{children}</PetsContext.Provider>;
+	return <PetsContext.Provider value={{ pets, setPets, getPetByID, pet, setPet }}>{children}</PetsContext.Provider>;
 };
 
 export { PetsContext, PetsProvider };

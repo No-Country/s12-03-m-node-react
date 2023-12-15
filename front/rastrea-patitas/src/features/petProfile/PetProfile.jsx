@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
 import img from "./images/mostachito.jpeg";
@@ -8,10 +8,10 @@ import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
 import EditPetCharacteristics from "./EditPetCharacteristics";
+import { useParams } from "react-router-dom";
+import { PetsContext } from "../../context/PetsContext";
 
 function PetProfile() {
-  const name = "Señor Mostachito";
-  const state = "perdido";
   const registeredAgo = "12/12/2023";
 
   const [editProfile, setEditProfile] = useState(false);
@@ -24,10 +24,36 @@ function PetProfile() {
     setEditProfile(false);
   }
 
+  const { getPetByID, pet } = useContext(PetsContext);
+  const { _id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Llamar a getPetByID con el ID obtenido de los parámetros
+    getPetByID(_id)
+      .then(() => {
+        setIsLoading(false); // Marcar como cargado una vez se obtengan los datos
+      })
+      .catch((error) => {
+        console.error("Error fetching pet data:", error);
+        setIsLoading(false); // Marcar como cargado aunque haya error para evitar bucles de carga
+      });
+  }, [_id, getPetByID]);
+
+  if (isLoading || !pet) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat max-w-full'>
-      <NavProfile name={name} />
-      <PetCard state={state} img={img} editProfile={editProfile} />
+
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+
+        <>
+        <NavProfile name={pet.name} />
+      <PetCard  editProfile={editProfile} />
 
       {!editProfile ? (
         <div className=" flex justify-around my-4">
@@ -68,7 +94,7 @@ function PetProfile() {
       )}
 
       <div className="mx-5">
-        <p className=" text-lg font-bold  text-letra">{name}</p>
+        <p className=" text-lg font-bold  text-letra">{pet.name}</p>
         <p className=" text-sm font-normal text-[#6B7A85]">
           Registrado el {registeredAgo}
         </p>
@@ -91,6 +117,14 @@ function PetProfile() {
       )}
 
       <QrCode />
+        
+        
+        </>
+
+
+
+      )}
+      
     </div>
   );
 }
