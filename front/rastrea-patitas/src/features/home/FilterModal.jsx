@@ -15,6 +15,7 @@ import {
   Checkbox,
   RadioGroup,
   Radio,
+  useDisclosure,
 } from "@nextui-org/react";
 import IconTooltip from "../tooltip/IconTooltip";
 import pinPata from "../../assets/filterModalIcons/pinPata.svg";
@@ -25,8 +26,12 @@ import { useForm } from "react-hook-form";
 import RadioColor from "./contentFilter/RadioColor";
 import RadioGeneral from "./contentFilter/RadioGeneral";
 import RadioSex from "./contentFilter/RadioSex";
+import ConfirmModal from "../newAdvertisement/ConfirmModal";
+
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -313,7 +318,7 @@ function FilterModal({ handleClose, open, status }) {
                     )}
                     <Button
                       variant="ghost"
-                      onPress={onClose}
+                      onPress={ status? onOpen :onClose}
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo"
                       color=""
                       type="submit"

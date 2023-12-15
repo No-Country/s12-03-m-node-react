@@ -12,7 +12,7 @@ function RadioColor({ register, element }) {
           name=""
           id={element}
           value={element}
-          {...register("color", {
+          {...register("main_color", {
             onChange: (e) => e.target.value && setValid(true),
           })}
           className="absolute z-0 flex justify-center items-center hidden "
