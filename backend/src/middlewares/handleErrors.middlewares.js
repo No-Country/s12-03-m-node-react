@@ -1,7 +1,7 @@
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import { removeTempFiles } from "../utils/fsDelete.js";
 
-const handleErrors = (error, req, res) => {
+const handleErrors = (error, req, res, next) => {
 	console.log('ERROR => ', error);
 
 	res.status(error.status || HttpCodes.CODE_INTERNAL_SERVER_ERROR).json({
