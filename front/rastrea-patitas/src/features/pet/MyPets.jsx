@@ -11,11 +11,14 @@ import { PetsContext } from '../../context/PetsContext';
 import PetCard from './PetCard';
 import RegisteredPetCard from './RegisteredPetCard';
 import heart from '../../assets/icons/heart.svg'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
 
 const MyPets = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userData = location.state?.userData;
+  console.log(userData)
 
   return (
     <div className='w-[336px] md:w-screen h-auto flex flex-col items-left md:items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
