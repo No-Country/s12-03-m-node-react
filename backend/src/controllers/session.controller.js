@@ -1,4 +1,5 @@
 import Users from "../models/Users.js";
+import Pets from "../models/Pets.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import HttpError from "../utils/error.util.js";
 import { handleImageUpload } from "../utils/imageHandle.js";
@@ -42,6 +43,8 @@ export const login = async (req, res, next) => {
             token: `Bearer ${access_token}`,
             user,
         };
+        const pets = await Pets.find({ user_id: user._id}).lean()
+        user.pets = pets
         res.status(HttpCodes.CODE_SUCCESS).send(response)
     } catch (error) {
         next(error)
