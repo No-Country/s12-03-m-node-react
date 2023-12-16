@@ -11,32 +11,51 @@ import { useUserContext } from "../../context/useUserContext";
 import Cookie from "js-cookie";
 
 const Login = () => {
-	const [isVisible, setIsVisible] = useState(false)
-	const { handleSubmit, register, formState: { errors }, setError } = useForm()
+	const [isVisible, setIsVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const {
+		handleSubmit,
+		register,
+		formState: { errors },
+		setError,
+	} = useForm();
+	const { loginUser } = useUserContext();
 	const toggleVisibility = () => {
-		setIsVisible(!isVisible)
-	}
-	const navigate = useNavigate()
+		setIsVisible(!isVisible);
+	};
+	const navigate = useNavigate();
+
+	const { setUser, user } = useUserContext();
 
 	const onSubmit = handleSubmit(async (data) => {
+		setLoading(true);
 		try {
-			const response = await login(data)
-			console.log(response)
+			const response = await loginUser(data);
+
+			if (response.status === 404) {
+				setError("password", { type: "custom", message: response.data.response });
+				setLoading(false);
+			} else if (response.status === 401) {
+				setError("password", { type: "custom", message: response.data.response });
+				setLoading(false);
+				return;
+			} else {
+				setUser(response.user);
+				const token = response.token.split(" ")[1];
+				Cookie.set("token", token);
+				setLoading(false);
+			}
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
+	});
 
-	})
-
-	const onGoogleClick = async () => {
-		const user = await loginWithGoogle()
-		console.log(user)
-	}
-
-	const onFacebookClick = async () => {
-		const user = await loginWithFacebook()
-		console.log(user)
-	}
+	useEffect(() => {
+		if (user) {
+			navigate("/home");
+		}
+	}, [user]);
 
 	return (
 		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
