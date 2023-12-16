@@ -18,7 +18,15 @@ export const register = async (req, res, next) => {
         if (!user) {
             throw new HttpError('Error al crear usuario', HttpCodes.CODE_INTERNAL_SERVER_ERROR)
         }
-        res.status(HttpCodes.CODE_SUCCESS_CREATED).send(user)
+        const finalUser = user.toObject()
+        delete finalUser.password
+        console.log(finalUser);
+        const access_token = generateToken(finalUser);
+        const response = {
+            token: `Bearer ${access_token}`,
+            user: finalUser,
+        };
+        res.status(HttpCodes.CODE_SUCCESS_CREATED).send(response)
     } catch (error) {
         next(error)
     }

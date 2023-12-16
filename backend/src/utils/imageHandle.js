@@ -19,11 +19,10 @@ export const handleImageUpload = async (files) => {
                 url: result.secure_url,
                 public_id: result.public_id
             });
+            await fs.remove(file.tempFilePath);
         } catch (error) {
             console.error("Error uploading image: ", error);
             throw error;
-        } finally {
-            await fs.remove(file.tempFilePath);
         }
     }
     return urls;
