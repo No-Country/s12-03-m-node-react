@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form'
-import { loginWithGoogle, login, loginWithFacebook } from '../../services/api';
+import { loginWithGoogle, login, loginWithFacebook, getLoggedUser } from '../../services/api';
 
 
 const Login = () => {
@@ -16,14 +16,20 @@ const Login = () => {
   }
   const navigate = useNavigate()
 
+
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       const response = await login(data)
       console.log(response)
+
+      if (response) {
+        const userData = await getLoggedUser(response.user._id)
+        navigate('/my-pets/', { state: { userData } })
+      }
     } catch (error) {
       console.log(error)
     }
-
   })
 
   const onGoogleClick = async () => {
