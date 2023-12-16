@@ -3,6 +3,7 @@ import Users from "../models/Users.js";
 import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import { handleImageDelete, handleImageUpload } from "../utils/imageHandle.js";
 import HttpError from "../utils/error.util.js";
+import Alerts from "../models/Alerts.js";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -75,6 +76,30 @@ export const deleteImageFromUserById = async (req, res) => {
 export const deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params
+        const user = await Users.findById(id);
+        if (!user) {
+            throw new HttpError('Usuario no encontrado', HttpCodes.CODE_NOT_FOUND)
+        }
+        if(req.user._id !== id){
+            throw new HttpError('No se permite eliminar una cuenta ajena', HttpCodes.CODE_FORBIDDEN)
+        };
+        const petsToDelete = await Pets.find({ user_id: id })
+        if(petsToDelete.length > 0){
+            petsToDelete.forEach(async(pet) => {
+                await Pets.deleteOne({ _id: pet._id })
+                pet.pet_img.forEach(async(img)=>{
+                    await handleImageDelete(img.public_id)
+                })
+                await handleImageDelete(pet.qr.public_id)
+            });
+        }
+        const alertsToDelete = await Alerts.find({ user_id: id })
+        if(alertsToDelete.length > 0){
+            alertsToDelete.forEach(async(alert) => {
+                await Alerts.deleteOne({ _id: alert._id })
+            });
+        }
+        await handleImageDelete(user.profile_img.public_id);
         const deletedUser = await Users.findByIdAndDelete(id)
         res.status(HttpCodes.CODE_SUCCESS).send(deletedUser)
     } catch (error) {
