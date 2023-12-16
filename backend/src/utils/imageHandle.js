@@ -14,12 +14,11 @@ export const handleImageUpload = async (files) => {
     let urls = [];
     for (const file of files) {
         try {
-            const result = await uploadImage(file.tempFilePath);
+            const result = await uploadImage(file.data);
             urls.push({
                 url: result.secure_url,
                 public_id: result.public_id
             });
-            await fs.remove(file.tempFilePath);
         } catch (error) {
             console.error("Error uploading image: ", error);
             throw error;
@@ -47,12 +46,11 @@ export const handleQRCodeUpload = async (dataUrl) => {
 
         const buffer = Buffer.from(matches[2], 'base64');
 
-        const tempFilePath = path.join(__dirname, uuidv4() + '.png');
-        await fs.writeFile(tempFilePath, buffer);
+        // const tempFilePath = path.join(__dirname, uuidv4() + '.png');
+        // await fs.writeFile(tempFilePath, buffer);
+        const result = await uploadImage(buffer);
 
-        const result = await uploadImage(tempFilePath);
-
-        await fs.remove(tempFilePath);
+        // await fs.remove(tempFilePath);
 
         return {
             url: result.secure_url,
