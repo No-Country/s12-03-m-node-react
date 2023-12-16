@@ -8,15 +8,32 @@ cloudinary.config({
     api_secret: CLOUDINARY_API_SECRET,
 })
 
-export const uploadImage = async filePath =>   {
-    return await cloudinary.uploader.upload(filePath, {
-        folder: CLOUDINARY_FOLDER,
-        width: 700,
-        height: 700,
-        crop: "limit",
-        format: 'jpg',
-        quality: 'auto:good'
-    })
+export const uploadImage = async (data) =>   {
+    try {
+        const uploadedImg = await new Promise(
+            (resolve) => {
+                const transformation = {
+                    height: 700,
+                    width: 700,
+                    crop: "limit",
+                    format: 'jpg',
+                    quality: 'auto:good'
+                }
+                cloudinary.uploader.upload_stream({ folder: CLOUDINARY_FOLDER, transformation: transformation}, (error, uploadResult) => {
+                    if(error) {
+                        console.log(error);
+                        throw new Error(error)
+                    }
+                    return resolve(uploadResult);
+                })
+                .end(data);
+            }
+        );
+        return uploadedImg;
+        
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export const deletedImage = async id => {
