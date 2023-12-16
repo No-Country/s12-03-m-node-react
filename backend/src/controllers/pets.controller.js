@@ -50,15 +50,16 @@ export const createPet = async (req, res, next) => {
     }
     const petDTO = new PetsDTO({ ...req.body, user_id: req.user._id, pet_img: petImages });
     const newPet = new Pets(petDTO);
-
     await newPet.save();
 
     const qrData =  `${BASE_URL}/api/pets/${newPet._id}`;
     const qrImage = await generateQRCode(qrData);
     const qrImageUrl = await handleQRCodeUpload(qrImage);
+    const idSectionsQr = qrImageUrl.public_id.split('/')
+    const imgPublicIdQr = idSectionsQr[idSectionsQr.length - 1]
     newPet.qr =  {
         url: qrImageUrl.url,
-        public_id: qrImageUrl.public_id
+        public_id: imgPublicIdQr
     };
 
     await newPet.save();

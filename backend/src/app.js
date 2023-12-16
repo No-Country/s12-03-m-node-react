@@ -26,8 +26,8 @@ app.use(
 app.use(express.json());
 app.use(
 	fileUpload({
-		useTempFiles: true,
-		tempFileDir: path.join(process.cwd(), 'tmp'),
+		useTempFiles: false,
+		tempFileDir: null,
 	})
 );
 app.use(cookieParser());

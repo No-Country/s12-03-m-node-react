@@ -4,7 +4,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "@nextui-org/react";
 import GoogleMaps from "./GoogleMaps";
 
-function ChangePetState({ petName }) {
+function ChangePetState({ petName, handlerClose }) {
   return (
     <div>
       <Card className="mx-3 my-4">
@@ -12,7 +12,7 @@ function ChangePetState({ petName }) {
           <p className="mx-4 text-letra font-bold text-lg">
             Confirmar cambio de estado
           </p>
-          <Button isIconOnly radius="full" className=" bg-white">
+          <Button onClick={() => handlerClose()} isIconOnly radius="full" className=" bg-white">
             {" "}
             <IoMdCloseCircle className=" text-moradoMain w-6 h-6" />
           </Button>

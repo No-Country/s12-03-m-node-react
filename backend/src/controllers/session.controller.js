@@ -20,7 +20,6 @@ export const register = async (req, res, next) => {
         }
         const finalUser = user.toObject()
         delete finalUser.password
-        console.log(finalUser);
         const access_token = generateToken(finalUser);
         const response = {
             token: `Bearer ${access_token}`,
