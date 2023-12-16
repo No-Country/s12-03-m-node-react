@@ -17,6 +17,9 @@ const petsSchema = mongoose.Schema({
     breed: {
         type: String,
     },
+    size: {
+        type: String,
+    },
     main_color: {
         type: String,
     },

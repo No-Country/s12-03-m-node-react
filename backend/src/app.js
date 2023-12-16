@@ -10,14 +10,14 @@ import initializePassport from "./middlewares/passport.middleware.js";
 import session from "express-session";
 import { SECRET_KEY, SESSION_KEY, CSS_URL } from "./config/envConfig.js";
 import cors from "cors";
-import { date } from "zod";
+import path from "path";
 
 const app = express();
 
 //cors
 app.use(
 	cors({
-		origin: ["https://rastreapatitas.vercel.app/", "http://localhost:5173", "https://s12-03-m-node-react.vercel.app/api-docs/"],
+		origin: ["https://rastreapatitas.vercel.app", "http://localhost:5173", "https://s12-03-m-node-react.vercel.app/api-docs"],
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 		credentials: true,
 	})
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
 	fileUpload({
 		useTempFiles: true,
-		tempFileDir: "./uploads",
+		tempFileDir: path.join(process.cwd(), 'tmp'),
 	})
 );
 app.use(cookieParser());

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Age, Size } from "./constans.js";
 
 const usersSchemaValidator = z.object({
     full_name: z.string({
@@ -52,9 +53,18 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'El nombre debe ser un String',
         required_error: 'El nombre es requerido'
     }).trim().min(1).max(50),
-    age: z.string({
-        invalid_type_error: 'La edad debe ser un string'
-    }).trim().min(1).max(20).optional(),
+    age: z.nativeEnum(Age, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case 'invalid_enum_value':
+                    return { message: `La edad solo puede ser: Cachorro, Joven, Adulto, o Senior` };
+                case 'invalid_type':
+                    return { message: 'La edad es requerida y debe ser un valor válido' };
+                default:
+                    return { message: 'Error en el campo edad' };
+            }
+        },
+    }),
     species: z.string({
         invalid_type_error: 'La especie tiene que ser un string',
         required_error: 'La especie es requerida'
@@ -63,6 +73,18 @@ const petsSchemaValidator = z.object({
         invalid_type_error: 'La raza debe ser un string',
         required_error: 'La raza es requerida'
     }).trim().min(1).max(50),
+    size: z.nativeEnum(Size, {
+        errorMap: (issue, _ctx) => {
+            switch (issue.code) {
+                case 'invalid_enum_value':
+                    return { message: `El tamaño debe ser Toy, Pequeño, Mediano, Grande, o Extra grande` };
+                case 'invalid_type':
+                    return { message: 'El tamaño es requerido' };
+                default:
+                    return { message: 'Error en el campo tamaño' };
+            }
+        },
+    }),
     main_color: z.string({
         invalid_type_error: 'El color debe ser un string',
         required_error: 'El color es requerido'
@@ -74,10 +96,6 @@ const petsSchemaValidator = z.object({
     eyes: z.string({
         invalid_type_error: 'Los ojos debe ser un string',
         required_error: 'Los ojos es requerido'
-    }).trim().min(1).max(50),
-    size: z.string({
-        invalid_type_error: 'El tamaño debe ser un string',
-        required_error: 'El tamaño es requerido'
     }).trim().min(1).max(50),
     sex: z.string({
         invalid_type_error: 'El sexo debe ser un string',

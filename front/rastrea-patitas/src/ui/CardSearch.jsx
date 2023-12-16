@@ -24,7 +24,7 @@ const CardSearch = ({ qr, img, name, date, zone }) => {
 					<p className="text-xs opacity-80">Fecha: {date}</p>
 					<p className="text-xs opacity-80">Zona: {zone}</p>
 				</div>
-				<div className="flex items-end">
+				<div className="flex items-end w-14">
 					<img src={qr} alt="qr" className="" />
 				</div>
 			</div>
