@@ -11,6 +11,15 @@ const getUsers = async () => {
   }
 }
 
+const getLoggedUser = async (id) => {
+  try {
+    const result = await axios.get(`${URL}/users/${id}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const getPets = async () => {
   try {
     const result = await axios.get(`${URL}/pets`)
@@ -73,4 +82,4 @@ const loginWithFacebook = async () => {
   }
 }
 
-export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser, getAlerts }
+export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser, getAlerts, getLoggedUser }
