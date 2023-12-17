@@ -1,5 +1,5 @@
 import React from "react";
-import PublicationPet from "../../assets/PublicationPet.svg"
+import PublicationPet from "../../assets/publicationPet.svg"
 function PublicationMade() {
   return (
     <div className='bg-[url("/src/assets/bg-patitas.svg")] bg-repeat flex flex-col  items-center h-screen		'>
