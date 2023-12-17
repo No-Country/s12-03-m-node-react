@@ -6,7 +6,7 @@ function RadioGeneral({ register, element, type,  }) {
   const handlerSelected = (e) =>    e.target.value && (setSelected(!selected));
   return (
     <>
-      <div className={selected===false ?"flex px-3	border-solid rounded-xl border-1 border-moradoMain hover:bg-moradoActivo hover:border-moradoActivo ":"flex  px-3	border-solid rounded-xl border-1 border-moradoMain bg-moradoActivo hover:bg-moradoActivo hover:border-moradoActivo "}>
+      <div className=" flex  ">
         <input
           type="radio"
           name=""
@@ -14,9 +14,9 @@ function RadioGeneral({ register, element, type,  }) {
           value={element}
           
           {...register(type,{onChange:handlerSelected})}
-         className="hidden"
+         className="RadioGeneral hidden"
         />
-        <label htmlFor={element} >{element}</label>
+        <label htmlFor={element} className="px-3 border-solid rounded-xl border-1 border-moradoMain hover:bg-moradoActivo hover:border-moradoActivo">{element}</label>
       </div>
     </>
   );

@@ -27,11 +27,12 @@ import RadioColor from "./contentFilter/RadioColor";
 import RadioGeneral from "./contentFilter/RadioGeneral";
 import RadioSex from "./contentFilter/RadioSex";
 import ConfirmModal from "../newAdvertisement/ConfirmModal";
+import GoogleMaps from "../petProfile/GoogleMaps";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
+ const [enviar, setEnviar] = useState("");
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -48,7 +49,7 @@ function FilterModal({ handleClose, open, status }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [selected, setSelected] = useState("");
+ 
   const statusRadio = [
     { status: "todos", statusReference: "Todos" },
     { status: "lost", statusReference: "Perdido" },
@@ -91,6 +92,7 @@ function FilterModal({ handleClose, open, status }) {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+
   });
 
   return (
@@ -149,7 +151,7 @@ function FilterModal({ handleClose, open, status }) {
                           color="danger"
                           variant="underlined"
                           className=""
-                          {...register("Nombre")}
+                          {...register("name")}
                         />
                         <input type="radio" value={status} checked  {...register("status")} hidden/>
                       </>
@@ -169,7 +171,7 @@ function FilterModal({ handleClose, open, status }) {
                       label={"Tipo de animal"}
                       placeholder={"Selecciona un tipo de animal"}
                       register={register}
-                      name={"especies"}
+                      name={"species"}
                     />
                     <Input
                       type="text"
@@ -178,7 +180,7 @@ function FilterModal({ handleClose, open, status }) {
                       color="danger"
                       variant="underlined"
                       className=""
-                      {...register("Raza")}
+                      {...register("breed")}
                     />
                     <fieldset className="flex flex-col ">
                       <legend>Sexo</legend>
@@ -225,14 +227,14 @@ function FilterModal({ handleClose, open, status }) {
                               placeholder={"Pelo"}
                               register={register}
                               name={"pelo"}
-                              {...register("pelo")}
+                              {...register("hair")}
                             />
                             <SelectFilter
                               data={ojos}
                               placeholder={"Ojos"}
                               register={register}
                               name={"ojos"}
-                              {...register("ojos")}
+                              {...register("eyes")}
                             />
                           </section>
                         </section>
@@ -244,7 +246,7 @@ function FilterModal({ handleClose, open, status }) {
                           color="danger"
                           variant="underlined"
                           className=""
-                          {...register("caracteristica")}
+                          {...register("special_characteristics")}
                         />
                       </>
                     )}
@@ -281,16 +283,8 @@ function FilterModal({ handleClose, open, status }) {
                         </>
                       ))}</div>
                     </fieldset>
-
-                    <section className="relative flex  justify-center  items-center ">
-                      <img src={mapFilter} alt="" className="" />
-                      <Button
-                        startContent={<img src={pinPata} alt="" />}
-                        className=" bg-moradoMain text-white font-semibold absolute "
-                      >
-                        Ubicación
-                      </Button>
-                    </section>
+                     <GoogleMaps register={register} />              
+                  
                     {status && (
                       <Input
                         type="text"
@@ -299,12 +293,12 @@ function FilterModal({ handleClose, open, status }) {
                         color="danger"
                         variant="underlined"
                         className=""
-                        {...register("descripcion")}
+                        {...register("alert_description")}
                       />
                     )}
                   </ModalBody>
                 </ModalBody>
-                <ModalFooter className="flex justify-between">
+                <ModalFooter className= {status?"flex justify-center ": "flex justify-between"}>
                   <>
                     {!status && (
                       <Button
@@ -318,13 +312,14 @@ function FilterModal({ handleClose, open, status }) {
                     )}
                     <Button
                       variant="ghost"
-                      onPress={ status? onOpen :onClose}
-                      className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo"
+                      onPress={ onClose}
+                      className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
                     >
                       {status ? "Publicar" : "Aplicar filtros"}
                     </Button>
+                    {/*<ConfirmModal isOpen={isOpen} onClose={onClose} setEnviar={setEnviar}/>  no se como enviar la informacion al usar el segundo modal */}
                   </>
                 </ModalFooter>
               </form>
@@ -332,6 +327,7 @@ function FilterModal({ handleClose, open, status }) {
           )}
         </ModalContent>
       </Modal>
+      
     </>
   );
 }

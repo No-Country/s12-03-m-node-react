@@ -15,7 +15,7 @@ function SelectImg({ register, name }) {
           className={!selectedImages[0] ? "file z-10" : "fileImg z-10"}
           {...register(name, {
             onChange: handlerSelected,
-          })}
+          }, )}
         />
         {selectedImages &&
           selectedImages.map((image, index) => (

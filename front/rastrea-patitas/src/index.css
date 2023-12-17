@@ -60,3 +60,7 @@ button {
 	height: 5.5rem;
 
 }
+.RadioGeneral:checked + label {
+	border-color: #DBD9EA ;
+	background-color: #DBD9EA;
+}
