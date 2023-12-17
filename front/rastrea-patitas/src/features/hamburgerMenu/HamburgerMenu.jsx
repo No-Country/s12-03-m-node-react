@@ -50,7 +50,7 @@ function HambugerMenu() {
       </NavbarContent>
       <NavbarMenu className=" w-48 md:w-1/4 px-0 ">
         <NavbarMenuItem className=" flex gap-4 items-center border-b-1 border-moradoSecundario pl-2 py-6 ">
-          <Link className="flex gap-4" href="#" size="lg">
+          <Link className="flex gap-4" href="#" onClick={() => navigate("/profile")} size="lg">
             <Avatar
               as="button"
               className="transition-transform border-solid border-1  border-moradoMain w-auto"

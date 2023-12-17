@@ -21,12 +21,12 @@ const CardsHome = ({ filteredPets }) => {
                         <img className="object-cover w-full h-full rounded-t-lg" src={pet.pet_id.pet_img[0].url} alt={pet.pet_id.name} />
                     </div>
                     <div className="ml-1 lg:mt-3 lg:ml-3">
-                        <h2 className="text-sm font-bold lg:text-[1.3rem] justify-start tracking-tight">{pet.name}</h2>
+                        <h2 className="text-sm font-bold lg:text-[1.3rem] justify-start tracking-tight">{pet.pet_id.name}</h2>
                         <div className="flex flex-row justify-between h-[44.74px] space-x-4">
                             <p className="text-[0.7rem] lg:text-[1rem]">Hace 3 días</p>
                             <div className='flex flex-row'>
                                 <SlLocationPin className='lg:mt-1' />
-                                <p className="text-[0.7rem] lg:text-[1rem] mr-2">Ubicación</p>
+                                <p className="text-[0.7rem] lg:text-[1rem] mr-2">{pet.last_location}</p>
                             </div>
                         </div>
                     </div>
