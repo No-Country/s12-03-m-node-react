@@ -1,16 +1,18 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { Button } from "@nextui-org/button";
 import React from "react";
 
-function PetCard({ state, img, editProfile }) {
+function PetCard({ editProfile, petData }) {
   const buttonClasses =
-    state === "perdido"
+    petData.status === "perdido"
       ? " bg-moradoMain text-white"
       : "bg-celesteAcento text-black";
   return (
     <div className="relative w-full h">
       <div className="absolute inset-0 flex items-start justify-end mt-4 mr-4">
         <Button className={` text-lg font-bold ${buttonClasses}`}>
-          {state}
+          {petData.status}
         </Button>
       </div>
 
@@ -35,7 +37,7 @@ function PetCard({ state, img, editProfile }) {
         )}
       </div>
       <img
-        src={img}
+        src={petData.pet_id.pet_img[0]?.url}
         alt="img not found"
         className="w-full h-[340px] object-cover"
       />
