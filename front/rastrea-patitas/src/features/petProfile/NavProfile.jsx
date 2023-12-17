@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
@@ -8,7 +10,7 @@ function NavProfile({ name }) {
   return (
     <div className=" flex flex-row text-lg font-semibold py-2  bg-white justify-center items-center md:hidden">
       <Button
-        onClick={() => Navigate(`/home`)}
+        onClick={() => Navigate(-1)}
         isIconOnly
         className=" bg-white "
       >
