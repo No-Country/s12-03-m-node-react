@@ -28,6 +28,8 @@ import RadioGeneral from "./contentFilter/RadioGeneral";
 import RadioSex from "./contentFilter/RadioSex";
 import ConfirmModal from "../newAdvertisement/ConfirmModal";
 import GoogleMaps from "../petProfile/GoogleMaps";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -92,9 +94,12 @@ function FilterModal({ handleClose, open, status }) {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+   // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {headers: {"Content-Type": "application/json", "Authorization": "Bearer "+Cookies.get("token")} }).then((res) => {})
 
   });
-
+  const [ position, setPosition ] = useState([])
+const goeArray=Object.values(position)
+console.log(goeArray)
   return (
     <>
       <Modal
@@ -132,6 +137,7 @@ function FilterModal({ handleClose, open, status }) {
                       ))}
                     </fieldset>
                   )}
+                  <input type="radio" {...register("geo_point") } value={goeArray} checked/>
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
@@ -283,7 +289,7 @@ function FilterModal({ handleClose, open, status }) {
                         </>
                       ))}</div>
                     </fieldset>
-                     <GoogleMaps register={register} />              
+                     <GoogleMaps register={register} setP={setPosition} />              
                   
                     {status && (
                       <Input
