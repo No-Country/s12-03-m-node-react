@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
@@ -9,10 +10,27 @@ import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
 import EditPetCharacteristics from "./EditPetCharacteristics";
 import { useParams } from "react-router-dom";
-import { PetsContext } from "../../context/PetsContext";
+import { getAlertByID, getPetByID } from "../../services/api";
 
 
 function PetProfile() {
+  const [alert, setAlert] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getAlertByID(id).then((data) => {
+      setAlert(data);
+      setIsLoading(false);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }, [id]);
+
+  console.log(id)
+  console.log(alert)
+
   const registeredAgo = "12/12/2023";
   const state = "En casa";
   const [editProfile, setEditProfile] = useState(false);
@@ -25,23 +43,7 @@ function PetProfile() {
     setEditProfile(false);
   }
 
-  const { getPetByID, pet } = useContext(PetsContext);
-  const { _id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Llamar a getPetByID con el ID obtenido de los parámetros
-    getPetByID(_id)
-      .then(() => {
-        setIsLoading(false); // Marcar como cargado una vez se obtengan los datos
-      })
-      .catch((error) => {
-        console.error("Error fetching pet data:", error);
-        setIsLoading(false); // Marcar como cargado aunque haya error para evitar bucles de carga
-      });
-  }, [_id, getPetByID]);
-
-  if (isLoading || !pet) {
+  if (isLoading || !alert) {
     return <div>Loading...</div>;
   }
 
@@ -50,78 +52,78 @@ function PetProfile() {
       {/* seccion para pantallas pequeñas */}
       <div className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat max-w-full md:hidden'>
 
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-
-        <>
-          <NavProfile name={name} />
-        <PetCard  editProfile={editProfile} />
-
-        {!editProfile ? (
-          <div className=" flex justify-around my-4">
-            <Button
-              color="primary"
-              variant="bordered"
-              className="border-moradoMain text-letra font-medium w-36 "
-            >
-              Eliminar perfil
-            </Button>
-            <Button
-              color="primary"
-              variant="bordered"
-              className="border-moradoMain text-letra font-medium w-36 "
-              onClick={handlerEditProfile}
-            >
-              Editar perfil
-            </Button>
-          </div>
+        {isLoading ? (
+          <div>Loading...</div>
         ) : (
-          <div className=" flex justify-around my-4">
-            <Button
-              color="primary"
-              variant="bordered"
-              className="border-moradoMain text-letra font-medium w-36 "
-              onClick={handlerCancelEditProf}
-            >
-              Cancelar
-            </Button>
-            <Button
-              color="primary"
-              variant="bordered"
-              className="border-moradoMain text-letra font-medium w-36 "
-            >
-              Guardar perfil
-            </Button>
-          </div>
-        )}
 
-        <div className="mx-5">
-          <p className=" text-lg font-bold  text-letra">{name}</p>
-          <p className=" text-sm font-normal text-[#6B7A85]">
-            Registrado el {registeredAgo}
-          </p>
-        </div>
+          <>
+            <NavProfile name={alert.pet_id.name} />
+            <PetCard editProfile={editProfile} petData={alert} />
 
-        <InfoLocation ubicacion={"Buenos Aires"} />
+            {!editProfile ? (
+              <div className=" flex justify-around my-4">
+                <Button
+                  color="primary"
+                  variant="bordered"
+                  className="border-moradoMain text-letra font-medium w-36 "
+                >
+                  Eliminar perfil
+                </Button>
+                <Button
+                  color="primary"
+                  variant="bordered"
+                  className="border-moradoMain text-letra font-medium w-36 "
+                  onClick={handlerEditProfile}
+                >
+                  Editar perfil
+                </Button>
+              </div>
+            ) : (
+              <div className=" flex justify-around my-4">
+                <Button
+                  color="primary"
+                  variant="bordered"
+                  className="border-moradoMain text-letra font-medium w-36 "
+                  onClick={handlerCancelEditProf}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  color="primary"
+                  variant="bordered"
+                  className="border-moradoMain text-letra font-medium w-36 "
+                >
+                  Guardar perfil
+                </Button>
+              </div>
+            )}
 
-        <PetState editProfile={editProfile} />
+            <div className="mx-5">
+              <p className=" text-lg font-bold  text-letra">{name}</p>
+              <p className=" text-sm font-normal text-[#6B7A85]">
+                Registrado el {registeredAgo}
+              </p>
+            </div>
 
-        {editProfile ? (
-          <EditPetCharacteristics />
-        ) : (
-          <PetCharacteristics
-            type={"gato"}
-            sex={"macho"}
-            eyes={"Ojos claros"}
-            hair={"Pelo corto"}
-            color={"Bicolor"}
-          />
-        )}
+            <InfoLocation ubicacion={"Buenos Aires"} />
 
-        <QrCode />
+            <PetState editProfile={editProfile} />
 
-        </>)}
+            {editProfile ? (
+              <EditPetCharacteristics />
+            ) : (
+              <PetCharacteristics
+                type={"gato"}
+                sex={"macho"}
+                eyes={"Ojos claros"}
+                hair={"Pelo corto"}
+                color={"Bicolor"}
+              />
+            )}
+
+            <QrCode />
+
+          </>)}
       </div>
 
       {/* seccion para pantallas medianas y grandes */}
@@ -173,7 +175,7 @@ function PetProfile() {
             )}
           </div>
 
-          <PetCard state={state} img={img} editProfile={editProfile} />
+          <PetCard petData={alert} editProfile={editProfile} />
         </div>
       </div>
     </>

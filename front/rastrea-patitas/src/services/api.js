@@ -20,6 +20,15 @@ const getPets = async () => {
 	}
 };
 
+const getPetByID = async (_id) => {
+	try {
+		const result = await axios.get(`${URL}/pets/${_id}`);
+		return result.data;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 const getAlerts = async () => {
 	try {
 		const result = await axios.get(`${URL}/alerts`);
@@ -28,6 +37,16 @@ const getAlerts = async () => {
 		console.log(error);
 	}
 };
+
+const getAlertByID = async (_id) => {
+	try {
+		const result = await axios.get(`${URL}/alerts/${_id}`);
+		return result.data;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 
 const login = async (data) => {
 	try {
@@ -73,4 +92,4 @@ const loginWithFacebook = async () => {
 	}
 };
 
-export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser, getAlerts };
+export { getUsers, getPets, loginWithGoogle, loginWithFacebook, login, registerUser, getAlerts, getPetByID, getAlertByID };
