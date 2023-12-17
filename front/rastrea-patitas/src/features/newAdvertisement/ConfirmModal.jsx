@@ -3,12 +3,13 @@ import React from "react"
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Button } from "@nextui-org/react"
 import { useNavigate } from "react-router-dom"
 
-function ConfirmModal({isOpen, onOpenChange}){
+function ConfirmModal({isOpen, onOpenChange, onClose, setEnviar}){
     const navigate = useNavigate();
 const home=    () => navigate("/home")
+
 return(
     <>
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -17,7 +18,7 @@ return(
                 <Button color="danger" variant="light" onPress={onClose}>
                 Seguir editando
                 </Button>
-                <Button color="primary" onPress={onClose }>
+                <Button color="primary" onPress={onClose } >
                 Si, publicar
                 </Button>
               </ModalFooter>

@@ -19,9 +19,9 @@ function CheckboxColor({ typeIcon, isSelected }) {
   const color = coloresComunes.find((e) => e.color === typeIcon);
   const colorEspecial = coloresEspeciales.find((e) => e === typeIcon);
   const [manejador, setManejador] = useState(colorEspecial);
-  const [valid, setValid] = useState(isSelected);
+  const [valid, setValid] = useState(false);
   function hw() {
-    if (manejador === "Bicolor") {
+    if (manejador === "Bicolor") {     
       return <ColorByN isSelected={valid} />;
     }
     if (manejador === "Atigrado") {

@@ -18,6 +18,7 @@ import UserProfile from "./features/userProfile/UserProfile";
 import PrivacyPolicies from "./features/userProfile/PrivacyPolicies";
 import EditUserProfile from "./features/userProfile/EditUserProfile";
 import MyPetsStatus from "./features/pet/MyPetsStatus";
+import PublicationMade from "./features/newAdvertisement/PublicationMade";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,9 @@ const router = createBrowserRouter([
   {
     path: "/profile-edit",
     element: <EditUserProfile />
+  }, {
+    path: "/publication",
+    element: <PublicationMade />
   }
 ]);
 export default function App() {

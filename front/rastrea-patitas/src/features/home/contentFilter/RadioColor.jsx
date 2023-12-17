@@ -12,6 +12,7 @@ function RadioColor({ register, element }) {
           name=""
           id={element}
           value={element}
+          onChangeCapture={()=>setValid(true)}
           {...register("main_color", {
             onChange: (e) => e.target.value && setValid(true),
           })}
