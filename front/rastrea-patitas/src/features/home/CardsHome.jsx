@@ -10,15 +10,15 @@ const CardsHome = ({ filteredPets }) => {
     const navigate = useNavigate()
 
 
-    return(
+    return (
         <div className="flex flex-wrap justify-center gap-5 md:gap-8 lg:gap-8 mx-auto">
             {filteredPets.map((pet, index) => (
-                <div className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] first-letter:flex flex-col relative" key={index} onClick={() => navigate(`/petProfile/${pet._id}`)}>
+                <div className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] first-letter:flex flex-col relative" key={index} onClick={() => navigate(`/home/${pet._id}`)}>
                     <div className="absolute top-0 right-0 mt-2 mr-2">
                         <button className="text-white text-sm py-1 px-3 rounded-xl" style={{ backgroundColor: '#4D4295' }}>{pet.status}</button>
                     </div>
                     <div>
-                        <img className="object-cover w-full h-full rounded-t-lg" src={pet.pet_img[0].url} alt={pet.name} />
+                        <img className="object-cover w-full h-full rounded-t-lg" src={pet.pet_id.pet_img[0].url} alt={pet.pet_id.name} />
                     </div>
                     <div className="ml-1 lg:mt-3 lg:ml-3">
                         <h2 className="text-sm font-bold lg:text-[1.3rem] justify-start tracking-tight">{pet.name}</h2>
@@ -38,9 +38,9 @@ const CardsHome = ({ filteredPets }) => {
 
 CardsHome.propTypes = {
     filteredPets: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
     })).isRequired,
-  };
+};
 
 
 export default CardsHome
