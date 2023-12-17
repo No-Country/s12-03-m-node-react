@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../config/envConfig.js";
+import { BASE_URL_FRONT } from "../../config/envConfig.js";
 
 export const routesSessionControllerAPIValue = {
     "/api/session/register": {
@@ -324,7 +324,7 @@ export const routesSessionControllerAPIValue = {
                 Location: {
                   schema: {
                     type: "string",
-                    example: `${BASE_URL}/iniciar-sesion`
+                    example: `${BASE_URL_FRONT}/iniciar-sesion`
                   }
                 }
               }
@@ -440,7 +440,7 @@ export const routesSessionControllerAPIValue = {
                 Location: {
                   schema: {
                     type: "string",
-                    example: `${BASE_URL}/iniciar-sesion`
+                    example: `${BASE_URL_FRONT}/iniciar-sesion`
                   }
                 }
               }
