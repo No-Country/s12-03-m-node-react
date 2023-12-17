@@ -5,7 +5,7 @@ import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 import CreateAd from './CreateAd';
-import { usePetsContext } from '../../context/usePetsContext'
+import { useAlertsContext } from '../../context/useAlertsContext';
 
 
 const Home = () => {
@@ -14,19 +14,21 @@ const Home = () => {
     const handleClose = () => setOpen(false);
 
     const [searchTerm, setSearchTerm] = useState('');
-    const { pets } = usePetsContext(); 
-    console.log(pets);
+
+    const { alerts } = useAlertsContext();
+
+    console.log(alerts);
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredPets = pets ? pets.filter((pet) =>
-        pet.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredPets = alerts ? alerts.filter((alert) =>
+        alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase())
     ) : [];
 
     return (
-        <>        
+        <>
             <div className='bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center'>
                 <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
@@ -79,7 +81,7 @@ const Home = () => {
                     <CardsHome filteredPets={filteredPets} />
 
                     <CreateAd />
-             
+
                 </div>
             </div>
             <FilterModal handleClose={handleClose} open={open} />

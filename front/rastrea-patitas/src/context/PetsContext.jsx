@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { createContext, useEffect, useState } from "react";
-import { getPets } from "../services/api";
+import { getPetByID, getPets } from "../services/api";
 
 const PetsContext = createContext();
 
@@ -10,14 +10,14 @@ const PetsProvider = ({ children }) => {
 	const [pets, setPets] = useState(null);
 	const [pet, setPet] = useState(null);
 
-	const getPetByID = async (_id) => {
+	const getPetData = async (_id) => {
 		try {
-			const petByID = await getPets(`/pet/${_id}`);
-			setPet(petByID);
+			const result = await getPetByID(_id);
+			setPet(result);
 		} catch (error) {
 			console.log(error);
 		}
-	};
+	}
 
 	useEffect(() => {
 		getPets()
@@ -29,7 +29,7 @@ const PetsProvider = ({ children }) => {
 			});
 	}, []);
 
-	return <PetsContext.Provider value={{ pets, setPets, getPetByID, pet, setPet }}>{children}</PetsContext.Provider>;
+	return <PetsContext.Provider value={{ pets, setPets, getPetData }}>{children}</PetsContext.Provider>;
 };
 
 export { PetsContext, PetsProvider };
