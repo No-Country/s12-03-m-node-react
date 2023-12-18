@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import pet1 from "../../assets/images/pet1.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { MdAccountCircle } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
-import qr from "../../assets/qr.svg";
 import logo from "../../assets/logos/logo_RastreaPatitas.svg";
 import { Chip } from "@nextui-org/react";
 import { LiaFileDownloadSolid } from "react-icons/lia";
