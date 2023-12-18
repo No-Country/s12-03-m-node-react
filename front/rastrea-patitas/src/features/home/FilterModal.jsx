@@ -33,8 +33,8 @@ import Cookies from "js-cookie";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
- const [enviar, setEnviar] = useState("");
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [enviar, setEnviar] = useState("");
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -51,7 +51,7 @@ function FilterModal({ handleClose, open, status }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
- 
+
   const statusRadio = [
     { status: "todos", statusReference: "Todos" },
     { status: "lost", statusReference: "Perdido" },
@@ -94,12 +94,16 @@ function FilterModal({ handleClose, open, status }) {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
-   // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {headers: {"Content-Type": "application/json", "Authorization": "Bearer "+Cookies.get("token")} }).then((res) => {})
-
+    // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //     "Authorization": "Bearer " + Cookies.get("token")
+    //   }
+    // }).then((res) => { })
   });
-  const [ position, setPosition ] = useState([])
-const goeArray=Object.values(position)
-console.log(goeArray)
+
+  const [position, setPosition] = useState([])
+  const goeArray = Object.values(position)
   return (
     <>
       <Modal
@@ -137,7 +141,7 @@ console.log(goeArray)
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point") } value={goeArray} checked/>
+                  <input type="radio" {...register("geo_point")} value={goeArray} checked />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
@@ -152,14 +156,14 @@ console.log(goeArray)
                         </section>
                         <Input
                           type="text"
-                          label={  <IconTooltip labelTitle={"Nombre"}  />}
+                          label={<IconTooltip labelTitle={"Nombre"} />}
                           placeholder="Escribe un nombre"
                           color="danger"
                           variant="underlined"
                           className=""
                           {...register("name")}
                         />
-                        <input type="radio" value={status} checked  {...register("status")} hidden/>
+                        <input type="radio" value={status} checked  {...register("status")} hidden />
                       </>
                     )}
 
@@ -209,17 +213,17 @@ console.log(goeArray)
                     <fieldset >
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
-                      {edades.map((element, index) => (
-                        <>
-                          {" "}
-                          <RadioGeneral
-                            key={element.ageReference}
-                            register={register}
-                            type={"age"}
-                            element={element.ageReference}
-                          />{" "}
-                        </>
-                      ))}</div>
+                        {edades.map((element, index) => (
+                          <>
+                            {" "}
+                            <RadioGeneral
+                              key={element.ageReference}
+                              register={register}
+                              type={"age"}
+                              element={element.ageReference}
+                            />{" "}
+                          </>
+                        ))}</div>
                     </fieldset>
 
                     {status && (
@@ -246,7 +250,7 @@ console.log(goeArray)
                         </section>
                         <Input
                           type="text"
-                          label={  <IconTooltip labelTitle={"Carácteristica especial (opcional)"}  />}
+                          label={<IconTooltip labelTitle={"Carácteristica especial (opcional)"} />}
 
                           placeholder="Describe si tenia alguna particularidad"
                           color="danger"
@@ -277,20 +281,20 @@ console.log(goeArray)
                         data={tamañoDelCuerpo}
                       />
                       <div className="flex flex-wrap  justify-between   ">
-                      {tamañoDelCuerpo.map((element, index) => (
-                        <>
-                          {" "}
-                          <RadioGeneral
-                            key={element}
-                            register={register}
-                            type={"size"}
-                            element={element.sizeReference}
-                          />{" "}
-                        </>
-                      ))}</div>
+                        {tamañoDelCuerpo.map((element, index) => (
+                          <>
+                            {" "}
+                            <RadioGeneral
+                              key={element}
+                              register={register}
+                              type={"size"}
+                              element={element.sizeReference}
+                            />{" "}
+                          </>
+                        ))}</div>
                     </fieldset>
-                     <GoogleMaps register={register} setP={setPosition} />              
-                  
+                    <GoogleMaps register={register} setP={setPosition} />
+
                     {status && (
                       <Input
                         type="text"
@@ -304,7 +308,7 @@ console.log(goeArray)
                     )}
                   </ModalBody>
                 </ModalBody>
-                <ModalFooter className= {status?"flex justify-center ": "flex justify-between"}>
+                <ModalFooter className={status ? "flex justify-center " : "flex justify-between"}>
                   <>
                     {!status && (
                       <Button
@@ -318,7 +322,7 @@ console.log(goeArray)
                     )}
                     <Button
                       variant="ghost"
-                      onPress={ onClose}
+                      onPress={onClose}
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
@@ -333,7 +337,7 @@ console.log(goeArray)
           )}
         </ModalContent>
       </Modal>
-      
+
     </>
   );
 }
