@@ -57,7 +57,7 @@ function HambugerMenu() {
               color="moradoMain"
               name="Jason Hughes"
               size="sm"
-              src={user.profile_img.url ? user.profile_img.url : "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
+              src={user.profile_img?.url ? user.profile_img.url : "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
             />
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start">
               {" "}
