@@ -1,14 +1,13 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { SlLocationPin } from "react-icons/sl";
-import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line react/prop-types */
 const CardsHome = ({ filteredPets }) => {
 
     const navigate = useNavigate()
-
 
     return (
         <div className="flex flex-wrap justify-center gap-5 md:gap-8 lg:gap-8 mx-auto">
@@ -35,12 +34,5 @@ const CardsHome = ({ filteredPets }) => {
         </div>
     )
 }
-
-CardsHome.propTypes = {
-    filteredPets: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string.isRequired,
-    })).isRequired,
-};
-
 
 export default CardsHome
