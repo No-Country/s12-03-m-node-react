@@ -4,7 +4,7 @@ import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
 import img from "./images/mostachito.jpeg";
 import { Button, Card } from "@nextui-org/react";
-import InfoLocation from "./infoLocation";
+import InfoLocation from "./InfoLocation";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
@@ -37,7 +37,7 @@ function PetProfile() {
   const registeredAgo = formatDate(alert?.createdAt);
   const state = alert?.status;
   const [editProfile, setEditProfile] = useState(false);
-  const name = "Señor Mostachito";
+
   function handlerEditProfile() {
     setEditProfile(true);
   }
@@ -52,7 +52,7 @@ function PetProfile() {
 
   return (
     <>
-      {/* seccion para pantallas pequeñas */}
+      {/* seccion para pantallas pequeÃ±as */}
       <div className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat max-w-full md:hidden'>
 
         {isLoading ? (
@@ -128,7 +128,7 @@ function PetProfile() {
 
 
       {/* seccion para pantallas medianas y grandes */}
-     <div className='bg-[url("src/assets/bg-patitas.svg")]  bg-repeat  hidden md:block '>
+      <div className='bg-[url("src/assets/bg-patitas.svg")]  bg-repeat  hidden md:block '>
         <div className="flex mx-36 justify-center ">
           <div className=" w-[642px]  ">
             <div className="flex flex-row">
@@ -177,7 +177,7 @@ function PetProfile() {
               )}
             </div>
 
-            <PetCard  editProfile={editProfile} petData={alert} />
+            <PetCard editProfile={editProfile} petData={alert} />
           </div>
 
           <div>
