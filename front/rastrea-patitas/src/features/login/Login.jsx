@@ -53,12 +53,12 @@ const Login = () => {
 
 	useEffect(() => {
 		if (user) {
-			navigate("/home");
+			navigate("/my-pets");
 		}
-	}, [user]);
+	}, [navigate, user]);
 
 	return (
-		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
+		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen flex flex-col justify-center items-center'>
 			<form
 				onSubmit={onSubmit}
 				className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-4 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">

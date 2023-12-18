@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import {
   Navbar,
@@ -20,12 +21,24 @@ import { IoAddCircle } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import ModalAdvertisement from "./ModalAdvertisement";
+import Cookies from "js-cookie";
+import { useUserContext } from "../../context/useUserContext";
 function HambugerMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const { user, setUser } = useUserContext();
+
+  console.log(user)
+
+  const handleLogout = () => {
+    setUser(null);
+    Cookies.remove("token");
+    navigate("/login");
+  }
 
   return (
     <>
@@ -37,18 +50,18 @@ function HambugerMenu() {
       </NavbarContent>
       <NavbarMenu className=" w-48 md:w-1/4 px-0 ">
         <NavbarMenuItem className=" flex gap-4 items-center border-b-1 border-moradoSecundario pl-2 py-6 ">
-          <Link className="flex gap-4" href="#" size="lg">
+          <Link className="flex gap-4" href="#" onClick={() => navigate("/profile")} size="lg">
             <Avatar
               as="button"
               className="transition-transform border-solid border-1  border-moradoMain w-auto"
               color="moradoMain"
               name="Jason Hughes"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={user.profile_img.url ? user.profile_img.url : "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
             />
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start">
               {" "}
-              <p className="text-sm font-medium">Perfil</p>
+              <p className="text-sm font-medium">{user.full_name.split(" ")[0]}</p>
               <p> Editar perfil</p>
             </div>
           </Link>
@@ -70,7 +83,12 @@ function HambugerMenu() {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem className=" flex gap-4 items-center  border-b-1 border-moradoSecundario pl-2 py-6">
-          <Link className="flex gap-4" href="#" size="lg">
+          <Link
+            className="flex gap-4" size="lg"
+            href="#"
+            onClick={() => navigate("/my-pets")}
+
+          >
             <img src={PataIconNav} alt="logo" />
 
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start">
@@ -112,6 +130,7 @@ function HambugerMenu() {
             className="font-['Poppins'] w-full justify-end text-secondary text-xs gap-1 pt-4 border-t-1  "
             href="#"
             size="lg"
+            onClick={handleLogout}
           >
             Cerrar sesión
             <img src={LogoutIconNav} alt="logo" />
