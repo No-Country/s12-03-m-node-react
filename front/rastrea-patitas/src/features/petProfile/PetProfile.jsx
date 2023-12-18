@@ -1,17 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
-import img from "./images/mostachito.jpeg";
 import { Button } from "@nextui-org/react";
-import InfoLocation from "./infoLocation";
+import InfoLocation from "./InfoLocation";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
 import EditPetCharacteristics from "./EditPetCharacteristics";
 import { useParams } from "react-router-dom";
-import { getAlertByID, getPetByID } from "../../services/api";
-
+import { getAlertByID } from "../../services/api";
+import formatDate from "../../utils/formatDate";
 
 function PetProfile() {
   const [alert, setAlert] = useState(null);
@@ -28,13 +27,8 @@ function PetProfile() {
     })
   }, [id]);
 
-  console.log(id)
-  console.log(alert)
-
-  const registeredAgo = "12/12/2023";
-  const state = "En casa";
   const [editProfile, setEditProfile] = useState(false);
-  const name = "Señor Mostachito";
+
   function handlerEditProfile() {
     setEditProfile(true);
   }
@@ -99,13 +93,13 @@ function PetProfile() {
             )}
 
             <div className="mx-5">
-              <p className=" text-lg font-bold  text-letra">{name}</p>
+              <p className=" text-lg font-bold  text-letra">{alert.pet_id.name}</p>
               <p className=" text-sm font-normal text-[#6B7A85]">
-                Registrado el {registeredAgo}
+                Registrado el {formatDate(alert.createdAt)}
               </p>
             </div>
 
-            <InfoLocation ubicacion={"Buenos Aires"} />
+            <InfoLocation ubicacion={alert.last_location} />
 
             <PetState editProfile={editProfile} />
 
@@ -113,15 +107,15 @@ function PetProfile() {
               <EditPetCharacteristics />
             ) : (
               <PetCharacteristics
-                type={"gato"}
-                sex={"macho"}
+                type={alert.pet_id.species}
+                sex={alert.pet_id.sex}
                 eyes={"Ojos claros"}
                 hair={"Pelo corto"}
-                color={"Bicolor"}
+                color={alert.pet_id.main_color}
               />
             )}
 
-            <QrCode />
+            <QrCode qr={alert.pet_id.qr.url} />
 
           </>)}
       </div>
@@ -131,9 +125,9 @@ function PetProfile() {
         <div className="w-2/3 ">
           <div className="flex flex-row">
             <div className="mx-5">
-              <p className=" text-4xl font-bold  text-letra">{name}</p>
+              <p className=" text-4xl font-bold  text-letra">{alert.pet_id.name}</p>
               <p className=" text-xl font-bold text-[#6B7A85]">
-                Registrado el {registeredAgo}
+                Registrado el {formatDate(alert.createdAt)}
               </p>
             </div>
             {!editProfile ? (
