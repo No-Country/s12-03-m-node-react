@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <MyPetsStatus />,
       },
       {
-        path: "/my-pets/:status/:id",
+        path: "/my-pets/registered/:id",
         element: <PetProfile />
       },
       {

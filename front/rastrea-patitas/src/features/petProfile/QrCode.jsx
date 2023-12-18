@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Button } from "@nextui-org/button";
 import { Tooltip } from "@nextui-org/react";
 import React from "react";
 import { BsFillInfoCircleFill } from "react-icons/bs";
-import qr from "./images/qrCode.svg";
 
-function QrCode(props) {
+function QrCode({ qr }) {
   return (
     <div>
       <div className=" flex flex-row">
