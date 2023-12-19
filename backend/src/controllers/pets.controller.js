@@ -33,6 +33,7 @@ export const getPetById = async (req, res, next) => {
 };
 
 export const createPet = async (req, res, next) => {
+  console.log(req.files)
   try {
     let petImages
     if (req.files) {

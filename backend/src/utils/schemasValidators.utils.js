@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Age, Size } from "./constans.js";
+import { Age, Size, geoPointSchema } from "./constans.js";
 
 const usersSchemaValidator = z.object({
     full_name: z.string({
@@ -28,11 +28,8 @@ const usersSchemaValidator = z.object({
 });
 
 const alertsSchemaValidator = z.object({
-    date: z.date().optional(),
-    alert_description: z.string({
-        invalid_type_error: 'La descripcion debe ser un String',
-        required_error: 'La descripcion es requerida'
-    }).trim().min(1).max(300),
+    date: z.string().optional(),
+    alert_description: z.string().trim().max(300).optional(),
     status: z.string({
         invalid_type_error: 'El status debe ser un String',
         required_error: 'El status requerido'
@@ -40,12 +37,8 @@ const alertsSchemaValidator = z.object({
     last_location: z.string({
         invalid_type_error: 'La localización debe ser un string',
     }).optional(),
-    geo_point: z.array(z.number()).refine(data => data.length === 2, {
-        message: 'El Arreglo es requerido y debe tener exactamente dos elementos'
-    }),
-    special_characteristics: z.string({
-        invalid_type_error: 'Las caracterísiticas deben ser un string',
-    }).optional(),
+    geo_point: z.array(z.number()).optional(),
+    special_characteristics: z.string().trim().optional(),
 });
 
 const petsSchemaValidator = z.object({

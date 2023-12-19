@@ -91,19 +91,56 @@ function FilterModal({ handleClose, open, status }) {
     { size: "61 - 75 cm", sizeReference: "Grande" },
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
+  
+  const [ position, setPosition ] = useState([])
+const geoArray=Object.values(position)
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     "Authorization": "Bearer " + Cookies.get("token")
-    //   }
-    // }).then((res) => { })
+
+  const onSubmit =  handleSubmit(async (formData) => {
+
+    console.log(position)
+    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
+    console.log(geo_point)
+
+  try {
+    const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + Cookies.get("token")
+        }
+    });
+
+
+    console.log('Respuesta del servidor para /api/pets:', petResponse);
+    const alertData = {
+      pet_id: petResponse.data._id, 
+      geo_point,    
+      status: formData.status,     
+      date: new Date().toISOString(),
+      alert_description: formData?.alert_description,    
+      special_characteristics: formData?.special_characteristics,
+  };
+  console.log(alertData)
+
+    if (petResponse.status === 201) {
+        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + Cookies.get("token")
+            }
+        });
+
+        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+    } else {
+        // Manejar el caso en que la primera solicitud no fue exitosa
+        console.log('La primera solicitud no fue exitosa:', petResponse);
+    }
+} catch (error) {
+    console.error('Error en la solicitud:', error);
+}
+
   });
 
-  const [position, setPosition] = useState([])
-  const goeArray = Object.values(position)
   return (
     <>
       <Modal
@@ -141,16 +178,16 @@ function FilterModal({ handleClose, open, status }) {
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point")} value={goeArray} checked />
+                  <input type="radio" {...register("geo_point")} checked />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <SelectImg register={register} name={"img"} />
-                            <SelectImg register={register} name={"img2"} />
-                            <SelectImg register={register} name={"img3"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -293,7 +330,7 @@ function FilterModal({ handleClose, open, status }) {
                           </>
                         ))}</div>
                     </fieldset>
-                    <GoogleMaps register={register} setP={setPosition} />
+                    <GoogleMaps register={register} />
 
                     {status && (
                       <Input
@@ -341,4 +378,5 @@ function FilterModal({ handleClose, open, status }) {
     </>
   );
 }
-export default FilterModal;
+
+export default FilterModal

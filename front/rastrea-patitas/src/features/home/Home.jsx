@@ -18,8 +18,6 @@ const Home = () => {
 
     const { alerts } = useAlertsContext();
 
-    console.log(alerts);
-
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -29,11 +27,11 @@ const Home = () => {
     };
 
     const filteredPets = alerts
-    ? alerts.filter((alert) =>
-          (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
-          (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
-    : [];
+        ? alerts.filter((alert) =>
+            (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
+            (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+        : [];
 
     return (
         <>
@@ -77,7 +75,7 @@ const Home = () => {
                                     onClick={() => handleFilterChange('reunido')} >
                                     <div className="text-black text-sm lg:text-[1rem] leading-tight">Reunidos</div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

@@ -47,6 +47,7 @@ export const getAlertById = async (req, res, next) => {
 
 // ------Crear un nuevo registro-----
 export const createAlert = async (req, res, next) => {
+  console.log(req.body)
   try {
     const { _id } = req.user
     const ownedPets = await Pets.find({ user_id: _id })
