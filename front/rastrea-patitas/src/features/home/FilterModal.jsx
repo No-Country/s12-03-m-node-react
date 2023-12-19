@@ -94,27 +94,50 @@ function FilterModal({ handleClose, open, status }) {
   
   const [ position, setPosition ] = useState([])
 const geoArray=Object.values(position)
-console.log(geoArray)
+
 
   const onSubmit =  handleSubmit(async (formData) => {
 
-    const data = {
-      ...formData,
-      geo_point: [position] 
+    console.log(position)
+    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
+    console.log(geo_point)
+
+  try {
+    const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + Cookies.get("token")
+        }
+    });
+
+
+    console.log('Respuesta del servidor para /api/pets:', petResponse);
+    const alertData = {
+      pet_id: petResponse.data._id, 
+      geo_point,    
+      status: formData.status,     
+      date: new Date().toISOString(),
+      alert_description: formData?.alert_description,    
+      special_characteristics: formData?.special_characteristics,
   };
+  console.log(alertData)
 
-
-    try {
-        const response = await axios.post("http://localhost:4000/api/alerts", data, {
+    if (petResponse.status === 201) {
+        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
             headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
                 "Authorization": "Bearer " + Cookies.get("token")
             }
         });
-        console.log('Respuesta del servidor:', response);  
-    } catch (error) {
-        console.error('Error en la solicitud:', error);
+
+        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+    } else {
+        // Manejar el caso en que la primera solicitud no fue exitosa
+        console.log('La primera solicitud no fue exitosa:', petResponse);
     }
+} catch (error) {
+    console.error('Error en la solicitud:', error);
+}
   });
   return (
     <>
@@ -160,9 +183,9 @@ console.log(geoArray)
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <SelectImg register={register} name={"img"} />
-                            <SelectImg register={register} name={"img2"} />
-                            <SelectImg register={register} name={"img3"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
