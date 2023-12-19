@@ -102,8 +102,6 @@ function FilterModal({ handleClose, open, status }) {
     // }).then((res) => { })
   });
 
-  const [position, setPosition] = useState([])
-  const goeArray = Object.values(position)
   return (
     <>
       <Modal
@@ -141,7 +139,7 @@ function FilterModal({ handleClose, open, status }) {
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point")} value={goeArray} checked />
+                  <input type="radio" {...register("geo_point")} checked />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
@@ -293,7 +291,7 @@ function FilterModal({ handleClose, open, status }) {
                           </>
                         ))}</div>
                     </fieldset>
-                    <GoogleMaps register={register} setP={setPosition} />
+                    <GoogleMaps register={register} />
 
                     {status && (
                       <Input
