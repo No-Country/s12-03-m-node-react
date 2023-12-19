@@ -6,7 +6,7 @@ import imgMap from "./images/map.jpg";
 import { Button } from "@nextui-org/button";
 import { FaLocationDot } from "react-icons/fa6";
 
-function GoogleMaps({ lati, lngi, register }) {
+function GoogleMaps({ lati, lngi }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDW-ygtqIfSe5TbV3gSQtLoCMOHsrFsYkE",
   });
@@ -40,7 +40,7 @@ function GoogleMaps({ lati, lngi, register }) {
   return (
     <div className="w-full flex justify-center items-center">
       {!openMap ? (
-        <div className="w-[328px] h-52 mb-8 relative">
+        <div className="w-[328px] h-52 mb-8 relative  md:w-[400px] md:h-[220px]">
           <img
             className="mb-3 w-full h-full object-cover"
             src={imgMap}
@@ -61,7 +61,6 @@ function GoogleMaps({ lati, lngi, register }) {
               center={position || { lat: 0, lng: 0 }}
               zoom={12}
               mapContainerStyle={{ width: "100%", height: "100%" }}
-
             >
               {/* Marcadores aquí */}
               {/* <MarkerF position={{ lat: lati, lng: lngi }} /> */}

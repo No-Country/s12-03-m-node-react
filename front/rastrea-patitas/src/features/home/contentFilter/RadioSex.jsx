@@ -9,7 +9,7 @@ function RadioSex({ register, element, type, typeIcon }) {
   const [hover, setHover]= useState(false)
   return (
     <>
-      <div className="relative flex justify-center items-center">
+    
         <input
           type="radio"
           name=""
@@ -25,7 +25,7 @@ function RadioSex({ register, element, type, typeIcon }) {
           {typeIcon === "IconHembra" && <Hembra hover={hover} />}
           {typeIcon === "IconMacho" && <Macho hover={hover} />}
         </label>
-      </div>
+      
     </>
   );
 }
