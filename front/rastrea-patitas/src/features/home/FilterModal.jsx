@@ -339,4 +339,3 @@ function FilterModal({ handleClose, open, status }) {
     </>
   );
 }
-export default FilterModal;
