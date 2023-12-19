@@ -30,11 +30,16 @@ import ConfirmModal from "../newAdvertisement/ConfirmModal";
 import GoogleMaps from "../petProfile/GoogleMaps";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import PublicationMade from "../newAdvertisement/PublicationMade";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [enviar, setEnviar] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -42,6 +47,7 @@ function FilterModal({ handleClose, open, status }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
@@ -91,56 +97,74 @@ function FilterModal({ handleClose, open, status }) {
     { size: "61 - 75 cm", sizeReference: "Grande" },
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
-  
-  const [ position, setPosition ] = useState([])
-const geoArray=Object.values(position)
 
+  const [position, setPosition] = useState([]);
+  const geoArray = Object.values(position);
 
-  const onSubmit =  handleSubmit(async (formData) => {
-
-    console.log(position)
+  const onSubmit = handleSubmit(async (formData) => {
+    console.log(position);
     const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
-    console.log(geo_point)
+    console.log(geo_point);
+    console.log(formData);
 
-  try {
-    const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
-        headers: {
+    try {
+      const petResponse = await axios.post(
+        "http://localhost:4000/api/pets",
+        formData,
+        {
+          headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": "Bearer " + Cookies.get("token")
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
         }
-    });
+      );
 
+      console.log("Respuesta del servidor para /api/pets:", petResponse);
+      const alertData = {
+        pet_id: petResponse.data._id,
+        geo_point,
+        status: formData.status,
+        date: new Date().toISOString(),
+        alert_description: formData?.alert_description,
+        special_characteristics: formData?.special_characteristics,
+      };
+      console.log(alertData);
 
-    console.log('Respuesta del servidor para /api/pets:', petResponse);
-    const alertData = {
-      pet_id: petResponse.data._id, 
-      geo_point,    
-      status: formData.status,     
-      date: new Date().toISOString(),
-      alert_description: formData?.alert_description,    
-      special_characteristics: formData?.special_characteristics,
-  };
-  console.log(alertData)
-
-    if (petResponse.status === 201) {
-        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
+      if (petResponse.status === 201) {
+        const alertResponse = await axios.post(
+          "http://localhost:4000/api/alerts",
+          alertData,
+          {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + Cookies.get("token")
-            }
-        });
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + Cookies.get("token"),
+            },
+          }
+        );
 
-        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
-    } else {
+        console.log("Respuesta del servidor para /api/alerts:", alertResponse);
+      } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
-        console.log('La primera solicitud no fue exitosa:', petResponse);
+        console.log("La primera solicitud no fue exitosa:", petResponse);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
     }
-} catch (error) {
-    console.error('Error en la solicitud:', error);
-}
-
   });
+  const handleButtonClick = () => {
+    setShowModal(true);
 
+    // Establecer un temporizador para ocultar el modal después de 3 segundos
+    const timer = setTimeout(() => {
+      setShowModal(false);
+
+      // Redirigir a otra página después de ocultar el modal
+      navigate("/");
+    }, 3000);
+
+    // Limpiar el temporizador al desmontar el componente
+    return () => clearTimeout(timer);
+  };
   return (
     <>
       <Modal
@@ -167,7 +191,7 @@ const geoArray=Object.values(position)
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">
                       {statusRadio.map((element, index) => (
-                        <div key={element.status + index} className=" flex  " >
+                        <div key={element.status + index} className=" flex  ">
                           <RadioGeneral
                             key={element.status + index}
                             register={register}
@@ -186,8 +210,6 @@ const geoArray=Object.values(position)
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
                             <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -200,7 +222,13 @@ const geoArray=Object.values(position)
                           className=""
                           {...register("name")}
                         />
-                        <input type="radio" value={status} checked  {...register("status")} hidden />
+                        <input
+                          type="radio"
+                          value={status}
+                          checked
+                          {...register("status")}
+                          hidden
+                        />
                       </>
                     )}
 
@@ -234,8 +262,9 @@ const geoArray=Object.values(position)
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
                           <div
-                          key={element.sex} className="relative flex justify-center items-center">
-                            
+                            key={element.sex}
+                            className="relative flex justify-center items-center"
+                          >
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -249,12 +278,11 @@ const geoArray=Object.values(position)
                       </section>
                     </fieldset>
 
-                    <fieldset >
+                    <fieldset>
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <div 
-                          key={element.ageReference} className=" flex  ">
+                          <div key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -263,7 +291,8 @@ const geoArray=Object.values(position)
                               element={element.ageReference}
                             />{" "}
                           </div>
-                        ))}</div>
+                        ))}
+                      </div>
                     </fieldset>
 
                     {status && (
@@ -273,7 +302,7 @@ const geoArray=Object.values(position)
                           <p>Apariencia</p>
                           <section className="flex gap-4">
                             <SelectFilter
-                            label={"Pelo"}
+                              label={"Pelo"}
                               data={pelo}
                               placeholder={"Pelo"}
                               register={register}
@@ -292,8 +321,11 @@ const geoArray=Object.values(position)
                         </section>
                         <Input
                           type="text"
-                          label={<IconTooltip labelTitle={"Carácteristica especial (opcional)"} />}
-
+                          label={
+                            <IconTooltip
+                              labelTitle={"Carácteristica especial (opcional)"}
+                            />
+                          }
                           placeholder="Describe si tenia alguna particularidad"
                           color="danger"
                           variant="underlined"
@@ -306,7 +338,10 @@ const geoArray=Object.values(position)
                       <legend>Color principal</legend>
                       <section className="flex flex-wrap  justify-between   ">
                         {coloresDelCuerpo.map((element, index) => (
-                          <div key={element} className="relative flex justify-center items-center " >
+                          <div
+                            key={element}
+                            className="relative flex justify-center items-center "
+                          >
                             {" "}
                             <RadioColor
                               key={element}
@@ -324,7 +359,7 @@ const geoArray=Object.values(position)
                       />
                       <div className="flex flex-wrap  justify-between   ">
                         {tamañoDelCuerpo.map((element, index) => (
-                          <div  key={element.size} className=" flex  ">
+                          <div key={element.size} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element}
@@ -333,7 +368,8 @@ const geoArray=Object.values(position)
                               element={element.sizeReference}
                             />{" "}
                           </div>
-                        ))}</div>
+                        ))}
+                      </div>
                     </fieldset>
                     <GoogleMaps register={register} />
 
@@ -350,7 +386,11 @@ const geoArray=Object.values(position)
                     )}
                   </ModalBody>
                 </ModalBody>
-                <ModalFooter className={status ? "flex justify-center " : "flex justify-between"}>
+                <ModalFooter
+                  className={
+                    status ? "flex justify-center " : "flex justify-between"
+                  }
+                >
                   <>
                     {!status && (
                       <Button
@@ -364,7 +404,13 @@ const geoArray=Object.values(position)
                     )}
                     <Button
                       variant="ghost"
-                      onPress={onClose}
+                      onPress={
+                        status
+                          ? () => {
+                              handleButtonClick(), onClose();
+                            }
+                          : onClose
+                      }
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
@@ -379,9 +425,12 @@ const geoArray=Object.values(position)
           )}
         </ModalContent>
       </Modal>
-
+      <Modal isOpen={showModal} backdrop="blur">
+        {" "}
+        <ModalContent>{(onClose) => <PublicationMade />}</ModalContent>
+      </Modal>
     </>
   );
 }
 
-export default FilterModal
+export default FilterModal;

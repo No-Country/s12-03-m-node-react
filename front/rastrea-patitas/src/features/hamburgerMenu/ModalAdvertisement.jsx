@@ -56,7 +56,7 @@ function ModalAdvertisement({ handleClose, open }) {
                 <p>Elige la opción que deseas anunciar.</p>
                 <Link
                   onClick={() => {
-                    handleOpenAdvertusement(), handleStatusLost();
+                    handleOpenAdvertusement(), handleStatusLost();onClose()
                   }}
                   className="bg-moradoActivo  flex-col items-start h-1/3 px-4 py-6 rounded-2xl text-letra"
                 >
@@ -67,7 +67,7 @@ function ModalAdvertisement({ handleClose, open }) {
                 </Link>
                 <Link
                   onClick={() => {
-                    handleOpenAdvertusement(), handleStatusFound();
+                    handleOpenAdvertusement(), handleStatusFound();onClose()
                   }}
                   className="bg-moradoActivo flex-col items-start h-1/3 px-4 py-6 rounded-2xl text-letra"
                 >
