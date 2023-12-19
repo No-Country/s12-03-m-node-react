@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useUserContext } from "../../context/useUserContext";
 
 import Cookie from "js-cookie";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -58,6 +59,10 @@ const Login = () => {
 	}, [navigate, user]);
 
 	return (
+		<>
+		<Helmet>
+       	 <title>Login | Rastrea Patitas</title>
+		</Helmet>
 		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen flex flex-col justify-center items-center'>
 			<form
 				onSubmit={onSubmit}
@@ -120,7 +125,7 @@ const Login = () => {
 					</span>
 				</h3>
 			</form>
-		</div>
+		</div></>
 	);
 };
 

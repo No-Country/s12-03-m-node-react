@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
 import { useUserContext } from '../../context/useUserContext';
 import { useAlertsContext } from '../../context/useAlertsContext'
+import { Helmet } from 'react-helmet';
 
 const MyPets = () => {
   const navigate = useNavigate();
@@ -19,6 +20,10 @@ const MyPets = () => {
   const metPets = userAlerts.filter((alert) => alert.status === 'reunido');
 
   return (
+    <>
+    <Helmet>
+        <title>Mis Mascotas | Rastrea Patitas</title>
+    </Helmet>
     <div className='w-[336px] md:w-screen h-auto flex flex-col items-left md:items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
       <h1 className='font-poppins text-xl font-bold leading-5 tracking-tight'>Mis mascotas</h1>
 
@@ -55,7 +60,7 @@ const MyPets = () => {
         {metPets.map((pet) => <PetCard key={pet._id} petData={pet} />)}
       </div>
     </div>
-
+    </>
   )
 }
 

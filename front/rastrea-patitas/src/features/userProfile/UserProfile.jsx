@@ -4,6 +4,7 @@ import ProfilePhoto from './ProfilePhoto';
 import UserDetailsCard from './UserDetailsCard';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/useUserContext';
+import { Helmet } from 'react-helmet';
 
 
 const UserProfile = () => {
@@ -13,6 +14,10 @@ const UserProfile = () => {
   const { user } = useUserContext();
 
   return (
+    <>
+    <Helmet>
+        <title>Mi Perfil | Rastrea Patitas</title>
+    </Helmet>
     <div className='mx-auto pb-8 w-[360px]'>
       <ProfilePhoto />
       <div className='mb-3'>
@@ -55,6 +60,7 @@ const UserProfile = () => {
       </div>
 
     </div>
+    </>
   );
 };
 

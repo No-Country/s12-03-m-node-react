@@ -6,6 +6,7 @@ import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 import CreateAd from './CreateAd';
 import { useAlertsContext } from '../../context/useAlertsContext';
+import { Helmet } from 'react-helmet';
 
 
 const Home = () => {
@@ -35,6 +36,9 @@ const Home = () => {
 
     return (
         <>
+             <Helmet>
+                 <title>Home | Rastrea Patitas</title>
+             </Helmet>   
             <div className='bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center'>
                 <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
