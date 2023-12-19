@@ -106,10 +106,6 @@ function FilterModal({ handleClose, open, status }) {
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
 
-  const [position, setPosition] = useState([])
-  const geoArray = Object.values(position)
-
-
   const onSubmit = handleSubmit(async (formData) => {
 
     console.log(position)
