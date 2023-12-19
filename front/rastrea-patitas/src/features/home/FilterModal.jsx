@@ -94,7 +94,7 @@ function FilterModal({ handleClose, open, status }) {
   ];
 
   const onSubmit = handleSubmit(async (formData) => {
-    const geo_point = [position.lat, position.lng];
+    const geo_point = [position?.lat, position?.lng];
 
     try {
       const petResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/pets", formData, {
