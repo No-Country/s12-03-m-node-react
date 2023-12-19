@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:4000/api";
+const URL = "https://s12-03-m-node-react.vercel.app/api";
 
 const getUsers = async () => {
 	try {
