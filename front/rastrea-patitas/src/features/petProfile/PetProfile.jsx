@@ -14,6 +14,7 @@ import { getAlertByID } from "../../services/api";
 import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
 import GoogleMaps from "./GoogleMaps";
+import { Helmet } from "react-helmet";
 
 
 function PetProfile() {
@@ -52,6 +53,9 @@ function PetProfile() {
 
   return (
     <>
+    <Helmet>
+        <title>Perfil | Rastrea Patitas</title>
+    </Helmet>
       {/* seccion para pantallas pequeÃ±as */}
       <div className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat max-w-full md:hidden'>
 
