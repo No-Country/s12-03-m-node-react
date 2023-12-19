@@ -8,14 +8,25 @@ import Pets from '../models/Pets.js';
 //------ Obtener todos los registros-------
 export const getAllAlerts = async (req, res, next) => {
   try {
-    const { filter } = req.query
+    const { status, age, species, breed, main_color, sex, size, hair, eyes } = req.query
+    const basicFilters = { age, species, breed, main_color, sex, size, hair, eyes }
     let alerts
-    if(filter){
-      alerts = await Alerts.find({ status: filter}).populate('pet_id');;
+    if(status){
+      alerts = await Alerts.find({status}).populate('pet_id').lean();
     }else{
-      alerts = await Alerts.find().populate('pet_id');;
+      alerts = await Alerts.find().populate('pet_id').lean();
     }
-    return res.status(HttpCodes.CODE_SUCCESS).json(alerts);
+    const filteredAlerts = alerts.filter(alert => {
+      const pet = alert.pet_id;
+      for (const field in basicFilters) {
+        if (basicFilters[field] !== undefined && pet[field] !== basicFilters[field]) {
+          return false;
+        }
+      }
+    
+      return true;
+    });
+    return res.status(HttpCodes.CODE_SUCCESS).json(filteredAlerts);
   } catch (error) {
     next(error)
   }
