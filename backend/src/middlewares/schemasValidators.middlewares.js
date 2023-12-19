@@ -3,11 +3,12 @@ import { removeTempFiles } from "../utils/fsDelete.js";
 
 export const validateSchema = (schema) =>
     (req, res, next) => {
+        console.log(req.body)
         try {
             schema.parse(req.body);
             next();
         } catch (error) {
-
+            console.log(error)
             if (req.files && req.files.pet_img) removeTempFiles(req.files.pet_img)
 
             if (error instanceof ZodError) {

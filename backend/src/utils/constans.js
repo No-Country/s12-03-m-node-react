@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export const Age = {
     Cachorro: "Cachorro",
     Joven: "Joven",
@@ -12,3 +14,8 @@ export const Size = {
     Grande: "Grande",
     ExtraGrande: "Extra grande",
 };
+
+export const geoPointSchema = z.object({
+    lat: z.number(),
+    lng: z.number()
+});
