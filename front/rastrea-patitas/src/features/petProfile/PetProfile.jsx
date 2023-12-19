@@ -10,7 +10,7 @@ import {
   Card,
   Chip,
 } from "@nextui-org/react";
-import InfoLocation from "./infoLocation";
+import InfoLocation from "./InfoLocation";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
@@ -134,8 +134,8 @@ function PetProfile() {
 
       {/* seccion para pantallas medianas y grandes */}
       <div className='bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen'>
-        <div  className="hidden md:block">
-         
+        <div className="hidden md:block">
+
           <div className="flex mx-36 justify-center ">
             <div className=" w-[642px]  ">
               <div className="flex flex-row">
@@ -147,18 +147,18 @@ function PetProfile() {
                     Registrado el {registeredAgo}
                   </p>
                 </div>
-               
-                  <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
-                    <Button
-                      color="primary"
-                      variant="bordered"
-                      className="border-moradoMain text-letra font-medium w-36 "
-                    >
-                      Eliminar perfil
-                    </Button>
-                   <ModalBlur pet ={alert}/> {/**boton editar perfil */}
-                  </div>
-                
+
+                <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
+                  <Button
+                    color="primary"
+                    variant="bordered"
+                    className="border-moradoMain text-letra font-medium w-36 "
+                  >
+                    Eliminar perfil
+                  </Button>
+                  <ModalBlur pet={alert} /> {/**boton editar perfil */}
+                </div>
+
               </div>
 
               <PetCard editProfile={editProfile} petData={alert} />
