@@ -88,7 +88,7 @@ function HambugerMenu2() {
         </NavbarMenuItem>
 
         <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-6">
-          <Link className="flex gap-4" href="#" size="lg" onClick={handleOpen}>
+          <Link className="flex gap-4" href="#" size="lg" onClick={() => navigate("/login")}>
             <IoAddCircle size={24} color="#4D4295" />
 
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start md:text-base">
