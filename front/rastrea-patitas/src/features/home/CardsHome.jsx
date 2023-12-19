@@ -17,7 +17,7 @@ const CardsHome = ({ filteredPets }) => {
             {filteredPets.map((pet, index) => {
 
                 const dateCreatedAt = moment(pet.createdAt);
-                const diffDays = now.diff(dateCreatedAt, 'days'); 
+                const diffDays = now.diff(dateCreatedAt, 'days');
 
                 const BUTTON_COLOR = {
                     perdido: '#4D4295',
@@ -30,10 +30,10 @@ const CardsHome = ({ filteredPets }) => {
                 return (
                     <div className="bg-white rounded-lg shadow-md w-[154px] h-[192px] lg:w-[251px] lg:h-[300px] relative transition ease-in-out transform hover:shadow-2xl cursor-pointer " key={index} onClick={() => navigate(`/home/${pet._id}`)}>
                         <div className="absolute top-0 right-0 mt-2 mr-2">
-                        <button className={`text-sm py-1 px-3 rounded-xl ${pet.status === 'encontrado' ? 'text-black' : 'text-white'}`} style={{ backgroundColor: buttonColor }}>{pet.status.charAt(0).toUpperCase() + pet.status.slice(1)}</button>
+                            <button className={`text-sm py-1 px-3 rounded-xl ${pet.status === 'encontrado' ? 'text-black' : 'text-white'}`} style={{ backgroundColor: buttonColor }}>{pet.status.charAt(0).toUpperCase() + pet.status.slice(1)}</button>
                         </div>
                         <div>
-                            <img className="object-cover w-full h-full rounded-t-lg" src={pet.pet_id.pet_img[0].url} alt={pet.pet_id.name} />
+                            <img className="object-cover w-full h-full rounded-t-lg" src={pet.pet_id.pet_img[0]?.url} alt={pet.pet_id.name} />
                         </div>
                         <div className="ml-1 lg:mt-3 lg:ml-3">
                             <h2 className="text-sm font-bold lg:text-[1.3rem] justify-start tracking-tight">{pet.pet_id.name}</h2>
