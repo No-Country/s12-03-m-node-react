@@ -33,8 +33,8 @@ import Cookies from "js-cookie";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
- const [enviar, setEnviar] = useState("");
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [enviar, setEnviar] = useState("");
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -51,7 +51,7 @@ function FilterModal({ handleClose, open, status }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
- 
+
   const statusRadio = [
     { status: "todos", statusReference: "Todos" },
     { status: "lost", statusReference: "Perdido" },
@@ -168,14 +168,14 @@ console.log(geoArray)
                         </section>
                         <Input
                           type="text"
-                          label={  <IconTooltip labelTitle={"Nombre"}  />}
+                          label={<IconTooltip labelTitle={"Nombre"} />}
                           placeholder="Escribe un nombre"
                           color="danger"
                           variant="underlined"
                           className=""
                           {...register("name")}
                         />
-                        <input type="radio" value={status} checked  {...register("status")} hidden/>
+                        <input type="radio" value={status} checked  {...register("status")} hidden />
                       </>
                     )}
 
@@ -225,17 +225,17 @@ console.log(geoArray)
                     <fieldset >
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
-                      {edades.map((element, index) => (
-                        <>
-                          {" "}
-                          <RadioGeneral
-                            key={element.ageReference}
-                            register={register}
-                            type={"age"}
-                            element={element.ageReference}
-                          />{" "}
-                        </>
-                      ))}</div>
+                        {edades.map((element, index) => (
+                          <>
+                            {" "}
+                            <RadioGeneral
+                              key={element.ageReference}
+                              register={register}
+                              type={"age"}
+                              element={element.ageReference}
+                            />{" "}
+                          </>
+                        ))}</div>
                     </fieldset>
 
                     {status && (
@@ -262,7 +262,7 @@ console.log(geoArray)
                         </section>
                         <Input
                           type="text"
-                          label={  <IconTooltip labelTitle={"Carácteristica especial (opcional)"}  />}
+                          label={<IconTooltip labelTitle={"Carácteristica especial (opcional)"} />}
 
                           placeholder="Describe si tenia alguna particularidad"
                           color="danger"
@@ -293,20 +293,20 @@ console.log(geoArray)
                         data={tamañoDelCuerpo}
                       />
                       <div className="flex flex-wrap  justify-between   ">
-                      {tamañoDelCuerpo.map((element, index) => (
-                        <>
-                          {" "}
-                          <RadioGeneral
-                            key={element}
-                            register={register}
-                            type={"size"}
-                            element={element.sizeReference}
-                          />{" "}
-                        </>
-                      ))}</div>
+                        {tamañoDelCuerpo.map((element, index) => (
+                          <>
+                            {" "}
+                            <RadioGeneral
+                              key={element}
+                              register={register}
+                              type={"size"}
+                              element={element.sizeReference}
+                            />{" "}
+                          </>
+                        ))}</div>
                     </fieldset>
-                     <GoogleMaps register={register} setP={setPosition} />              
-                  
+                    <GoogleMaps register={register} setP={setPosition} />
+
                     {status && (
                       <Input
                         type="text"
@@ -320,7 +320,7 @@ console.log(geoArray)
                     )}
                   </ModalBody>
                 </ModalBody>
-                <ModalFooter className= {status?"flex justify-center ": "flex justify-between"}>
+                <ModalFooter className={status ? "flex justify-center " : "flex justify-between"}>
                   <>
                     {!status && (
                       <Button
@@ -334,7 +334,7 @@ console.log(geoArray)
                     )}
                     <Button
                       variant="ghost"
-                      onPress={ onClose}
+                      onPress={onClose}
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
@@ -349,7 +349,7 @@ console.log(geoArray)
           )}
         </ModalContent>
       </Modal>
-      
+
     </>
   );
 }

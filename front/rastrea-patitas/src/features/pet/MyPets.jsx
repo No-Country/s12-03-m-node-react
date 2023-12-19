@@ -1,9 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from 'react'
-import pet1 from '../../assets/images/pet1.png'
-import pet2 from '../../assets/images/pet2.png'
-import pet3 from '../../assets/images/pet3.png'
-import pet4 from '../../assets/images/pet4.png'
+import React from 'react'
 import PetCard from './PetCard';
 import RegisteredPetCard from './RegisteredPetCard';
 import heart from '../../assets/icons/heart.svg'
@@ -12,22 +8,15 @@ import { IoMdAddCircle } from "react-icons/io";
 import { useUserContext } from '../../context/useUserContext';
 import { useAlertsContext } from '../../context/useAlertsContext'
 
-
 const MyPets = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
-
-
-
   const { alerts } = useAlertsContext();
-  console.log(alerts.user_id);
-  console.log(user._id)
+
   const userAlerts = alerts.filter((alert) => alert.user_id === user._id);
   const lostPets = userAlerts.filter((alert) => alert.status === 'perdido');
   const foundPets = userAlerts.filter((alert) => alert.status === 'encontrado');
   const metPets = userAlerts.filter((alert) => alert.status === 'reunido');
-
-  console.log(userAlerts)
 
   return (
     <div className='w-[336px] md:w-screen h-auto flex flex-col items-left md:items-center bg-[url("/src/assets/bg-patitas.svg")] m-3'>
