@@ -6,12 +6,13 @@ import { FaFacebook } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../services/api';
-
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [isVisible, setIsVisible] = useState(false)
   const { handleSubmit, register, formState: { errors }, getValues } = useForm()
+
+  const navigate = useNavigate()
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible)
@@ -19,12 +20,7 @@ const Register = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data)
-    // try {
-    //   const response = await registerUser(data)
-    //   console.log(response)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    navigate("/register/data", { state: data })
   })
 
   return (
