@@ -12,7 +12,7 @@ export const routesAlertControllerAPIValue = {
               schema: {
                 type: "array",
                 items: {
-                  $ref: "#/alertComponents/schemas/Alert"
+                  $ref: "#/components/schemas/Alert"
                 }
               }
             }
@@ -91,7 +91,7 @@ export const routesAlertControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/aletComponents/schemas/Alet"
+                $ref: "#/components/schemas/Alet"
               }
             }
           }
@@ -184,7 +184,7 @@ export const routesAlertControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/alertComponents/schemas/Alert"
+                $ref: "#/components/schemas/Alert"
               }
             }
           }
@@ -391,7 +391,7 @@ export const routesAlertControllerAPIValue = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/alertComponents/schemas/Alert"
+                $ref: "#/components/schemas/Alert"
               }
             }
           }
