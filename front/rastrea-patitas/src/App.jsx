@@ -54,8 +54,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/home/:id",
-        element: <PetProfile />
-      },
+        element: <LostAndFound />
+      }
+      
     ],
   },
 
