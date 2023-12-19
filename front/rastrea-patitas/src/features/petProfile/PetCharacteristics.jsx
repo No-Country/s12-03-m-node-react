@@ -38,7 +38,7 @@ function PetCharacteristics({ pet }) {
                     <BreadcrumbItem>Ojos</BreadcrumbItem>
                   </Breadcrumbs>{" "}
                 </li>{" "}
-                <Chip className=" bg-moradoActivo mb-2">{'eyes:sin informacion'}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{'marron'}</Chip>
               </div>
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
@@ -53,7 +53,7 @@ function PetCharacteristics({ pet }) {
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
                 <li className="text-sm font-bold list-none"> Edad</li>
-                <li className="text-sm font-normal list-none">1-2(nose)</li>{" "}
+               
                 {/* //nose como viene de back */}
                 <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.age}</Chip>{" "}
                 {/* //nose como viene de back */}
