@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://s12-03-m-node-react.vercel.app/api";
+const URL = "http://localhost:4000/api";
 
 const getUsers = async () => {
 	try {
@@ -55,7 +55,9 @@ const login = async (data) => {
 				"Content-Type": "application/json",
 			},
 		});
-		return result.data;
+		console.log(result);
+		const { token, user } = result.data;
+		return { token, user };
 	} catch (error) {
 		return error.response;
 	}

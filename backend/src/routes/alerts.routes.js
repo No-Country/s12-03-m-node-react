@@ -3,7 +3,7 @@ import { getAllAlerts, getAlertById,  createAlert, updateAlertById, deleteAlertB
 import validateSchema from '../middlewares/schemasValidators.middlewares.js';
 import { alertsSchemaValidator } from '../utils/schemasValidators.utils.js';
 import passport from 'passport'
-import { typeConversor } from '../middlewares/typeConversor.middleware.js';
+
 
 const alertsRouter = express.Router();
 
@@ -11,7 +11,7 @@ const alertsRouter = express.Router();
 alertsRouter
         .get('/', getAllAlerts)
         .get('/:id', getAlertById)
-        .post('/', typeConversor, validateSchema(alertsSchemaValidator), passport.authenticate('jwt'), createAlert)         
+        .post('/', validateSchema(alertsSchemaValidator), passport.authenticate('jwt'), createAlert)         
         .put('/:id', passport.authenticate('jwt'), updateAlertById)
         .delete('/:id', passport.authenticate('jwt'), deleteAlertById)
 

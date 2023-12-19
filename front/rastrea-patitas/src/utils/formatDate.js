@@ -11,7 +11,7 @@ function formatDate(dateString) {
 
 
   // Return formatted date
-  return `${day}-${month}-${year}`;
+  return `${day}/${month}/${year}`;
 }
 
 export default formatDate
