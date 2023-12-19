@@ -13,10 +13,10 @@ const RegisterData = () => {
 
   const registrationData = useLocation().state
 
-  const { location, error } = useCurrentLocation()
+  const { location: geo_point, error } = useCurrentLocation()
 
   const onSubmit = handleSubmit(async (data) => {
-    data = { ...data, ...registrationData, location }
+    data = { ...data, ...registrationData, geo_point }
     console.log(data)
     try {
       const response = await registerUser(data)
@@ -34,7 +34,7 @@ const RegisterData = () => {
 
         <label htmlFor='name' className='text-sm pr-56 md:pr-72'>Nombre completo:</label>
         <Input id='name' type="text" placeholder='Nombre y apellido' color='secondary' variant='bordered'
-          {...register("name", { required: "El campo nombre completo es requerido" })}
+          {...register("full_name", { required: "El campo nombre completo es requerido" })}
         />
 
         <p className="text-red-500 text-sm">{errors.name?.message}</p>
