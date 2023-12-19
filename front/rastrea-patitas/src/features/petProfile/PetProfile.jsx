@@ -3,8 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import NavProfile from "./NavProfile";
 import PetCard from "./PetCard";
 import img from "./images/mostachito.jpeg";
-import { Button, Card } from "@nextui-org/react";
-import InfoLocation from "./InfoLocation";
+import {
+  BreadcrumbItem,
+  Breadcrumbs,
+  Button,
+  Card,
+  Chip,
+} from "@nextui-org/react";
+import InfoLocation from "./infoLocation";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
@@ -14,7 +20,8 @@ import { getAlertByID } from "../../services/api";
 import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
 import GoogleMaps from "./GoogleMaps";
-
+import OnliMap from "./OnliMap";
+import ModalBlur from "./ModalBlur";
 
 function PetProfile() {
   const [alert, setAlert] = useState(null);
@@ -23,16 +30,18 @@ function PetProfile() {
   const { id } = useParams();
 
   useEffect(() => {
-    getAlertByID(id).then((data) => {
-      setAlert(data);
-      setIsLoading(false);
-    }).catch((error) => {
-      console.log(error);
-    })
+    getAlertByID(id)
+      .then((data) => {
+        setAlert(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [id]);
 
-  console.log(id)
-  console.log(alert)
+  console.log(id);
+  console.log(alert);
 
   const registeredAgo = formatDate(alert?.createdAt);
   const state = alert?.status;
@@ -52,13 +61,11 @@ function PetProfile() {
 
   return (
     <>
-      {/* seccion para pantallas pequeÃ±as */}
-      <div className='bg-[url("src/assets/bg-patitas.svg")] bg-repeat max-w-full md:hidden'>
-
+      {/* seccion para pantallas pequeñas */}
+      <div className='bg-[url("/src/assets/bg-patitas.svg")] bg-repeat w-screen md:hidden'>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-
           <>
             <NavProfile name={alert.pet_id.name} />
             <PetCard editProfile={editProfile} petData={alert} />
@@ -102,7 +109,9 @@ function PetProfile() {
             )}
 
             <div className="mx-5">
-              <p className=" text-lg font-bold  text-letra">{alert.pet_id.name}</p>
+              <p className=" text-lg font-bold  text-letra">
+                {alert.pet_id.name}
+              </p>
               <p className=" text-sm font-normal text-[#6B7A85]">
                 Registrado el {registeredAgo}
               </p>
@@ -115,87 +124,158 @@ function PetProfile() {
             {editProfile ? (
               <EditPetCharacteristics />
             ) : (
-              <PetCharacteristics
-                pet={alert}
-              />
+              <PetCharacteristics pet={alert} />
             )}
 
             <QrCode qr={alert.pet_id.qr.url} />
-
-          </>)}
+          </>
+        )}
       </div>
 
-
-
       {/* seccion para pantallas medianas y grandes */}
-      <div className='bg-[url("src/assets/bg-patitas.svg")]  bg-repeat  hidden md:block '>
-        <div className="flex mx-36 justify-center ">
-          <div className=" w-[642px]  ">
-            <div className="flex flex-row">
-              <div className="my-5 flex flex-col flex-1 ">
-                <p className=" text-[45px] font-bold  text-letra">Hernan</p>
-                <p className=" text-2xl font-bold text-[#6B7A85]">
-                  Registrado el {registeredAgo}
-                </p>
+      <div className='bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen'>
+        <div  className="hidden md:block">
+         
+          <div className="flex mx-36 justify-center ">
+            <div className=" w-[642px]  ">
+              <div className="flex flex-row">
+                <div className="my-5 flex flex-col flex-1 ">
+                  <p className=" text-[45px] font-bold  text-letra">
+                    {alert.pet_id.name}
+                  </p>
+                  <p className=" text-2xl font-bold text-[#6B7A85]">
+                    Registrado el {registeredAgo}
+                  </p>
+                </div>
+               
+                  <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
+                    <Button
+                      color="primary"
+                      variant="bordered"
+                      className="border-moradoMain text-letra font-medium w-36 "
+                    >
+                      Eliminar perfil
+                    </Button>
+                   <ModalBlur pet ={alert}/> {/**boton editar perfil */}
+                  </div>
+                
               </div>
-              {!editProfile ? (
-                <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
-                  <Button
-                    color="primary"
-                    variant="bordered"
-                    className="border-moradoMain text-letra font-medium w-36 "
-                  >
-                    Eliminar perfil
-                  </Button>
-                  <Button
-                    color="primary"
-                    variant="bordered"
-                    className="border-moradoMain text-letra font-medium w-36 "
-                    onClick={handlerEditProfile}
-                  >
-                    Editar perfil
-                  </Button>
+
+              <PetCard editProfile={editProfile} petData={alert} />
+
+              <Card className="w-[636px] h-[310px]  mt-4 md:mb-14 ">
+                <div className="p-8">
+                  <p className="text-letra font-semibold text-3xl">
+                    Características
+                  </p>
+                  <hr className="mb-4" />
+                  <div className="flex flex-row">
+                    <div className=" w-1/2 pr-4">
+                      <div className="flex justify-between mb-3">
+                        <li className="text-lg font-bold list-none">
+                          Tipo de animal{" "}
+                        </li>{" "}
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.species}
+                        </Chip>
+                      </div>
+
+                      <div className="flex justify-between  mb-3">
+                        <p className="text-lg font-bold">Sexo </p>{" "}
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.sex}
+                        </Chip>
+                      </div>
+
+                      <div className="flex justify-between  mb-3">
+                        <li className="text-lg font-bold list-none"> Edad</li>
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.age}
+                        </Chip>{" "}
+                      </div>
+
+                      <div className="flex justify-between ">
+                        <li className="text-lg font-bold list-none">
+                          Tamaño*{" "}
+                        </li>{" "}
+                        <li className="text-sm font-normal list-none">
+                          25-40 cm
+                        </li>
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.size}
+                        </Chip>
+                      </div>
+                    </div>
+
+                    <div className=" w-1/2 pl-4">
+                      <div className="flex justify-between  mb-3">
+                        <li className="text-lg font-bold list-none">
+                          <Breadcrumbs>
+                            <BreadcrumbItem>
+                              <p className="text-lg text-letra">Apariencia</p>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                              <p className="text-lg">Ojos</p>
+                            </BreadcrumbItem>
+                          </Breadcrumbs>{" "}
+                        </li>{" "}
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {"marron"}
+                        </Chip>
+                      </div>
+
+                      <div className="flex justify-between  mb-3">
+                        <li className="text-lg font-bold list-none">
+                          <Breadcrumbs>
+                            <BreadcrumbItem>
+                              <p className="text-lg text-letra">Apariencia</p>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                              <p className="text-lg">Pelo</p>
+                            </BreadcrumbItem>
+                          </Breadcrumbs>{" "}
+                        </li>{" "}
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.main_color}
+                        </Chip>
+                      </div>
+                      <div className="flex justify-between  mb-3 ">
+                        <p className="text-lg font-bold">Color </p>{" "}
+                        <Chip className=" bg-moradoActivo mb-3 text-lg">
+                          {alert?.pet_id.main_color}
+                        </Chip>
+                      </div>
+                    </div>
+                  </div>
+                  <li className="text-sm font-normal list-none">
+                    *De acuerdo a la longitud que hay desde las patas hasta el
+                    lomo del animal
+                  </li>
                 </div>
-              ) : (
-                <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
-                  <Button
-                    color="primary"
-                    variant="bordered"
-                    className="border-moradoMain text-letra font-medium w-36 "
-                    onClick={handlerCancelEditProf}
-                  >
-                    Cancelar
-                  </Button>
-                  <Button
-                    color="primary"
-                    variant="bordered"
-                    className="border-moradoMain text-letra font-medium w-36 "
-                  >
-                    Guardar perfil
-                  </Button>
-                </div>
-              )}
+              </Card>
             </div>
 
-            <PetCard editProfile={editProfile} petData={alert} />
-          </div>
+            <div>
+              <Card className="w-[447px] h-[347px] ml-8 mt-36 px-6">
+                <div className=" flex  mt-3 mb-4 ">
+                  <MdOutlineLocationOn className=" text-moradoMain   w-6  h-6 mr-3 font-medium  md:w-7 md:h-8" />
+                  <p className="text-sm font-normal text-letra md:text-lg md:font-bold ">
+                    {" "}
+                    Ubicacion / sector {alert.last_location}{" "}
+                  </p>
+                </div>
 
-          <div>
-            <Card className="w-[447px] h-[347px] ml-8 mt-36">
-              <div className=" flex px-3 my-3 p-4">
-                <MdOutlineLocationOn className=" text-moradoMain   w-6  h-6 mr-3 font-medium  md:w-7 md:h-8" />
-                <p className="text-sm font-normal text-letra md:text-lg md:font-bold ">
-                  {" "}
-                  Ubicacion / sector {"ubicacion"}{" "}
-                </p>
-              </div>
+                <OnliMap lat={alert.geo_point[0]} lng={alert.geo_point[1]} />
+              </Card>
 
-              <GoogleMaps />
-            </Card>
+              <Card className="w-[447px] h-[216px] ml-8 mt-4">
+                <PetState editProfile={editProfile} />
+              </Card>
 
-            <Card className="w-[447px] h-[216px] ml-8 mt-4">
-              <PetState editProfile={editProfile} />
-            </Card>
+              <Card className="w-[447px] h-[310px] ml-8 mt-4 md:mb-14">
+                <QrCode qr={alert.pet_id.qr.url} />
+              </Card>
+            </div>
           </div>
         </div>
       </div>

@@ -14,9 +14,6 @@ const UsersProvider = ({ children }) => {
 		try {
 			const response = await login(user);
 			console.log(response);
-			setUser(response.user);
-			localStorage.setItem('user', JSON.stringify(response.user));
-
 			return response;
 		} catch (error) {
 			console.log(error);

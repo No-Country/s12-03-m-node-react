@@ -91,15 +91,54 @@ function FilterModal({ handleClose, open, status }) {
     { size: "61 - 75 cm", sizeReference: "Grande" },
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
+  
+  const [ position, setPosition ] = useState([])
+const geoArray=Object.values(position)
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     "Authorization": "Bearer " + Cookies.get("token")
-    //   }
-    // }).then((res) => { })
+
+  const onSubmit =  handleSubmit(async (formData) => {
+
+    console.log(position)
+    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
+    console.log(geo_point)
+
+  try {
+    const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + Cookies.get("token")
+        }
+    });
+
+
+    console.log('Respuesta del servidor para /api/pets:', petResponse);
+    const alertData = {
+      pet_id: petResponse.data._id, 
+      geo_point,    
+      status: formData.status,     
+      date: new Date().toISOString(),
+      alert_description: formData?.alert_description,    
+      special_characteristics: formData?.special_characteristics,
+  };
+  console.log(alertData)
+
+    if (petResponse.status === 201) {
+        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + Cookies.get("token")
+            }
+        });
+
+        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+    } else {
+        // Manejar el caso en que la primera solicitud no fue exitosa
+        console.log('La primera solicitud no fue exitosa:', petResponse);
+    }
+} catch (error) {
+    console.error('Error en la solicitud:', error);
+}
+
   });
 
   return (
@@ -128,14 +167,14 @@ function FilterModal({ handleClose, open, status }) {
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">
                       {statusRadio.map((element, index) => (
-                        <>
+                        <div key={element.status + index} className=" flex  " >
                           <RadioGeneral
                             key={element.status + index}
                             register={register}
                             type={"status"}
                             element={element.statusReference}
                           />{" "}
-                        </>
+                        </div>
                       ))}
                     </fieldset>
                   )}
@@ -146,9 +185,9 @@ function FilterModal({ handleClose, open, status }) {
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <SelectImg register={register} name={"img"} />
-                            <SelectImg register={register} name={"img2"} />
-                            <SelectImg register={register} name={"img3"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
+                            <SelectImg register={register} name={"pet_img"} />
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -194,7 +233,9 @@ function FilterModal({ handleClose, open, status }) {
                       <legend>Sexo</legend>
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
-                          <>
+                          <div
+                          key={element.sex} className="relative flex justify-center items-center">
+                            
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -203,7 +244,7 @@ function FilterModal({ handleClose, open, status }) {
                               element={element.sex}
                               typeIcon={element.sexReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}
                       </section>
                     </fieldset>
@@ -212,7 +253,8 @@ function FilterModal({ handleClose, open, status }) {
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <>
+                          <div 
+                          key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -220,7 +262,7 @@ function FilterModal({ handleClose, open, status }) {
                               type={"age"}
                               element={element.ageReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}</div>
                     </fieldset>
 
@@ -231,6 +273,7 @@ function FilterModal({ handleClose, open, status }) {
                           <p>Apariencia</p>
                           <section className="flex gap-4">
                             <SelectFilter
+                            label={"Pelo"}
                               data={pelo}
                               placeholder={"Pelo"}
                               register={register}
@@ -238,6 +281,7 @@ function FilterModal({ handleClose, open, status }) {
                               {...register("hair")}
                             />
                             <SelectFilter
+                              label={"Ojos"}
                               data={ojos}
                               placeholder={"Ojos"}
                               register={register}
@@ -262,14 +306,14 @@ function FilterModal({ handleClose, open, status }) {
                       <legend>Color principal</legend>
                       <section className="flex flex-wrap  justify-between   ">
                         {coloresDelCuerpo.map((element, index) => (
-                          <>
+                          <div key={element} className="relative flex justify-center items-center " >
                             {" "}
                             <RadioColor
                               key={element}
                               register={register}
                               element={element}
                             />{" "}
-                          </>
+                          </div>
                         ))}
                       </section>
                     </fieldset>
@@ -280,7 +324,7 @@ function FilterModal({ handleClose, open, status }) {
                       />
                       <div className="flex flex-wrap  justify-between   ">
                         {tamañoDelCuerpo.map((element, index) => (
-                          <>
+                          <div  key={element.size} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element}
@@ -288,7 +332,7 @@ function FilterModal({ handleClose, open, status }) {
                               type={"size"}
                               element={element.sizeReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}</div>
                     </fieldset>
                     <GoogleMaps register={register} />

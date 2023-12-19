@@ -28,7 +28,7 @@ const usersSchemaValidator = z.object({
 });
 
 const alertsSchemaValidator = z.object({
-    date: z.date().optional(),
+    date: z.string().optional(),
     alert_description: z.string().trim().max(300).optional(),
     status: z.string({
         invalid_type_error: 'El status debe ser un String',
@@ -37,7 +37,7 @@ const alertsSchemaValidator = z.object({
     last_location: z.string({
         invalid_type_error: 'La localización debe ser un string',
     }).optional(),
-    geo_point: z.array(geoPointSchema).length(1),
+    geo_point: z.array(z.number()).optional(),
     special_characteristics: z.string().trim().optional(),
 });
 
