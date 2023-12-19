@@ -34,6 +34,13 @@ import { useAlertsContext } from "../../context/useAlertsContext";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const handleFilesChange = (e) => {
+    setSelectedImages(Array.from(e.target.files));
+    console.log(selectedImages);
+  }
+  console.log(selectedImages)
 
   const { position } = useAlertsContext()
 
@@ -94,7 +101,9 @@ function FilterModal({ handleClose, open, status }) {
   ];
 
   const onSubmit = handleSubmit(async (formData) => {
-    const geo_point = [position?.lat, position?.lng];
+    const geo_point = [position.lat, position.lng];
+
+    console.log(formData);
 
     try {
       const petResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/pets", formData, {
@@ -177,9 +186,14 @@ function FilterModal({ handleClose, open, status }) {
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
+                            <input
+                              type="file"
+                              multiple
+                              accept="image/*"
+                              {...register("pet_img.0")}
+                              onChange={handleFilesChange}
+                            />
+
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
