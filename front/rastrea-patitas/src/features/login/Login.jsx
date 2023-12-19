@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Button, Input } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
@@ -45,17 +45,20 @@ const Login = () => {
 				const token = response.token.split(" ")[1];
 				Cookie.set("token", token);
 				setLoading(false);
-				if (user) {
-					navigate("/home");
-				}
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	});
 
+	useEffect(() => {
+		if (user) {
+			navigate("/my-pets");
+		}
+	}, [navigate, user]);
+
 	return (
-		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
+		<div className='md:bg-[url("/src/assets/bg-patitas.svg")] bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen flex flex-col justify-center items-center'>
 			<form
 				onSubmit={onSubmit}
 				className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-4 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">

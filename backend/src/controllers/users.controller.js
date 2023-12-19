@@ -29,7 +29,8 @@ export const getUserById = async (req, res, next) => {
         const user = await Users.findById(id).lean()
         if(!user) res.status(HttpCodes.CODE_NOT_FOUND).send('user not found')
         const pets = await Pets.find({ user_id: id })
-        const userWithPets = { ...user, pets}
+        const alerts = await Alerts.find({ user_id: id })
+        const userWithPets = { ...user, pets, alerts}
         delete userWithPets.password
         res.status(HttpCodes.CODE_SUCCESS).send(userWithPets)
     } catch (error) {

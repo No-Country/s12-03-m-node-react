@@ -46,7 +46,9 @@ const Register = () => {
 
         <p className='text-sm m-4'>o</p>
 
-        <Button startContent={<FcGoogle size={24} />} type="submit" color='secondary' variant="ghost" className='w-[255px] mt-10' >Continuar con Google</Button>
+        <Button startContent={<FcGoogle size={24} />} type="submit" color='secondary' variant="ghost" className='w-[255px] mt-10' ><a href="https://s12-03-m-node-react.vercel.app/api/session/auth/google">
+				Ingresar con Google
+			</a></Button>
         <Button startContent={<FaFacebook size={24} />} type="submit" color='primary' variant="solid" className='w-[255px]' >Continuar con Facebook</Button>
 
         <p className='text-xs m-4'>Al registrarse, acepta nuestro Términos de servicio y Política de privacidad . Nunca compartimos su información de contacto con terceros.</p>

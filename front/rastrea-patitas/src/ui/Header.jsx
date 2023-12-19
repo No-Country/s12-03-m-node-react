@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import {Button,
+import {
+  Button,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem,Avatar,Link
+  NavbarMenuItem, Avatar, Link
 } from "@nextui-org/react";
 import PataIconNav from "../assets/pata.svg";
 import QrIconNav from "../assets/qrIcon.svg";
@@ -19,12 +20,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import HambugerMenu from "../features/hamburgerMenu/HamburgerMenu";
 import HambugerMenu2 from "../features/hamburgerMenu/HamburgerMenu2";
+import { useUserContext } from "../context/useUserContext";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+
+  const { user } = useUserContext();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -75,7 +79,7 @@ function Header() {
         <>
           <NavbarContent>
             <NavbarItem>
-              <HambugerMenu2 />
+              {user ? <HambugerMenu /> : <HambugerMenu2 />}
             </NavbarItem>
             <NavbarBrand>
               <img
@@ -85,7 +89,7 @@ function Header() {
             </NavbarBrand>
           </NavbarContent>
           <NavbarContent className="flex gap-4" justify="end">
-            <NavbarItem>
+            {!user && <NavbarItem>
               <Button
                 type="submit"
                 className="bg-moradoMain text-white"
@@ -93,7 +97,7 @@ function Header() {
               >
                 Ingresar
               </Button>
-            </NavbarItem>
+            </NavbarItem>}
           </NavbarContent>
         </>
       ) : (
@@ -101,10 +105,10 @@ function Header() {
           {/*Si esta logueado------------------------------------------------------------- className="hidden sm:flex gap-4" */}
           <NavbarContent justify="start">
             <NavbarItem>
-      
+
               <HambugerMenu />
             </NavbarItem>
-            
+
             <NavbarItem className="w-full justify-center  sm:hidden">
               <Link
                 className="w-full justify-center sm:hidden text-dark font-['Poppins'] font-semibold	 "
@@ -114,12 +118,12 @@ function Header() {
                 Inicio
               </Link>
             </NavbarItem>
-             <img
-                src={width > 639 ? logo_RastreaPatitas : soloPatitaLogo}
-                alt=""
-              />
-           
-           
+            <img
+              src={width > 639 ? logo_RastreaPatitas : soloPatitaLogo}
+              alt=""
+            />
+
+
           </NavbarContent>
         </>
       )}

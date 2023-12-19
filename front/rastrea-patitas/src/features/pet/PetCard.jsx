@@ -3,27 +3,29 @@
 import React from 'react'
 import { Card, CardHeader, CardBody, Image, Chip } from "@nextui-org/react";
 import { CiLocationOn } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
 
 
-const PetCard = ({ status, image, name, city }) => {
+const PetCard = ({ petData }) => {
+  const navigate = useNavigate();
   return (
-    <Card className="py-0 flex-col flex-shrink-0 w-[170px]">
-      <CardBody className="relative py-0">
+    <Card className="py-0 flex-col flex-shrink-0 w-[170px] cursor-pointer">
+      <CardBody onClick={() => navigate(`/my-pets/registered/${petData._id}`)} className="relative py-0">
         <Chip
-          size='sm' color={status === 'Perdida' && 'primary' || status === 'Reunida' && 'success' || status === 'Busco a mi familia' && 'secondary'} className='absolute z-20 top-[10px] right-5'>{status}</Chip>
+          size='sm' color={petData.status === 'perdido' && 'primary' || petData.status === 'reunido' && 'success' || petData.status === 'encontrado' && 'secondary'} className='absolute z-20 top-[10px] right-5'>{petData.status}</Chip>
         <Image
           alt="Card background"
           className="object-cover rounded-xl md:w-[215px] md:h-[215px]"
-          src={image}
+          src={petData.pet_id.pet_img[0]?.url}
           width={150}
           height={150}
         ></Image>
       </CardBody>
       <CardHeader className="flex-col items-start">
-        <p className="text-tiny uppercase font-bold">{name}</p>
+        <p className="text-tiny uppercase font-bold">{petData.pet_id.name}</p>
         <div className='flex justify-between w-full gap-1'>
           <small className="text-default-500 pb-2">Hace 2 dias</small>
-          <div className='flex gap-1'><CiLocationOn /><small className="text-default-500 pb-2">{city}</small></div>
+          <div className='flex gap-1'><CiLocationOn /><small className="text-default-500 pb-2">{petData.last_location}</small></div>
         </div>
       </CardHeader>
     </Card>
