@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import pet1 from '../../assets/images/pet1.png'
 import pet2 from '../../assets/images/pet2.png'
 import pet3 from '../../assets/images/pet3.png'
@@ -17,7 +17,11 @@ const MyPets = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
 
+
+
   const { alerts } = useAlertsContext();
+  console.log(alerts.user_id);
+  console.log(user._id)
   const userAlerts = alerts.filter((alert) => alert.user_id === user._id);
   const lostPets = userAlerts.filter((alert) => alert.status === 'perdido');
   const foundPets = userAlerts.filter((alert) => alert.status === 'encontrado');

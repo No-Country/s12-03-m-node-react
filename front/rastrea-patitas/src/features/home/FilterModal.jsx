@@ -91,15 +91,31 @@ function FilterModal({ handleClose, open, status }) {
     { size: "61 - 75 cm", sizeReference: "Grande" },
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
-
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-   // axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", data, {headers: {"Content-Type": "application/json", "Authorization": "Bearer "+Cookies.get("token")} }).then((res) => {})
-
-  });
+  
   const [ position, setPosition ] = useState([])
-const goeArray=Object.values(position)
-console.log(goeArray)
+const geoArray=Object.values(position)
+console.log(geoArray)
+
+  const onSubmit =  handleSubmit(async (formData) => {
+
+    const data = {
+      ...formData,
+      geo_point: [position] 
+  };
+
+
+    try {
+        const response = await axios.post("http://localhost:4000/api/alerts", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + Cookies.get("token")
+            }
+        });
+        console.log('Respuesta del servidor:', response);  
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
+  });
   return (
     <>
       <Modal
@@ -137,7 +153,7 @@ console.log(goeArray)
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point") } value={goeArray} checked/>
+                  <input type="hidden" {...register("geo_point") } value={JSON.stringify(geoArray)} />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
