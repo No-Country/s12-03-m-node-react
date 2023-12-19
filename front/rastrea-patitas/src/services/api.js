@@ -55,7 +55,9 @@ const login = async (data) => {
 				"Content-Type": "application/json",
 			},
 		});
-		return result.data;
+		console.log(result);
+		const { token, user } = result.data;
+		return { token, user };
 	} catch (error) {
 		return error.response;
 	}

@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <MyPetsStatus />,
       },
       {
-        path: "/my-pets/:status/:id",
+        path: "/my-pets/registered/:id",
         element: <PetProfile />
       },
       {
@@ -87,7 +87,8 @@ const router = createBrowserRouter([
   {
     path: "/profile-edit",
     element: <EditUserProfile />
-  }, {
+  },
+  {
     path: "/publication",
     element: <PublicationMade />
   }

@@ -43,6 +43,7 @@ export const createAlert = async (req, res, next) => {
       throw new HttpError('Este usuario no posee ninguna mascota', HttpCodes.CODE_BAD_REQUEST)
     }
     const pet = ownedPets.find((pet) => pet._id == req.body.pet_id)
+    console.log(pet)
     if(!pet){
       throw new HttpError('Este usuario no es propietario de esta mascota', HttpCodes.CODE_BAD_REQUEST)
     }

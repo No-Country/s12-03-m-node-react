@@ -15,6 +15,8 @@ import {
 } from "@nextui-org/react";
 import FilterModal from "../home/FilterModal";
 
+
+
 function ModalAdvertisement({ handleClose, open }) {
   const [openAdvertusement, setOpenAdvertusement] = useState(false);
   const [status, setStatus] = useState("");
