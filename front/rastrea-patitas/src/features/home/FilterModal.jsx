@@ -30,11 +30,13 @@ import ConfirmModal from "../newAdvertisement/ConfirmModal";
 import GoogleMaps from "../petProfile/GoogleMaps";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useAlertsContext } from "../../context/useAlertsContext";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [enviar, setEnviar] = useState("");
+
+  const { position } = useAlertsContext()
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -72,7 +74,6 @@ function FilterModal({ handleClose, open, status }) {
   ];
   const pelo = ["Corto", "Largo", "Sin pelo", "Medio"];
   const ojos = ["Claros", "Oscuros"];
-
   const coloresDelCuerpo = [
     "Blanco",
     "Amarillo",
@@ -91,54 +92,45 @@ function FilterModal({ handleClose, open, status }) {
     { size: "61 - 75 cm", sizeReference: "Grande" },
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
-  
-  const [ position, setPosition ] = useState([])
-const geoArray=Object.values(position)
 
+  const onSubmit = handleSubmit(async (formData) => {
+    const geo_point = [position.lat, position.lng];
 
-  const onSubmit =  handleSubmit(async (formData) => {
-
-    console.log(position)
-    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
-    console.log(geo_point)
-
-  try {
-    const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
+    try {
+      const petResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/pets", formData, {
         headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": "Bearer " + Cookies.get("token")
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer " + Cookies.get("token")
         }
-    });
+      });
 
+      console.log('Respuesta del servidor para /api/pets:', petResponse);
+      const alertData = {
+        pet_id: petResponse.data._id,
+        geo_point,
+        status: formData.status,
+        date: new Date().toISOString(),
+        alert_description: formData?.alert_description,
+        special_characteristics: formData?.special_characteristics,
+      };
+      console.log(alertData)
 
-    console.log('Respuesta del servidor para /api/pets:', petResponse);
-    const alertData = {
-      pet_id: petResponse.data._id, 
-      geo_point,    
-      status: formData.status,     
-      date: new Date().toISOString(),
-      alert_description: formData?.alert_description,    
-      special_characteristics: formData?.special_characteristics,
-  };
-  console.log(alertData)
-
-    if (petResponse.status === 201) {
-        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + Cookies.get("token")
-            }
+      if (petResponse.status === 201) {
+        const alertResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", alertData, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + Cookies.get("token")
+          }
         });
 
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
-    } else {
+      } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log('La primera solicitud no fue exitosa:', petResponse);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
     }
-} catch (error) {
-    console.error('Error en la solicitud:', error);
-}
-
   });
 
   return (
@@ -234,8 +226,8 @@ const geoArray=Object.values(position)
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
                           <div
-                          key={element.sex} className="relative flex justify-center items-center">
-                            
+                            key={element.sex} className="relative flex justify-center items-center">
+
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -253,8 +245,8 @@ const geoArray=Object.values(position)
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <div 
-                          key={element.ageReference} className=" flex  ">
+                          <div
+                            key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -273,7 +265,7 @@ const geoArray=Object.values(position)
                           <p>Apariencia</p>
                           <section className="flex gap-4">
                             <SelectFilter
-                            label={"Pelo"}
+                              label={"Pelo"}
                               data={pelo}
                               placeholder={"Pelo"}
                               register={register}
@@ -324,7 +316,7 @@ const geoArray=Object.values(position)
                       />
                       <div className="flex flex-wrap  justify-between   ">
                         {tamañoDelCuerpo.map((element, index) => (
-                          <div  key={element.size} className=" flex  ">
+                          <div key={element.size} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element}
@@ -335,6 +327,7 @@ const geoArray=Object.values(position)
                           </div>
                         ))}</div>
                     </fieldset>
+
                     <GoogleMaps register={register} />
 
                     {status && (
@@ -379,7 +372,6 @@ const geoArray=Object.values(position)
           )}
         </ModalContent>
       </Modal>
-
     </>
   );
 }
