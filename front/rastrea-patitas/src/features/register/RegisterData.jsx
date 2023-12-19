@@ -20,6 +20,7 @@ const RegisterData = () => {
     console.log(data)
     try {
       const response = await registerUser(data)
+      navigate('/login')
       console.log(response)
     } catch (error) {
       console.log(error)
