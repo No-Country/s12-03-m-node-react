@@ -167,14 +167,14 @@ const geoArray=Object.values(position)
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">
                       {statusRadio.map((element, index) => (
-                        <>
+                        <div key={element.status + index} className=" flex  " >
                           <RadioGeneral
                             key={element.status + index}
                             register={register}
                             type={"status"}
                             element={element.statusReference}
                           />{" "}
-                        </>
+                        </div>
                       ))}
                     </fieldset>
                   )}
@@ -233,7 +233,9 @@ const geoArray=Object.values(position)
                       <legend>Sexo</legend>
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
-                          <>
+                          <div
+                          key={element.sex} className="relative flex justify-center items-center">
+                            
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -242,7 +244,7 @@ const geoArray=Object.values(position)
                               element={element.sex}
                               typeIcon={element.sexReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}
                       </section>
                     </fieldset>
@@ -251,7 +253,8 @@ const geoArray=Object.values(position)
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <>
+                          <div 
+                          key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -259,7 +262,7 @@ const geoArray=Object.values(position)
                               type={"age"}
                               element={element.ageReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}</div>
                     </fieldset>
 
@@ -270,6 +273,7 @@ const geoArray=Object.values(position)
                           <p>Apariencia</p>
                           <section className="flex gap-4">
                             <SelectFilter
+                            label={"Pelo"}
                               data={pelo}
                               placeholder={"Pelo"}
                               register={register}
@@ -277,6 +281,7 @@ const geoArray=Object.values(position)
                               {...register("hair")}
                             />
                             <SelectFilter
+                              label={"Ojos"}
                               data={ojos}
                               placeholder={"Ojos"}
                               register={register}
@@ -301,14 +306,14 @@ const geoArray=Object.values(position)
                       <legend>Color principal</legend>
                       <section className="flex flex-wrap  justify-between   ">
                         {coloresDelCuerpo.map((element, index) => (
-                          <>
+                          <div key={element} className="relative flex justify-center items-center " >
                             {" "}
                             <RadioColor
                               key={element}
                               register={register}
                               element={element}
                             />{" "}
-                          </>
+                          </div>
                         ))}
                       </section>
                     </fieldset>
@@ -319,7 +324,7 @@ const geoArray=Object.values(position)
                       />
                       <div className="flex flex-wrap  justify-between   ">
                         {tamañoDelCuerpo.map((element, index) => (
-                          <>
+                          <div  key={element.size} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element}
@@ -327,7 +332,7 @@ const geoArray=Object.values(position)
                               type={"size"}
                               element={element.sizeReference}
                             />{" "}
-                          </>
+                          </div>
                         ))}</div>
                     </fieldset>
                     <GoogleMaps register={register} />
