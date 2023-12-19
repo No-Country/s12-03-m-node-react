@@ -6,7 +6,7 @@ function RadioColor({ register, element }) {
 
   return (
     <>
-      <div className="relative flex justify-center items-center ">
+      
         <input
           type="radio"
           name=""
@@ -21,7 +21,7 @@ function RadioColor({ register, element }) {
         <label htmlFor={element} className=" z-0 ">
           <CheckboxColor typeIcon={element} isSelected={valid} />
         </label>
-      </div>
+   
     </>
   );
 }
