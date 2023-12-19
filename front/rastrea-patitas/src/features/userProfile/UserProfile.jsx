@@ -25,11 +25,10 @@ const UserProfile = () => {
         <div className='ml-4'>
           <UserDetailsCard
             first_name={user.full_name.split(' ')[0]}
-            last_name={user.full_name.split(' ')[1]}
-            email="lucia@gmail.com"
-            password="********"
-            phone="123456789"
-            onEditClick={() => navigate("/profile-edit")}
+            last_name={user.full_name.split(' ')[2]}
+            email={user.email}
+            phone={user.phone}
+            // onEditClick={() => navigate("/profile-edit")}
           />
         </div>
       </div>
@@ -37,9 +36,9 @@ const UserProfile = () => {
       <div className='border-b-2 border-gray-300 w-full'>
         <div className='ml-4'>
           <UserDetailsCard
-            postalCode="645654"
-            city="Cali, Colombia"
-            address="Av. El Poblado"
+            // postalCode="645654"
+            city={user.location}
+            // address="Av. El Poblado"
           />
         </div>
       </div>

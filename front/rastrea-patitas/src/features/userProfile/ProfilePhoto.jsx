@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import {Avatar} from "@nextui-org/react";
+//import {Avatar} from "@nextui-org/react";
+import { useUserContext } from '../../context/useUserContext';
 
 const ProfilePhoto = () => {
+
+  const { user } = useUserContext();
+
   return (
     <div className="flex justify-center m-10 gap-2">
         <div className="flex items-center">
-            <Avatar className="w-[110px] h-[110px]" src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
+          <img className="w-[110px] h-[110px]" src={user.profile_img.url} />
         </div>
         
         <div className="flex flex-col items-start ml-1" style={{ color: '#4D4295' }}>
