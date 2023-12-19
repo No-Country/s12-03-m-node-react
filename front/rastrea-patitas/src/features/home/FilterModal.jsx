@@ -138,7 +138,9 @@ const geoArray=Object.values(position)
 } catch (error) {
     console.error('Error en la solicitud:', error);
 }
+
   });
+
   return (
     <>
       <Modal
@@ -176,7 +178,7 @@ const geoArray=Object.values(position)
                       ))}
                     </fieldset>
                   )}
-                  <input type="hidden" {...register("geo_point") } value={JSON.stringify(geoArray)} />
+                  <input type="radio" {...register("geo_point")} checked />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
@@ -328,7 +330,7 @@ const geoArray=Object.values(position)
                           </>
                         ))}</div>
                     </fieldset>
-                    <GoogleMaps register={register} setP={setPosition} />
+                    <GoogleMaps register={register} />
 
                     {status && (
                       <Input
@@ -376,4 +378,5 @@ const geoArray=Object.values(position)
     </>
   );
 }
-export default FilterModal;
+
+export default FilterModal
