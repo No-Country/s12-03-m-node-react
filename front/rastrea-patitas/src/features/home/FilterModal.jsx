@@ -36,15 +36,17 @@ import PublicationMade from "../newAdvertisement/PublicationMade";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState();
 
   const handleFilesChange = (e) => {
     setSelectedImages(Array.from(e.target.files));
-    console.log(selectedImages);
-  }
-  console.log(selectedImages)
+  };
+//   useEffect(() => {
+//     console.log(selectedImages); // Esto ahora reflejará los archivos seleccionados actuales
+// }, [selectedImages]);
+//   console.log(selectedImages);
 
-  const { position } = useAlertsContext()
+  const { position } = useAlertsContext();
 
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -108,20 +110,33 @@ function FilterModal({ handleClose, open, status }) {
 
   const onSubmit = handleSubmit(async (formData) => {
 
-    console.log(position)
-    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
-    console.log(geo_point)
+    const dataToSend = new FormData();
+
+
+    selectedImages.forEach(file => {
+        dataToSend.append('pet_img', file); 
+    });
+    Object.keys(formData).forEach(key => {
+      dataToSend.append(key, formData[key]);
+  });
+  console.log(dataToSend)
+
+    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)]
+
 
     try {
-      const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + Cookies.get("token")
+      const petResponse = await axios.post(
+        "http://localhost:4000/api/pets",
+        dataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
         }
-      });
+      );
 
-
-      console.log('Respuesta del servidor para /api/pets:', petResponse);
+      console.log("Respuesta del servidor para /api/pets:", petResponse);
       const alertData = {
         pet_id: petResponse.data._id,
         geo_point,
@@ -130,25 +145,28 @@ function FilterModal({ handleClose, open, status }) {
         alert_description: formData?.alert_description,
         special_characteristics: formData?.special_characteristics,
       };
-      console.log(alertData)
+      console.log(alertData);
 
       if (petResponse.status === 201) {
-        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + Cookies.get("token")
+        const alertResponse = await axios.post(
+          "http://localhost:4000/api/alerts",
+          alertData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + Cookies.get("token"),
+            },
           }
-        });
+        );
 
-        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+        console.log("Respuesta del servidor para /api/alerts:", alertResponse);
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
-        console.log('La primera solicitud no fue exitosa:', petResponse);
+        console.log("La primera solicitud no fue exitosa:", petResponse);
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      console.error("Error en la solicitud:", error);
     }
-
   });
 
   return (
@@ -199,10 +217,8 @@ function FilterModal({ handleClose, open, status }) {
                               type="file"
                               multiple
                               accept="image/*"
-                              {...register("pet_img.0")}
                               onChange={handleFilesChange}
                             />
-
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -255,8 +271,9 @@ function FilterModal({ handleClose, open, status }) {
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
                           <div
-                            key={element.sex} className="relative flex justify-center items-center">
-
+                            key={element.sex}
+                            className="relative flex justify-center items-center"
+                          >
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -274,8 +291,7 @@ function FilterModal({ handleClose, open, status }) {
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <div
-                            key={element.ageReference} className=" flex  ">
+                          <div key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -401,8 +417,8 @@ function FilterModal({ handleClose, open, status }) {
                       onPress={
                         status
                           ? () => {
-                            handleButtonClick(), onClose();
-                          }
+                              handleButtonClick(), onClose();
+                            }
                           : onClose
                       }
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
