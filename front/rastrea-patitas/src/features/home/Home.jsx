@@ -6,7 +6,7 @@ import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 import CreateAd from './CreateAd';
 import { useAlertsContext } from '../../context/useAlertsContext';
-import Pagination from './Pagination';
+//import Pagination from './Pagination';
 
 
 const Home = () => {
@@ -52,31 +52,38 @@ const Home = () => {
             getAlertsStatus('reunido')
         }
 
-        setCurrentPage(1);
+        // setCurrentPage(1);
     };
 
 
-    const filteredRandomAlerts = randomAlerts.filter((alert) =>
-        (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
-        (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+    // const filteredRandomAlerts = randomAlerts.filter((alert) =>
+    //     (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
+    //     (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    // );
+
+    const filteredPets = alerts
+        ? alerts.filter((alert) =>
+            (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
+            (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+        : [];
 
     //Pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pets, setPets] = useState([])
-    const petsPerPage = 9;
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [pets, setPets] = useState([])
+    // const petsPerPage = 9;
 
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+    // const paginate = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
 
-    const indexOfLastPet = currentPage * petsPerPage;
-    const indexOfFirstPet = indexOfLastPet - petsPerPage;
-    const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
+    // const indexOfLastPet = currentPage * petsPerPage;
+    // const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    // const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [currentPage]);
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [currentPage]);
 
 
     return (
@@ -126,7 +133,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {filteredRandomAlerts.length === 0 && (
+                    {filteredPets.length === 0 && (
                         <div className='text-center' style={{ color: '#4D4295' }}>
                             ¡No se han encontrado coincidencias con el nombre proporcionado! <br /> Prueba usando el{' '}
                             <span className="cursor-pointer font-extrabold" onClick={handleOpen}>
@@ -138,7 +145,7 @@ const Home = () => {
 
                     {
                         alertFilter === null ?
-                            <CardsHome filteredPets={currentPets} />
+                            <CardsHome filteredPets={filteredPets} />
                             :
                             datosFiltrados !== null ?
                                 <CardsHome filteredPets={datosFiltrados} />
@@ -146,7 +153,7 @@ const Home = () => {
                                 <CardsHome filteredPets={alertFilter} />
                     }
 
-                    <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} />
+                    {/* <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} /> */}
 
                     <CreateAd />
 
