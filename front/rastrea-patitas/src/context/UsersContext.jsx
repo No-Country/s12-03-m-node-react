@@ -3,11 +3,12 @@
 import React, { useEffect } from "react";
 import { createContext, useState } from "react";
 import { getUsers, login } from "../services/api";
+import { useLocalStorageState } from "../utils/useLocalStorage";
 
 const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useLocalStorageState(null, "user");
 
 
 	const loginUser = async (user) => {

@@ -30,14 +30,28 @@ import ConfirmModal from "../newAdvertisement/ConfirmModal";
 import GoogleMaps from "../petProfile/GoogleMaps";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useAlertsContext } from "../../context/useAlertsContext";
+import { useNavigate } from "react-router-dom";
 import { AlertsContext } from "../../context/AlertsContext";
 
 function FilterModal({ handleClose, open, status }) {
 
   const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [enviar, setEnviar] = useState("");
+  const [selectedImages, setSelectedImages] = useState();
+
+  const navigate = useNavigate();
+
+  const handleFilesChange = (e) => {
+    setSelectedImages(Array.from(e.target.files));
+  };
+  //   useEffect(() => {
+  //     console.log(selectedImages); // Esto ahora reflejará los archivos seleccionados actuales
+  // }, [selectedImages]);
+  //   console.log(selectedImages);
+
+  const { position } = useAlertsContext();
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -75,7 +89,6 @@ function FilterModal({ handleClose, open, status }) {
   ];
   const pelo = ["Corto", "Largo", "Sin pelo", "Medio"];
   const ojos = ["Claros", "Oscuros"];
-
   const coloresDelCuerpo = [
     "Blanco",
     "Amarillo",
@@ -95,38 +108,51 @@ function FilterModal({ handleClose, open, status }) {
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
 
-  const [position, setPosition] = useState([])
-  const geoArray = Object.values(position)
-
 
   const onSubmit2 = handleSubmit(async (formData) => {
 
     console.log(position)
     const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
-    console.log(geo_point)
+
+ 
+
+    const dataToSend = new FormData();
+
+
+    selectedImages.forEach(file => {
+      dataToSend.append('pet_img', file);
+    });
+    Object.keys(formData).forEach(key => {
+      dataToSend.append(key, formData[key]);
+    });
+    console.log(dataToSend)
+
 
     try {
-      const petResponse = await axios.post("http://localhost:4000/api/pets", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": "Bearer " + Cookies.get("token")
-        }
-      });
+      const petResponse = await axios.post(
+        "https://s12-03-m-node-react.vercel.app/api/pets",
+        dataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        });
 
 
       console.log('Respuesta del servidor para /api/pets:', petResponse);
       const alertData = {
-        pet_id: petResponse.data._id,
+        pet_id: petResponse.data?._id,
         geo_point,
         status: formData.status,
         date: new Date().toISOString(),
         alert_description: formData?.alert_description,
         special_characteristics: formData?.special_characteristics,
       };
-      console.log(alertData)
+      console.log(alertData);
 
       if (petResponse.status === 201) {
-        const alertResponse = await axios.post("http://localhost:4000/api/alerts", alertData, {
+        const alertResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", alertData, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + Cookies.get("token")
@@ -134,14 +160,14 @@ function FilterModal({ handleClose, open, status }) {
         });
 
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+        navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
-        console.log('La primera solicitud no fue exitosa:', petResponse);
+        console.log("La primera solicitud no fue exitosa:", petResponse);
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      console.error("Error en la solicitud:", error);
     }
-
   });
 
   const onSubmit = (data) => {
@@ -206,9 +232,13 @@ function FilterModal({ handleClose, open, status }) {
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
-                            <SelectImg register={register} name={"pet_img"} />
+                            <input
+                              type="file"
+                              multiple
+                              accept="image/*"
+                              onChange={handleFilesChange}
+                            />
+
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -255,8 +285,9 @@ function FilterModal({ handleClose, open, status }) {
                       <section className="flex flex-wrap gap-4 justify-center  ">
                         {sex.map((element, index) => (
                           <div
-                            key={element.sex} className="relative flex justify-center items-center">
-
+                            key={element.sex}
+                            className="relative flex justify-center items-center"
+                          >
                             {" "}
                             <RadioSex
                               key={element.sex}
@@ -274,8 +305,7 @@ function FilterModal({ handleClose, open, status }) {
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
-                          <div
-                            key={element.ageReference} className=" flex  ">
+                          <div key={element.ageReference} className=" flex  ">
                             {" "}
                             <RadioGeneral
                               key={element.ageReference}
@@ -356,6 +386,7 @@ function FilterModal({ handleClose, open, status }) {
                           </div>
                         ))}</div>
                     </fieldset>
+
                     <GoogleMaps register={register} />
 
                     {status && (
@@ -400,7 +431,6 @@ function FilterModal({ handleClose, open, status }) {
           )}
         </ModalContent>
       </Modal>
-
     </>
   );
 }

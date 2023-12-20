@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/useUserContext';
 import { IoArrowBackSharp } from 'react-icons/io5';
 import { Button } from '@nextui-org/button';
+import { Helmet } from 'react-helmet';
 
 
 const UserProfile = () => {
@@ -15,7 +16,8 @@ const UserProfile = () => {
   const { user } = useUserContext();
 
   return (
-    <div >
+    <>
+    
       <div className=" flex flex-row text-lg font-semibold ml-6 mt-6 bg-white justify-left items-center md:hidden">
         <Button
           onClick={()=>Navigate("/")}
@@ -25,7 +27,11 @@ const UserProfile = () => {
           <IoArrowBackSharp className="text-xl" />
         </Button>
       </div>
-      <div className='mx-auto pb-8 w-[360px]'>
+      
+    <Helmet>
+        <title>Mi Perfil | Rastrea Patitas</title>
+    </Helmet>
+    <div className='mx-auto pb-8 w-[360px]'>
 
       <ProfilePhoto />
 
@@ -68,7 +74,8 @@ const UserProfile = () => {
       </div>
 
     </div>
-    </div>
+   
+    </>
   );
 };
 

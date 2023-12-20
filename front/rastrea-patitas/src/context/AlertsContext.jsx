@@ -3,13 +3,39 @@
 import React from "react";
 import { createContext, useEffect, useState } from "react";
 import { getAlerts } from "../services/api";
+import { useLocalStorageState } from "../utils/useLocalStorage";
 
 
 const AlertsContext = createContext();
 
 const AlertsProvider = ({ children }) => {
-  const [alerts, setAlerts] = useState([]);
-  const [alert, setAlert] = useState(null);
+  const [alerts, setAlerts] = useLocalStorageState(null, "alerts");
+  const [alert, setAlert] = useLocalStorageState(null, "alert");
+  const [position, setPosition] = useLocalStorageState(null, "position");
+  const [error, setError] = useLocalStorageState(null, "error");
+  const [openMap, setOpenMap] = useLocalStorageState(false, "openMap");
+
+  const handleOpenMap = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitud = position.coords.latitude;
+          const longitud = position.coords.longitude;
+          console.log("Latitud:", latitud);
+          console.log("Longitud:", longitud);
+
+          setPosition({ lat: latitud, lng: longitud });
+          setOpenMap(true);
+        },
+        (error) => {
+          console.error("Error al obtener la ubicación:", error.message);
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("La geolocalización no está disponible en este dispositivo.");
+    }
+  };
   const [alertFilter, setAlertFilter] = useState(null);
   const [datosFiltrados, setDatosFiltrados] = useState(null)
 
@@ -71,7 +97,7 @@ const AlertsProvider = ({ children }) => {
 
 
   return (
-    <AlertsContext.Provider value={{ alerts, setAlerts, alert, setAlert, getAlertsFilter, alertFilter, alertFilterInitial, getAlertsStatus, getAlertQuery, datosFiltrados }}>
+    <AlertsContext.Provider value={{ alerts, setAlerts, alert, setAlert, position, setPosition, error, setError, openMap, setOpenMap, handleOpenMap, getAlertsFilter, alertFilter, alertFilterInitial, getAlertsStatus, getAlertQuery, datosFiltrados }}>
       {children}
     </AlertsContext.Provider>
   )
