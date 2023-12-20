@@ -211,7 +211,24 @@ function FilterModal({ handleClose, open, status }) {
                               multiple
                               accept="image/*"
                               onChange={handleFilesChange}
+                              className={selectedImages ? "" : "file z-10"}
+
                             />
+
+                            {selectedImages &&
+                              selectedImages.map((image, index) => (
+                                <img
+                                  key={index}
+                                  src={URL.createObjectURL(image)}
+                                  alt="preview"
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    objectFit: "cover",
+                                    margin: "5px",
+                                  }}
+                                />
+                              ))}
 
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
