@@ -33,7 +33,7 @@ import Cookies from "js-cookie";
 import { useAlertsContext } from "../../context/useAlertsContext";
 import { useNavigate } from "react-router-dom";
 import { AlertsContext } from "../../context/AlertsContext";
-
+import PublicationMade from "../newAdvertisement/PublicationMade";
 function FilterModal({ handleClose, open, status,setFilter }) {
 
   const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
@@ -162,7 +162,10 @@ function FilterModal({ handleClose, open, status,setFilter }) {
         });
 
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+        handleButtonClick() 
+      setTimeout(() => {
         navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
+      },3500)
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log("La primera solicitud no fue exitosa:", petResponse);
@@ -197,8 +200,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
     const timer = setTimeout(() => {
       setShowModal(false);
 
-      // Redirigir a otra página después de ocultar el modal
-      navigate("/");
+      
     }, 3000);
 
     // Limpiar el temporizador al desmontar el componente
@@ -242,7 +244,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point")} checked />
+                  <input type="radio" {...register("geo_point")} checked hidden/>
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
@@ -433,7 +435,9 @@ function FilterModal({ handleClose, open, status,setFilter }) {
                     )}
                     <Button
                       variant="ghost"
-                      onPress={onClose}
+                      onPress={
+                         onClose
+                      }
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
@@ -447,6 +451,10 @@ function FilterModal({ handleClose, open, status,setFilter }) {
             </>
           )}
         </ModalContent>
+      </Modal>
+      <Modal isOpen={showModal} backdrop="blur">
+        {" "}
+        <ModalContent>{(onClose) => <PublicationMade />}</ModalContent>
       </Modal>
     </>
   );
