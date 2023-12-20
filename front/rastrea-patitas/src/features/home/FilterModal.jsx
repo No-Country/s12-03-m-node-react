@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Modal,
   ModalContent,
@@ -32,11 +32,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useAlertsContext } from "../../context/useAlertsContext";
 import { useNavigate } from "react-router-dom";
+import { AlertsContext } from "../../context/AlertsContext";
 
 function FilterModal({ handleClose, open, status,setFilter }) {
+
+  const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
-const [showModal, setShowModal]=useState(false)
+  const [showModal, setShowModal]=useState(false)
+
   const navigate = useNavigate();
 
   const handleFilesChange = (e) => {
@@ -47,7 +51,7 @@ const [showModal, setShowModal]=useState(false)
   // }, [selectedImages]);
   //   console.log(selectedImages);
 
-  const { position, alerts } = useAlertsContext();
+  const { position } = useAlertsContext();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -105,12 +109,24 @@ const [showModal, setShowModal]=useState(false)
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
 
-  const onSubmit = handleSubmit(async (formData) => {
+
+  const onSubmit2 = handleSubmit(async (formData) => {
 
     console.log(position)
     const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
-    console.log(geo_point)
 
+ 
+
+    const dataToSend = new FormData();
+
+
+    selectedImages.forEach(file => {
+      dataToSend.append('pet_img', file);
+    });
+    Object.keys(formData).forEach(key => {
+      dataToSend.append(key, formData[key]);
+    });
+    console.log(dataToSend)
 
 
     try {
@@ -156,6 +172,24 @@ const [showModal, setShowModal]=useState(false)
     }
 
   });
+
+  const onSubmit = (data) => {
+    alertFilterInitial()
+
+
+    let querysData = Object.keys(data).reduce((result, key) => {
+      if (data[key] !== null && key !== 'geo_point' && data[key] !== "") {
+        result[key] = data[key];
+      }
+      return result;
+    }, {});
+
+    console.log(querysData);
+    getAlertQuery(querysData)
+
+
+
+  }
   const handleButtonClick = () => {
     setShowModal(true);
 
@@ -192,7 +226,7 @@ const [showModal, setShowModal]=useState(false)
                   ? "Nuevo anuncio"
                   : "Aplica filtros para encontrar mascotas"}
               </ModalHeader>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={status ? onSubmit2 : handleSubmit(onSubmit)}>
                 <ModalBody className="">
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">

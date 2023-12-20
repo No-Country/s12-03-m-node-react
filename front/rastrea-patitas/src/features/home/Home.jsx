@@ -6,27 +6,62 @@ import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 import CreateAd from './CreateAd';
 import { useAlertsContext } from '../../context/useAlertsContext';
+//import Pagination from './Pagination';
 import { Helmet } from 'react-helmet';
 import Filtro2 from './Filtro2';
 
 
 const Home = () => {
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('all');
+    const [randomAlerts, setRandomAlerts] = useState([]);
 
-    const { alerts } = useAlertsContext();
+    const { alerts, alertFilter, alertFilterInitial, getAlertsStatus, getAlertsFilter, datosFiltrados } = useAlertsContext();
 
+    // Fn. aleatorizar la pet data / cards
+    useEffect(() => {
+        const randomizeData = () => {
+            const randomizedData = [...alerts].sort(() => Math.random() - 0.5);
+            setRandomAlerts(randomizedData);
+        };
+        randomizeData();
+    }, [alerts]);
+
+
+    //Search by name
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
 
+    //filter status buttons
     const handleFilterChange = (selectedFilter) => {
         setFilter(selectedFilter);
+        if (selectedFilter === 'all') {
+            alertFilterInitial()
+        }
+        else if (selectedFilter === 'perdido') {
+            getAlertsStatus('perdido')
+        }
+        else if (selectedFilter === 'encontrado') {
+            getAlertsStatus('encontrado')
+        }
+        else if (selectedFilter === 'reunido') {
+            getAlertsStatus('reunido')
+        }
+
+        // setCurrentPage(1);
     };
+
+
+    // const filteredRandomAlerts = randomAlerts.filter((alert) =>
+    //     (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
+    //     (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    // );
 
     const filteredPets = alerts
         ? alerts.filter((alert) =>
@@ -45,6 +80,24 @@ const Home = () => {
       const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id.age == filterData.age}
       ):[];
       console.log(alerts[0]?.pet_id.age)
+
+    //Pagination
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [pets, setPets] = useState([])
+    // const petsPerPage = 9;
+
+    // const paginate = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
+
+    // const indexOfLastPet = currentPage * petsPerPage;
+    // const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    // const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
+
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [currentPage]);
+
 
     return (
         <>
@@ -107,7 +160,17 @@ const Home = () => {
                         </div>
                     )}
 
-                    <CardsHome filteredPets={filteredPets} filtroE={filtroE} />
+                    {
+                        alertFilter === null ?
+                            <CardsHome filteredPets={filteredPets} />
+                            :
+                            datosFiltrados !== null ?
+                                <CardsHome filteredPets={datosFiltrados} />
+                                :
+                                <CardsHome filteredPets={alertFilter} />
+                    }
+
+                    {/* <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} /> */}
 
                     <CreateAd />
 
