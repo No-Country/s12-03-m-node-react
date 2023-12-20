@@ -31,10 +31,13 @@ import GoogleMaps from "../petProfile/GoogleMaps";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useAlertsContext } from "../../context/useAlertsContext";
+import { useNavigate } from "react-router-dom";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [pet_img, setImages] = useState([])
+
+  const navigate = useNavigate();
 
   const handleImages = (e) => {
     setImages(Array.from(e.target.files));
@@ -101,36 +104,6 @@ function FilterModal({ handleClose, open, status }) {
   const onSubmit = handleSubmit(async (formData) => {
     const geo_point = [position.lat, position.lng];
 
-    // const formDataToSend = new FormData();
-
-    // Object.keys(formData).forEach((key) => {
-    //   formDataToSend.append(key, formData[key]);
-    // })
-
-    // pet_img.forEach((image) => {
-    //   formDataToSend.append("image", image);
-    // })
-
-    // const formDataToSend = new FormData();
-    // selectedImages.forEach((image, index) => {
-    //   formDataToSend.append(`image_${index + 1}`, image);
-    // })
-
-    // formDataToSend.append("name", formData.name);
-    // formDataToSend.append("age", formData.age);
-    // formDataToSend.append("species", formData.species);
-    // formDataToSend.append("breed", formData.breed);
-    // formDataToSend.append("size", formData.size);
-    // formDataToSend.append("main_color", formData.main_color);
-    // formDataToSend.append("sex", formData.sex);
-    // formDataToSend.append("hair", formData.hair);
-    // formDataToSend.append("eyes", formData.eyes);
-    // formDataToSend.append("geo_point", JSON.stringify(geo_point));
-    // formDataToSend.append("status", formData.status);
-    // formDataToSend.append("date", new Date().toISOString());
-    // formDataToSend.append("alert_description", formData?.alert_description);
-    // formDataToSend.append("special_characteristics", formData?.special_characteristics);
-
     console.log(formData);
 
     try {
@@ -153,6 +126,7 @@ function FilterModal({ handleClose, open, status }) {
       console.log(alertData)
 
       if (petResponse.status === 201) {
+
         const alertResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", alertData, {
           headers: {
             "Content-Type": "application/json",
@@ -161,6 +135,8 @@ function FilterModal({ handleClose, open, status }) {
         });
 
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+
+        navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log('La primera solicitud no fue exitosa:', petResponse);
@@ -214,10 +190,6 @@ function FilterModal({ handleClose, open, status }) {
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            {/* <input type="file" multiple={false} accept="image/*" {...register('images')} />
-                            <input type="file" multiple={false} accept="image/*" {...register('images')} />
-                            <input type="file" multiple={false} accept="image/*" {...register('images')} /> */}
-
                             <input type="file" multiple accept="image/*" {...register("pet_img")} onChange={handleImages} />
 
                           </div>
