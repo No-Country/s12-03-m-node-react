@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import imgMap from "./images/map.jpg";
 import { Button } from "@nextui-org/button";
 import { FaLocationDot } from "react-icons/fa6";
+import { useAlertsContext } from "../../context/useAlertsContext";
 
 function GoogleMaps({ lati, lngi }) {
   const apiKey =import.meta.env.VITE_API_GMAPS 
@@ -12,31 +13,7 @@ function GoogleMaps({ lati, lngi }) {
     googleMapsApiKey: apiKey,
   });
 
-  const [position, setPosition] = useState(null);
-  const [error, setError] = useState(null);
-  const [openMap, setOpenMap] = useState(false);
-
-  const handleOpenMap = () => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitud = position.coords.latitude;
-          const longitud = position.coords.longitude;
-          console.log("Latitud:", latitud);
-          console.log("Longitud:", longitud);
-
-          setPosition({ lat: latitud, lng: longitud });
-          setOpenMap(true);
-        },
-        (error) => {
-          console.error("Error al obtener la ubicación:", error.message);
-          setError(error.message);
-        }
-      );
-    } else {
-      setError("La geolocalización no está disponible en este dispositivo.");
-    }
-  };
+  const { openMap, handleOpenMap, position, error } = useAlertsContext();
 
   return (
     <div className="w-full flex justify-center items-center">

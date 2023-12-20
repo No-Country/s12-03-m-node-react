@@ -1,4 +1,4 @@
-import { BASE_URL } from "../config/envConfig.js";
+import { BASE_URL_FRONT } from "../config/envConfig.js";
 import { PetsDTO, UpdatePetInfoDTO } from "../dtos/pets.DTO.js";
 import { generateQRCode } from "../libs/qrCode.js";
 import Pets from "../models/Pets.js";
@@ -53,7 +53,7 @@ export const createPet = async (req, res, next) => {
     const newPet = new Pets(petDTO);
     await newPet.save();
 
-    const qrData =  `${BASE_URL}/api/pets/${newPet._id}`;
+    const qrData =  `${BASE_URL_FRONT}/api/pets/${newPet._id}`;
     const qrImage = await generateQRCode(qrData);
     const qrImageUrl = await handleQRCodeUpload(qrImage);
     const idSectionsQr = qrImageUrl.public_id.split('/')

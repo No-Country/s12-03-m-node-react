@@ -12,7 +12,7 @@ import {
   Radio,
   RadioGroup,
 } from "@nextui-org/react";
-import InfoLocation from "./infoLocation";
+import InfoLocation from "./InfoLocation";
 import PetState from "./PetState";
 import QrCode from "./QrCode";
 import PetCharacteristics from "./PetCharacteristics";
@@ -23,7 +23,8 @@ import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
 
 import OnliMap from "./OnliMap";
-import ModalBlur from "./ModalBlur";
+import ModalBlur from "./ModalBlur";import { Helmet } from "react-helmet";
+
 import Swal from 'sweetalert2'
 
 function PetProfile() {
@@ -107,6 +108,9 @@ function PetProfile() {
 
   return (
     <>
+    <Helmet>
+        <title>Perfil | Rastrea Patitas</title>
+    </Helmet>
       {/* seccion para pantallas pequeñas */}
       <div className='bg-[url("/src/assets/bg-patitas.svg")] bg-repeat w-screen md:hidden'>
         {isLoading ? (

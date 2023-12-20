@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Button, Input } from '@nextui-org/react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import GoogleMaps from '../petProfile/GoogleMaps'
 import { useForm } from 'react-hook-form'
 import { registerUser } from '../../services/api'
-import useCurrentLocation from '../../utils/useCurrentLocation'
+import { useAlertsContext } from '../../context/useAlertsContext'
 
 const RegisterData = () => {
   const navigate = useNavigate()
@@ -13,13 +13,15 @@ const RegisterData = () => {
 
   const registrationData = useLocation().state
 
-  const { location: geo_point, error } = useCurrentLocation()
+  const { position } = useAlertsContext()
+  const geo_point = [position?.lat, position?.lng];
 
   const onSubmit = handleSubmit(async (data) => {
     data = { ...data, ...registrationData, geo_point }
     console.log(data)
     try {
       const response = await registerUser(data)
+      navigate('/login')
       console.log(response)
     } catch (error) {
       console.log(error)
@@ -46,10 +48,10 @@ const RegisterData = () => {
 
         <h3 className="text-sm pb-8 pt-5 pr-4">Zona para recibir alertas <span className='text-gray-500'>(lo podés editar después)</span></h3>
 
-        <div className='flex flex-col items-center justify-center bg-[url("/src/assets/bg-map.jpg")] bg-cover w-[360px] h-[207px]'>
+        {/* <div className='flex flex-col items-center justify-center bg-[url("/src/assets/bg-map.jpg")] bg-cover w-[360px] h-[207px]'>
           <Button type="button" color='primary' variant="solid" className='w-[255px]' >Añadir ubicación actual</Button>
-        </div>
-        {/* <GoogleMaps /> */}
+        </div> */}
+        <GoogleMaps register={register} />
         <div className='flex items-center'><Input id='accept' type='radio' variant='ghost' className='w-auto rounded-full' size='3xl' {...register("accept", { required: "Debes aceptar los términos y condiciones" })} /><label htmlFor='accept' >Acepto <span className='underline text-blue-500 cursor-pointer'>términos y condiciones</span></label></div>
 
         <p className="text-red-500 text-sm">{errors.accept?.message}</p>

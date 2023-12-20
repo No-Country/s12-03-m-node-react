@@ -24,7 +24,7 @@ import { HiDocumentText } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import ModalAdvertisement from "./ModalAdvertisement";
 
-function HambugerMenu2() {
+function HambugerMenu2({handleMenuToggle}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -37,9 +37,10 @@ function HambugerMenu2() {
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           icon={<RxHamburgerMenu size={24} />}
+          onClick={()=>{handleMenuToggle}}
         />
       </NavbarContent>
-      <NavbarMenu className=" w-48 md:w-1/4 px-0 ">
+      <NavbarMenu className=" w-48 md:w-1/4 px-0  ">
         <NavbarMenuItem className=" flex gap-4  items-center pl-2  ">
           <Link
             className="flex gap-4"
@@ -88,7 +89,7 @@ function HambugerMenu2() {
         </NavbarMenuItem>
 
         <NavbarMenuItem className=" flex gap-4 items-center  pl-2 pt-6">
-          <Link className="flex gap-4" href="#" size="lg" onClick={handleOpen}>
+          <Link className="flex gap-4" href="#" size="lg" onClick={() => navigate("/login")}>
             <IoAddCircle size={24} color="#4D4295" />
 
             <div className="font-['Poppins'] flex-col text-secondary text-xs items-start md:text-base">
