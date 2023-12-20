@@ -11,17 +11,10 @@ export const getAllAlerts = async (req, res, next) => {
     const { status, age, species, breed, main_color, sex, size, hair, eyes } = req.query
     const basicFilters = { age, species, breed, main_color, sex, size, hair, eyes }
     let alerts
-<<<<<<< HEAD
     if(filter){
       alerts = await Alerts.find({ status: filter}).populate('pet_id').populate({ path: 'user_id', select: '-password'});
     }else{
       alerts = await Alerts.find().populate('pet_id').populate({ path: 'user_id', select: '-password'});
-=======
-    if(status){
-      alerts = await Alerts.find({status}).populate('pet_id').lean();
-    }else{
-      alerts = await Alerts.find().populate('pet_id').lean();
->>>>>>> 90234708810e8be50e18f06064d954e849c82adc
     }
     const filteredAlerts = alerts.filter(alert => {
       const pet = alert.pet_id;
