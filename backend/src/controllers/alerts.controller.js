@@ -11,10 +11,10 @@ export const getAllAlerts = async (req, res, next) => {
     const { status, age, species, breed, main_color, sex, size, hair, eyes } = req.query
     const basicFilters = { age, species, breed, main_color, sex, size, hair, eyes }
     let alerts
-    if(status){
-      alerts = await Alerts.find({status}).populate('pet_id').lean();
+    if(filter){
+      alerts = await Alerts.find({ status: filter}).populate('pet_id').populate({ path: 'user_id', select: '-password'});
     }else{
-      alerts = await Alerts.find().populate('pet_id').lean();
+      alerts = await Alerts.find().populate('pet_id').populate({ path: 'user_id', select: '-password'});
     }
     const filteredAlerts = alerts.filter(alert => {
       const pet = alert.pet_id;
@@ -35,7 +35,7 @@ export const getAllAlerts = async (req, res, next) => {
 // ------Obtener un registro por ID-------
 export const getAlertById = async (req, res, next) => {
   try {
-    const alert = await Alerts.findById(req.params.id).populate('pet_id');
+    const alert = await Alerts.findById(req.params.id).populate('pet_id').populate({ path: 'user_id', select: '-password'});
     if (!alert){
       throw new HttpError('Alerta no encontrada', HttpCodes.CODE_NOT_FOUND)
     }

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Modal,
   ModalContent,
@@ -32,10 +32,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useAlertsContext } from "../../context/useAlertsContext";
 import { useNavigate } from "react-router-dom";
+import { AlertsContext } from "../../context/AlertsContext";
+import PublicationMade from "../newAdvertisement/PublicationMade";
 
-function FilterModal({ handleClose, open, status }) {
+function FilterModal({ handleClose, open, status, setFilter }) {
+
+  const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
+  const [showModal, setShowModal] = useState(false)
 
   const navigate = useNavigate();
 
@@ -105,8 +110,13 @@ function FilterModal({ handleClose, open, status }) {
     { size: "+ 75 cm", sizeReference: "Extra Grande" },
   ];
 
-  const onSubmit = handleSubmit(async (formData) => {
-    const geo_point = [position.lat, position.lng];
+
+  const onSubmit2 = handleSubmit(async (formData) => {
+
+    console.log(position)
+    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
+
+
 
     const dataToSend = new FormData();
 
@@ -140,6 +150,7 @@ function FilterModal({ handleClose, open, status }) {
         date: new Date().toISOString(),
         alert_description: formData?.alert_description,
         special_characteristics: formData?.special_characteristics,
+        images: selectedImages
       };
       console.log(alertData);
 
@@ -151,8 +162,12 @@ function FilterModal({ handleClose, open, status }) {
           }
         });
 
+
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
-        navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
+        handleButtonClick()
+        setTimeout(() => {
+          navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
+        }, 3500)
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log("La primera solicitud no fue exitosa:", petResponse);
@@ -160,7 +175,37 @@ function FilterModal({ handleClose, open, status }) {
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
+
   });
+
+  const onSubmit = (data) => {
+    alertFilterInitial()
+
+    let querysData = Object.keys(data).reduce((result, key) => {
+      if (data[key] !== null && key !== 'geo_point' && data[key] !== "") {
+        result[key] = data[key];
+      }
+      return result;
+    }, {});
+
+    console.log(querysData);
+    getAlertQuery(querysData)
+
+  }
+
+  const handleButtonClick = () => {
+    setShowModal(true);
+
+
+    // Establecer un temporizador para ocultar el modal después de 3 segundos
+    const timer = setTimeout(() => {
+      setShowModal(false);
+    }, 3000);
+
+    // Limpiar el temporizador al desmontar el componente
+    return () => clearTimeout(timer);
+  };
+
 
   return (
     <>
@@ -183,7 +228,7 @@ function FilterModal({ handleClose, open, status }) {
                   ? "Nuevo anuncio"
                   : "Aplica filtros para encontrar mascotas"}
               </ModalHeader>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={status ? onSubmit2 : handleSubmit(onSubmit)}>
                 <ModalBody className="">
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">
@@ -199,19 +244,35 @@ function FilterModal({ handleClose, open, status }) {
                       ))}
                     </fieldset>
                   )}
-                  <input type="radio" {...register("geo_point")} checked />
+                  <input type="radio" {...register("geo_point")} checked hidden />
                   <ModalBody className="bg-white rounded-xl ">
                     {status && (
                       <>
                         <section className="">
                           <p>Añadir fotos</p>
-                          <div className="flex gap-4 justify-center">
+                          <div className="flex gap-4 justify-left">
                             <input
                               type="file"
                               multiple
                               accept="image/*"
                               onChange={handleFilesChange}
+                              className={!selectedImages ? "file z-10" : "fileImg z-10"}
                             />
+
+                            {selectedImages &&
+                              selectedImages.map((image, index) => (
+                                <img
+                                  key={index}
+                                  src={URL.createObjectURL(image)}
+                                  alt="preview"
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    objectFit: "cover",
+                                    margin: "5px",
+                                  }}
+                                />
+                              ))}
 
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
@@ -405,6 +466,11 @@ function FilterModal({ handleClose, open, status }) {
           )}
         </ModalContent>
       </Modal>
+      <Modal isOpen={showModal} backdrop="blur">
+        {" "}
+        <ModalContent>{(onClose) => <PublicationMade />}</ModalContent>
+      </Modal>
+
     </>
   );
 }

@@ -21,9 +21,9 @@ const UserDetailsCard = ({first_name,  last_name, email, password, phone, postal
           {email && <p><span className="font-semibold">Email:</span> {email}</p>}
           {password && <p><span className="font-semibold">Contraseña:</span> {password}</p>}
           {phone && <p><span className="font-semibold">Número de teléfono:</span> {phone}</p>}
-          {postalCode && <p><span className="font-semibold">Código postal:</span> {postalCode}</p>}
+          {/* {postalCode && <p><span className="font-semibold">Código postal:</span> {postalCode}</p>} */}
           {city && <p><span className="font-semibold">Localidad:</span> {city}</p>}
-          {address && <p><span className="font-semibold">Dirección:</span> {address}</p>}
+          {/* {address && <p><span className="font-semibold">Dirección:</span> {address}</p>} */}
         </div>
       </div>
     );
