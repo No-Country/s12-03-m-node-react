@@ -7,6 +7,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -24,6 +25,10 @@ const Register = () => {
   })
 
   return (
+    <>
+    <Helmet>
+        <title>Registro | Rastrea Patitas</title>
+    </Helmet>
     <div className='md:bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen h-screen md:flex flex-col justify-center items-center'>
       <form onSubmit={onSubmit} className="flex flex-col items-center w-[360px] md:w-[544px] m-1 gap-6 bg-[url('/src/assets/bg-patitas.svg')] bg-cover bg-fondo p-10">
         <h1 className="text-xl">Registrate</h1>
@@ -66,6 +71,7 @@ const Register = () => {
         <p className='text-xs m-4'>Al registrarse, acepta nuestro Términos de servicio y Política de privacidad . Nunca compartimos su información de contacto con terceros.</p>
       </form>
     </div>
+    </>
   )
 }
 

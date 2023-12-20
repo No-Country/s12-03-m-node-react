@@ -3,12 +3,13 @@
 import React from "react";
 import { createContext, useEffect, useState } from "react";
 import { getPetByID, getPets } from "../services/api";
+import { useLocalStorageState } from "../utils/useLocalStorage";
 
 const PetsContext = createContext();
 
 const PetsProvider = ({ children }) => {
-	const [pets, setPets] = useState(null);
-	const [pet, setPet] = useState(null);
+	const [pets, setPets] = useLocalStorageState(null, "pets");
+	const [pet, setPet] = useLocalStorageState(null, "pet");
 
 	const getPetData = async (_id) => {
 		try {

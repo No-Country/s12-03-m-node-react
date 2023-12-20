@@ -21,7 +21,8 @@ import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
 import GoogleMaps from "./GoogleMaps";
 import OnliMap from "./OnliMap";
-import ModalBlur from "./ModalBlur";
+import ModalBlur from "./ModalBlur";import { Helmet } from "react-helmet";
+
 
 function PetProfile() {
   const [alert, setAlert] = useState(null);
@@ -61,6 +62,9 @@ function PetProfile() {
 
   return (
     <>
+    <Helmet>
+        <title>Perfil | Rastrea Patitas</title>
+    </Helmet>
       {/* seccion para pantallas pequeñas */}
       <div className='bg-[url("/src/assets/bg-patitas.svg")] bg-repeat w-screen md:hidden'>
         {isLoading ? (
