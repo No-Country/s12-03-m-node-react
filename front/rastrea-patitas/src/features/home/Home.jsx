@@ -10,7 +10,7 @@ import Pagination from './Pagination';
 
 
 const Home = () => {
-    
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -19,8 +19,8 @@ const Home = () => {
     const [filter, setFilter] = useState('all');
     const [randomAlerts, setRandomAlerts] = useState([]);
 
-    const { alerts } = useAlertsContext();
-    
+    const { alerts, alertFilter, alertFilterInitial, getAlertsStatus, getAlertsFilter, datosFiltrados } = useAlertsContext();
+
     // Fn. aleatorizar la pet data / cards
     useEffect(() => {
         const randomizeData = () => {
@@ -39,6 +39,19 @@ const Home = () => {
     //filter status buttons
     const handleFilterChange = (selectedFilter) => {
         setFilter(selectedFilter);
+        if (selectedFilter === 'all') {
+            alertFilterInitial()
+        }
+        else if (selectedFilter === 'perdido') {
+            getAlertsStatus('perdido')
+        }
+        else if (selectedFilter === 'encontrado') {
+            getAlertsStatus('encontrado')
+        }
+        else if (selectedFilter === 'reunido') {
+            getAlertsStatus('reunido')
+        }
+
         setCurrentPage(1);
     };
 
@@ -123,7 +136,15 @@ const Home = () => {
                         </div>
                     )}
 
-                    <CardsHome filteredPets={currentPets} />
+                    {
+                        alertFilter === null ?
+                            <CardsHome filteredPets={currentPets} />
+                            :
+                            datosFiltrados !== null ?
+                                <CardsHome filteredPets={datosFiltrados} />
+                                :
+                                <CardsHome filteredPets={alertFilter} />
+                    }
 
                     <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} />
 
