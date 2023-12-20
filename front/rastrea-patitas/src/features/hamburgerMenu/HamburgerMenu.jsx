@@ -23,7 +23,7 @@ import { useNavigate } from "react-router";
 import ModalAdvertisement from "./ModalAdvertisement";
 import Cookies from "js-cookie";
 import { useUserContext } from "../../context/useUserContext";
-function HambugerMenu() {
+function HambugerMenu({handleMenuToggle}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -44,8 +44,10 @@ function HambugerMenu() {
     <>
       <NavbarContent>
         <NavbarMenuToggle
+        defaultSelected={true}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           icon={<RxHamburgerMenu size={24} />}
+          handleMenuToggle={handleMenuToggle}
         />
       </NavbarContent>
       <NavbarMenu className=" w-48 md:w-1/4 px-0 ">
@@ -127,7 +129,7 @@ function HambugerMenu() {
 
         <NavbarMenuItem className=" flex  " justify="end">
           <Link
-            className="font-['Poppins'] w-full justify-end text-secondary text-xs gap-1 pt-4 border-t-1  "
+            className="font-['Poppins'] w-full justify-end text-secondary text-xs gap-1 pt-4 pr-4  font-medium   "
             href="#"
             size="lg"
             onClick={handleLogout}
