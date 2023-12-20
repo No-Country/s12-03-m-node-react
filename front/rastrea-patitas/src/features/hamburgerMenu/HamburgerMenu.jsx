@@ -36,6 +36,7 @@ function HambugerMenu({handleMenuToggle}) {
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.clear();
     Cookies.remove("token");
     navigate("/login");
   }

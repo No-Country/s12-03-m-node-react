@@ -3,16 +3,17 @@
 import React from "react";
 import { createContext, useEffect, useState } from "react";
 import { getAlerts } from "../services/api";
+import { useLocalStorageState } from "../utils/useLocalStorage";
 
 
 const AlertsContext = createContext();
 
 const AlertsProvider = ({ children }) => {
-  const [alerts, setAlerts] = useState([]);
-  const [alert, setAlert] = useState(null);
-  const [position, setPosition] = useState(null);
-  const [error, setError] = useState(null);
-  const [openMap, setOpenMap] = useState(false);
+  const [alerts, setAlerts] = useLocalStorageState(null, "alerts");
+  const [alert, setAlert] = useLocalStorageState(null, "alert");
+  const [position, setPosition] = useLocalStorageState(null, "position");
+  const [error, setError] = useLocalStorageState(null, "error");
+  const [openMap, setOpenMap] = useLocalStorageState(false, "openMap");
 
   const handleOpenMap = () => {
     if ("geolocation" in navigator) {
