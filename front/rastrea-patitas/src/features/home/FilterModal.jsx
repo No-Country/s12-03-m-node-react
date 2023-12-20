@@ -39,6 +39,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
   const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
+  const [showModal, setShowModal]=useState(false)
 
   const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
   // }, [selectedImages]);
   //   console.log(selectedImages);
 
-  const { position, alerts } = useAlertsContext();
+  const { position } = useAlertsContext();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);

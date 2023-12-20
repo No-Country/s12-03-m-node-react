@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterModal from './FilterModal';
