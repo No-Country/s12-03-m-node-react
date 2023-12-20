@@ -32,24 +32,22 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useAlertsContext } from "../../context/useAlertsContext";
 import { useNavigate } from "react-router-dom";
-import PublicationMade from "../newAdvertisement/PublicationMade";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
 
+  const navigate = useNavigate();
+
   const handleFilesChange = (e) => {
     setSelectedImages(Array.from(e.target.files));
   };
-//   useEffect(() => {
-//     console.log(selectedImages); // Esto ahora reflejará los archivos seleccionados actuales
-// }, [selectedImages]);
-//   console.log(selectedImages);
+  //   useEffect(() => {
+  //     console.log(selectedImages); // Esto ahora reflejará los archivos seleccionados actuales
+  // }, [selectedImages]);
+  //   console.log(selectedImages);
 
   const { position } = useAlertsContext();
-
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -58,7 +56,6 @@ function FilterModal({ handleClose, open, status }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
@@ -109,36 +106,35 @@ function FilterModal({ handleClose, open, status }) {
   ];
 
   const onSubmit = handleSubmit(async (formData) => {
+    const geo_point = [position.lat, position.lng];
 
     const dataToSend = new FormData();
 
 
     selectedImages.forEach(file => {
-        dataToSend.append('pet_img', file); 
+      dataToSend.append('pet_img', file);
     });
     Object.keys(formData).forEach(key => {
       dataToSend.append(key, formData[key]);
-  });
-  console.log(dataToSend)
-
-    const geo_point = [parseFloat(position.lat), parseFloat(position.lng)]
+    });
+    console.log(dataToSend)
 
 
     try {
       const petResponse = await axios.post(
-        "http://localhost:4000/api/pets",
+        "https://s12-03-m-node-react.vercel.app/api/pets",
         dataToSend,
         {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: "Bearer " + Cookies.get("token"),
           },
-        }
-      );
+        });
 
-      console.log("Respuesta del servidor para /api/pets:", petResponse);
+
+      console.log('Respuesta del servidor para /api/pets:', petResponse);
       const alertData = {
-        pet_id: petResponse.data._id,
+        pet_id: petResponse.data?._id,
         geo_point,
         status: formData.status,
         date: new Date().toISOString(),
@@ -148,18 +144,15 @@ function FilterModal({ handleClose, open, status }) {
       console.log(alertData);
 
       if (petResponse.status === 201) {
-        const alertResponse = await axios.post(
-          "http://localhost:4000/api/alerts",
-          alertData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + Cookies.get("token"),
-            },
+        const alertResponse = await axios.post("https://s12-03-m-node-react.vercel.app/api/alerts", alertData, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + Cookies.get("token")
           }
-        );
+        });
 
-        console.log("Respuesta del servidor para /api/alerts:", alertResponse);
+        console.log('Respuesta del servidor para /api/alerts:', alertResponse);
+        navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log("La primera solicitud no fue exitosa:", petResponse);
@@ -195,7 +188,7 @@ function FilterModal({ handleClose, open, status }) {
                   {!status && (
                     <fieldset className="flex flex-wrap  justify-between">
                       {statusRadio.map((element, index) => (
-                        <div key={element.status + index} className=" flex  ">
+                        <div key={element.status + index} className=" flex  " >
                           <RadioGeneral
                             key={element.status + index}
                             register={register}
@@ -219,6 +212,7 @@ function FilterModal({ handleClose, open, status }) {
                               accept="image/*"
                               onChange={handleFilesChange}
                             />
+
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
                         </section>
@@ -231,13 +225,7 @@ function FilterModal({ handleClose, open, status }) {
                           className=""
                           {...register("name")}
                         />
-                        <input
-                          type="radio"
-                          value={status}
-                          checked
-                          {...register("status")}
-                          hidden
-                        />
+                        <input type="radio" value={status} checked  {...register("status")} hidden />
                       </>
                     )}
 
@@ -287,7 +275,7 @@ function FilterModal({ handleClose, open, status }) {
                       </section>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset >
                       <IconTooltip labelTitle={"Edad"} data={edades} />
                       <div className="flex flex-wrap  justify-between   ">
                         {edades.map((element, index) => (
@@ -300,8 +288,7 @@ function FilterModal({ handleClose, open, status }) {
                               element={element.ageReference}
                             />{" "}
                           </div>
-                        ))}
-                      </div>
+                        ))}</div>
                     </fieldset>
 
                     {status && (
@@ -330,11 +317,8 @@ function FilterModal({ handleClose, open, status }) {
                         </section>
                         <Input
                           type="text"
-                          label={
-                            <IconTooltip
-                              labelTitle={"Carácteristica especial (opcional)"}
-                            />
-                          }
+                          label={<IconTooltip labelTitle={"Carácteristica especial (opcional)"} />}
+
                           placeholder="Describe si tenia alguna particularidad"
                           color="danger"
                           variant="underlined"
@@ -347,10 +331,7 @@ function FilterModal({ handleClose, open, status }) {
                       <legend>Color principal</legend>
                       <section className="flex flex-wrap  justify-between   ">
                         {coloresDelCuerpo.map((element, index) => (
-                          <div
-                            key={element}
-                            className="relative flex justify-center items-center "
-                          >
+                          <div key={element} className="relative flex justify-center items-center " >
                             {" "}
                             <RadioColor
                               key={element}
@@ -377,8 +358,7 @@ function FilterModal({ handleClose, open, status }) {
                               element={element.sizeReference}
                             />{" "}
                           </div>
-                        ))}
-                      </div>
+                        ))}</div>
                     </fieldset>
 
                     <GoogleMaps register={register} />
@@ -396,11 +376,7 @@ function FilterModal({ handleClose, open, status }) {
                     )}
                   </ModalBody>
                 </ModalBody>
-                <ModalFooter
-                  className={
-                    status ? "flex justify-center " : "flex justify-between"
-                  }
-                >
+                <ModalFooter className={status ? "flex justify-center " : "flex justify-between"}>
                   <>
                     {!status && (
                       <Button
@@ -414,13 +390,7 @@ function FilterModal({ handleClose, open, status }) {
                     )}
                     <Button
                       variant="ghost"
-                      onPress={
-                        status
-                          ? () => {
-                              handleButtonClick(), onClose();
-                            }
-                          : onClose
-                      }
+                      onPress={onClose}
                       className="border-solid border-2 border-moradoMain text-moradoMain font-semibold hover:bg-moradoActivo hover:border-moradoActivo "
                       color=""
                       type="submit"
@@ -435,12 +405,8 @@ function FilterModal({ handleClose, open, status }) {
           )}
         </ModalContent>
       </Modal>
-      <Modal isOpen={showModal} backdrop="blur">
-        {" "}
-        <ModalContent>{(onClose) => <PublicationMade />}</ModalContent>
-      </Modal>
     </>
   );
 }
 
-export default FilterModal;
+export default FilterModal
