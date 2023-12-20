@@ -9,7 +9,7 @@ import { useLocalStorageState } from "../utils/useLocalStorage";
 const AlertsContext = createContext();
 
 const AlertsProvider = ({ children }) => {
-  const [alerts, setAlerts] = useLocalStorageState(null, "alerts");
+  const [alerts, setAlerts] = useState([]);
   const [alert, setAlert] = useLocalStorageState(null, "alert");
   const [position, setPosition] = useLocalStorageState(null, "position");
   const [error, setError] = useLocalStorageState(null, "error");
