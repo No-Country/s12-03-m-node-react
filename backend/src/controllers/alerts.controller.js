@@ -11,8 +11,8 @@ export const getAllAlerts = async (req, res, next) => {
     const { status, age, species, breed, main_color, sex, size, hair, eyes } = req.query
     const basicFilters = { age, species, breed, main_color, sex, size, hair, eyes }
     let alerts
-    if(filter){
-      alerts = await Alerts.find({ status: filter}).populate('pet_id').populate({ path: 'user_id', select: '-password'});
+    if(status){
+      alerts = await Alerts.find({ status: status}).populate('pet_id').populate({ path: 'user_id', select: '-password'});
     }else{
       alerts = await Alerts.find().populate('pet_id').populate({ path: 'user_id', select: '-password'});
     }
