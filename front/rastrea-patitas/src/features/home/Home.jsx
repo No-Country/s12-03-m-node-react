@@ -74,12 +74,12 @@ const Home = () => {
     const indexOfFirstPet = indexOfLastPet - petsPerPage;
     const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
 
-    useEffect(() => {
-       console.log(filterData)
-      }, [filterData]);
-      const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id?.age == filterData.age}
-      ):[];
-      console.log(alerts[0]?.pet_id?.age)
+    // useEffect(() => {
+    //    console.log(filterData)
+    //   }, [filterData]);
+    //   const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id?.age == filterData.age}
+    //   ):[];
+    //   console.log(alerts[0]?.pet_id?.age)
 
     //Pagination
     // const [currentPage, setCurrentPage] = useState(1);
