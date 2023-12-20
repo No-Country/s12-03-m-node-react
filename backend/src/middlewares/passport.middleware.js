@@ -3,7 +3,7 @@ import local from "passport-local"
 import google from 'passport-google-oauth20';
 import jwt from "passport-jwt"
 import facebook from 'passport-facebook';
-import { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } from '../config/envConfig.js';
+import { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL_BACK, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } from '../config/envConfig.js';
 import { createHash, evaluatePassword } from "../utils/hash.util.js";
 import Users from "../models/Users.js";
 import HttpError from "../utils/error.util.js";
@@ -70,7 +70,7 @@ const initializePassport = () => {
 			{
 				clientID: GOOGLE_CLIENT_ID,
 				clientSecret: GOOGLE_CLIENT_SECRET,
-				callbackURL: `${BASE_URL}/api/session/auth/google/callback`,
+				callbackURL: `${BASE_URL_BACK}/api/session/auth/google/callback`,
 			},
 			async (accessToken, refreshToken, profile, done) => {
 				const user = profile._json;
@@ -84,10 +84,13 @@ const initializePassport = () => {
 						age: null,
 						registration_method: 'google',
 						registration_date: Date.now(),
-						profile_img: user.picture,
+						profile_img: {
+							url: user.picture,
+							public_id: null
+						},
 					};
 					await Users.create(newUser)
-					done(null, newUser);
+					return done(null, newUser);
 				}
 				const userDTO = {
 					_id: registeredUser._id,
@@ -106,7 +109,7 @@ const initializePassport = () => {
 		{
 		clientID: FACEBOOK_APP_ID,
 		clientSecret: FACEBOOK_APP_SECRET,
-		callbackURL: `${BASE_URL}/api/session/auth/facebook/callback`,
+		callbackURL: `${BASE_URL_BACK}/api/session/auth/facebook/callback`,
 		profileFields: ['picture', 'email', 'first_name', 'last_name']
 		},
 		async (accessToken, refreshToken, profile, done) => {
