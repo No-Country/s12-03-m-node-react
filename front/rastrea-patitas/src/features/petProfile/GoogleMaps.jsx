@@ -7,8 +7,9 @@ import { Button } from "@nextui-org/button";
 import { FaLocationDot } from "react-icons/fa6";
 
 function GoogleMaps({ lati, lngi }) {
+  const apiKey =import.meta.env.VITE_API_GMAPS 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDW-ygtqIfSe5TbV3gSQtLoCMOHsrFsYkE",
+    googleMapsApiKey: apiKey,
   });
 
   const [position, setPosition] = useState(null);

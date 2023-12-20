@@ -9,6 +9,8 @@ import {
   Button,
   Card,
   Chip,
+  Radio,
+  RadioGroup,
 } from "@nextui-org/react";
 import InfoLocation from "./infoLocation";
 import PetState from "./PetState";
@@ -19,9 +21,10 @@ import { useParams } from "react-router-dom";
 import { getAlertByID } from "../../services/api";
 import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
-import GoogleMaps from "./GoogleMaps";
+
 import OnliMap from "./OnliMap";
 import ModalBlur from "./ModalBlur";
+import Swal from 'sweetalert2'
 
 function PetProfile() {
   const [alert, setAlert] = useState(null);
@@ -46,6 +49,8 @@ function PetProfile() {
   const registeredAgo = formatDate(alert?.createdAt);
   const state = alert?.status;
   const [editProfile, setEditProfile] = useState(false);
+  const idPet = alert?.pet_id._id;
+  const namePet = alert?.pet_id.name;
 
   function handlerEditProfile() {
     setEditProfile(true);
@@ -54,6 +59,47 @@ function PetProfile() {
   function handlerCancelEditProf() {
     setEditProfile(false);
   }
+
+  const handleDetetePet = async () => {
+    console.log(`Pet to delete: nombre: ${namePet}, id: ${idPet}`);
+  
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Una vez eliminado no se pueden revertir los cambios!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar"
+      });
+  
+      if (result.isConfirmed) {
+      const response = 5
+  
+        if (response.ok) {
+          // Si la eliminación fue exitosa, mostrar un mensaje de éxito
+          Swal.fire({
+            title: "Eliminado",
+            text: `${namePet} ha sido eliminado de tus mascotas.`,
+            icon: "success"
+          });
+        } else {
+          // Si hay un problema con la eliminación, mostrar un mensaje de error
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un problema al intentar eliminar la mascota.",
+            icon: "error"
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error al eliminar la mascota:", error);
+      // Manejar errores de red u otros errores aquí
+    }
+  };
+  
+
 
   if (isLoading || !alert) {
     return <div>Loading...</div>;
@@ -73,6 +119,7 @@ function PetProfile() {
             {!editProfile ? (
               <div className=" flex justify-around my-4">
                 <Button
+                onClick={handleDetetePet}  
                   color="primary"
                   variant="bordered"
                   className="border-moradoMain text-letra font-medium w-36 "
@@ -119,7 +166,7 @@ function PetProfile() {
 
             <InfoLocation ubicacion={alert.last_location} />
 
-            <PetState editProfile={editProfile} state={state} />
+            <PetState editProfile={editProfile} state={state}  petName={alert.pet_id.name}/>
 
             {editProfile ? (
               <EditPetCharacteristics />
@@ -134,8 +181,7 @@ function PetProfile() {
 
       {/* seccion para pantallas medianas y grandes */}
       <div className='bg-[url("/src/assets/bg-patitas.svg")] md:bg-repeat w-screen'>
-        <div  className="hidden md:block">
-         
+        <div className="hidden md:block">
           <div className="flex mx-36 justify-center ">
             <div className=" w-[642px]  ">
               <div className="flex flex-row">
@@ -147,18 +193,18 @@ function PetProfile() {
                     Registrado el {registeredAgo}
                   </p>
                 </div>
-               
-                  <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
-                    <Button
-                      color="primary"
-                      variant="bordered"
-                      className="border-moradoMain text-letra font-medium w-36 "
-                    >
-                      Eliminar perfil
-                    </Button>
-                   <ModalBlur pet ={alert}/> {/**boton editar perfil */}
-                  </div>
-                
+
+                <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
+                  <Button
+                  onClick={handleDetetePet}  
+                    color="primary"
+                    variant="bordered"
+                    className="border-moradoMain text-letra font-medium w-36 "
+                  >
+                    Eliminar perfil
+                  </Button>
+                  <ModalBlur pet={alert} /> {/**boton editar perfil */}
+                </div>
               </div>
 
               <PetCard editProfile={editProfile} petData={alert} />
@@ -269,7 +315,30 @@ function PetProfile() {
               </Card>
 
               <Card className="w-[447px] h-[216px] ml-8 mt-4">
-                <PetState editProfile={editProfile} />
+                <p className="mx-4 text-letra font-semibold text-sm md:text-3xl md:pl-6 md:mt-5">
+                  Estado actual de tu mascota
+                </p>
+                <hr className="hidden md:block mx-8" />
+                <RadioGroup
+                  isDisabled={true}
+                  className=" mx-6 mt-3"
+                  value={alert.status === "encontrado" ? "en casa" : alert.status}
+                >
+                  <Radio className="md:mt-4" value="en casa">
+                    <p className="  md:text-lg text-[#6B7A85] font-semibold">
+                      En casa
+                    </p>
+                  </Radio>
+                  <Radio
+                    className="md:mt-1"
+                    onClick={() => handlerOpen()}
+                    value="perdido"
+                  >
+                    <p className="md:text-lg text-[#6B7A85] font-semibold">
+                      Perdido
+                    </p>
+                  </Radio>
+                </RadioGroup>
               </Card>
 
               <Card className="w-[447px] h-[310px] ml-8 mt-4 md:mb-14">

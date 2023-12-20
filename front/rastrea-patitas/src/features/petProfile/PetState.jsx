@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import ChangePetState from "./ChangePetState";
 
-function PetState({ editProfile, state }) {
-  const [selectedRadio, setSelectedRadio] = useState(state);
+function PetState({ editProfile, state, petName }) {
+  const [selectedRadio, setSelectedRadio] = useState(state === "encontrado" ? "en casa" : state);
   const [showChangePetState, setShowChangePetState] = useState(false);
 
   const handlerClose = () => {
     //Esta funcion me permite cerrar la card de cambio de estado y ademas volver el estado a En casa si no se publica la perdida
     // Cambiar el valor seleccionado al hacer clic en el botón
-    setSelectedRadio(selectedRadio === "en casa" ? "perdido" : "en casa");
+    setSelectedRadio(selectedRadio === state);
     setShowChangePetState(false);
   };
 
@@ -41,7 +41,7 @@ function PetState({ editProfile, state }) {
       </RadioGroup>
       {showChangePetState && (
         <ChangePetState
-          petName={"Señor Mostahito"}
+          petName={petName}
           handlerClose={handlerClose}
         />
       )}{" "}
