@@ -1,7 +1,7 @@
 import Router from 'express'
 import passport from 'passport'
 import { login, register } from '../controllers/session.controller.js'
-import { BASE_URL } from '../config/envConfig.js'
+import { BASE_URL_FRONT } from '../config/envConfig.js'
 import validateSchema from '../middlewares/schemasValidators.middlewares.js'
 import { usersSchemaValidator } from '../utils/schemasValidators.utils.js'
 import { typeConversor } from '../middlewares/typeConversor.middleware.js'
@@ -25,15 +25,17 @@ router.post(
 router.get(
 	'/auth/google',
 	passport.authenticate('google', { scope: ['profile', 'email'] }),
-	login
 );
 
 router.get(
 	'/auth/google/callback',
 	passport.authenticate('google', {
-		failureRedirect: `${BASE_URL}/iniciar-sesion`
+		failureRedirect: `${BASE_URL_FRONT}`
 	}),
-	login,
+  login,
+	(req, res) => {
+    res.redirect(BASE_URL_FRONT)
+  }
 );
 
 router.get('/auth/facebook',
@@ -43,7 +45,7 @@ router.get('/auth/facebook',
 );
 
 router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: `${BASE_URL}/iniciar-sesion` }),
+  passport.authenticate('facebook', { failureRedirect: `${BASE_URL_FRONT}` }),
   login
 )
 

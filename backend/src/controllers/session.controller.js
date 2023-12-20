@@ -4,6 +4,7 @@ import { HttpCodes } from "../utils/HTTPCodes.util.js";
 import HttpError from "../utils/error.util.js";
 import { handleImageUpload } from "../utils/imageHandle.js";
 import { generateToken } from "../utils/session.util.js";
+import Alerts from "../models/Alerts.js";
 
 export const register = async (req, res, next) => {
     try {
@@ -45,6 +46,8 @@ export const login = async (req, res, next) => {
         };
         const pets = await Pets.find({ user_id: user._id}).lean()
         user.pets = pets
+        const alerts = await Alerts.find({ user_id: user._id }).lean()
+        user.alerts = alerts
         res.status(HttpCodes.CODE_SUCCESS).send(response)
     } catch (error) {
         next(error)

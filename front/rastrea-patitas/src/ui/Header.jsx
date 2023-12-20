@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Button,
   Navbar,
@@ -40,6 +40,23 @@ function Header() {
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
+  const navbarRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+      // Cerrar la barra de navegación si se hace clic fuera de ella
+      setIsMenuOpen(false);
+    }
+  };
+  useEffect(() => {
+    // Agregar un event listener global para detectar clics fuera de la barra de navegación
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      // Eliminar el event listener al desmontar el componente
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [])
 
   const headerItems = [
     { id: 1, title: "Perfil", subTitle: "Editar perfil", path: "#", src: "" },
@@ -74,12 +91,13 @@ function Header() {
       onMenuOpenChange={setIsMenuOpen}
       className=" w-full "
       maxWidth="full"
+      ref={navbarRef}
     >
       {isLogin === false ? (
         <>
           <NavbarContent>
             <NavbarItem>
-              {user ? <HambugerMenu /> : <HambugerMenu2 />}
+              {user ? <HambugerMenu  /> : <HambugerMenu2  />}
             </NavbarItem>
             <NavbarBrand>
               <img

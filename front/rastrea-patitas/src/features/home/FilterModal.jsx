@@ -34,7 +34,7 @@ import { useAlertsContext } from "../../context/useAlertsContext";
 import { useNavigate } from "react-router-dom";
 import { AlertsContext } from "../../context/AlertsContext";
 
-function FilterModal({ handleClose, open, status }) {
+function FilterModal({ handleClose, open, status,setFilter }) {
 
   const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
@@ -50,7 +50,7 @@ function FilterModal({ handleClose, open, status }) {
   // }, [selectedImages]);
   //   console.log(selectedImages);
 
-  const { position } = useAlertsContext();
+  const { position, alerts } = useAlertsContext();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -148,6 +148,7 @@ function FilterModal({ handleClose, open, status }) {
         date: new Date().toISOString(),
         alert_description: formData?.alert_description,
         special_characteristics: formData?.special_characteristics,
+        images: selectedImages
       };
       console.log(alertData);
 
@@ -168,6 +169,7 @@ function FilterModal({ handleClose, open, status }) {
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
+
   });
 
   const onSubmit = (data) => {
@@ -187,7 +189,21 @@ function FilterModal({ handleClose, open, status }) {
 
 
   }
+  const handleButtonClick = () => {
+    setShowModal(true);
 
+    // Establecer un temporizador para ocultar el modal después de 3 segundos
+    const timer = setTimeout(() => {
+      setShowModal(false);
+
+      // Redirigir a otra página después de ocultar el modal
+      navigate("/");
+    }, 3000);
+
+    // Limpiar el temporizador al desmontar el componente
+    return () => clearTimeout(timer);
+  };
+ 
   return (
     <>
       <Modal

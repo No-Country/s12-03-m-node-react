@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useEffect, useState } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterModal from './FilterModal';
@@ -8,6 +8,7 @@ import CreateAd from './CreateAd';
 import { useAlertsContext } from '../../context/useAlertsContext';
 //import Pagination from './Pagination';
 import { Helmet } from 'react-helmet';
+import Filtro2 from './Filtro2';
 
 
 const Home = () => {
@@ -69,6 +70,17 @@ const Home = () => {
         )
         : [];
 
+    //Extrae la info del filterModal
+    console.log(alerts)
+    const [filterData, setFilterData] = useState({});
+
+    useEffect(() => {
+       console.log(filterData)
+      }, [filterData]);
+      const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id.age == filterData.age}
+      ):[];
+      console.log(alerts[0]?.pet_id.age)
+
     //Pagination
     // const [currentPage, setCurrentPage] = useState(1);
     // const [pets, setPets] = useState([])
@@ -92,6 +104,7 @@ const Home = () => {
              <Helmet>
                  <title>Home | Rastrea Patitas</title>
              </Helmet>   
+             
             <div className='bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center'>
                 <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
@@ -163,7 +176,8 @@ const Home = () => {
 
                 </div>
             </div>
-            <FilterModal handleClose={handleClose} open={open} />
+            <FilterModal handleClose={handleClose} open={open} setFilter={setFilterData}  />
+          {/*  <Filtro2 handleClose={handleClose} open={open} setFilter={setFilterData} />*/}
         </>
     );
 };
