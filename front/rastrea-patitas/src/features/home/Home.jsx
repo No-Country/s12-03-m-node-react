@@ -75,8 +75,28 @@ const Home = () => {
     const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [currentPage]);
+       console.log(filterData)
+      }, [filterData]);
+      const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id?.age == filterData.age}
+      ):[];
+      console.log(alerts[0]?.pet_id?.age)
+
+    //Pagination
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [pets, setPets] = useState([])
+    // const petsPerPage = 9;
+
+    // const paginate = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
+
+    // const indexOfLastPet = currentPage * petsPerPage;
+    // const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    // const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
+
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [currentPage]);
 
 
     return (

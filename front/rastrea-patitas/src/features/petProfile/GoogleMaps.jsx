@@ -8,8 +8,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useAlertsContext } from "../../context/useAlertsContext";
 
 function GoogleMaps({ lati, lngi }) {
+  const apiKey =import.meta.env.VITE_API_GMAPS 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDW-ygtqIfSe5TbV3gSQtLoCMOHsrFsYkE",
+    googleMapsApiKey: apiKey,
   });
 
   const { openMap, handleOpenMap, position, error } = useAlertsContext();
