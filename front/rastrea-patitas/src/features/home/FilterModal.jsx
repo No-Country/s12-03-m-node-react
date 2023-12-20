@@ -36,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 function FilterModal({ handleClose, open, status,setFilter }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
-
+const [showModal, setShowModal]=useState(false)
   const navigate = useNavigate();
 
   const handleFilesChange = (e) => {
