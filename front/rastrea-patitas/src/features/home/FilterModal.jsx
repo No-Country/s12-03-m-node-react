@@ -35,12 +35,12 @@ import { useNavigate } from "react-router-dom";
 import { AlertsContext } from "../../context/AlertsContext";
 import PublicationMade from "../newAdvertisement/PublicationMade";
 
-function FilterModal({ handleClose, open, status,setFilter }) {
+function FilterModal({ handleClose, open, status, setFilter }) {
 
   const { alerts, getAlertsFilter, alertFilter, getAlertQuery, alertFilterInitial } = useContext(AlertsContext)
   const [width, setWidth] = useState(window.innerWidth);
   const [selectedImages, setSelectedImages] = useState();
-  const [showModal, setShowModal]=useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const navigate = useNavigate();
 
@@ -116,7 +116,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
     console.log(position)
     const geo_point = [parseFloat(position.lat), parseFloat(position.lng)];
 
- 
+
 
     const dataToSend = new FormData();
 
@@ -162,12 +162,12 @@ function FilterModal({ handleClose, open, status,setFilter }) {
           }
         });
 
-        
+
         console.log('Respuesta del servidor para /api/alerts:', alertResponse);
-        handleButtonClick() 
-      setTimeout(() => {
-        navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
-      },3500)
+        handleButtonClick()
+        setTimeout(() => {
+          navigate("/poster", { state: { pet: petResponse.data, alert: alertData } });
+        }, 3500)
       } else {
         // Manejar el caso en que la primera solicitud no fue exitosa
         console.log("La primera solicitud no fue exitosa:", petResponse);
@@ -206,7 +206,7 @@ function FilterModal({ handleClose, open, status,setFilter }) {
     return () => clearTimeout(timer);
   };
 
- 
+
   return (
     <>
       <Modal
@@ -250,13 +250,29 @@ function FilterModal({ handleClose, open, status,setFilter }) {
                       <>
                         <section className="">
                           <p>Añadir fotos</p>
-                          <div className="flex gap-4 justify-center">
+                          <div className="flex gap-4 justify-left">
                             <input
                               type="file"
                               multiple
                               accept="image/*"
                               onChange={handleFilesChange}
+                              className={!selectedImages ? "file z-10" : "fileImg z-10"}
                             />
+
+                            {selectedImages &&
+                              selectedImages.map((image, index) => (
+                                <img
+                                  key={index}
+                                  src={URL.createObjectURL(image)}
+                                  alt="preview"
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    objectFit: "cover",
+                                    margin: "5px",
+                                  }}
+                                />
+                              ))}
 
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
