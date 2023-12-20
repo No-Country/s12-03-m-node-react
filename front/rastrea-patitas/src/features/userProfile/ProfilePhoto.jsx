@@ -8,9 +8,9 @@ const ProfilePhoto = () => {
   const { user } = useUserContext();
 
   return (
-    <div className="flex justify-center m-10 gap-2">
+    <div className="flex justify-center gap-2 m-6">
         <div className="flex items-center">
-          <img className="w-[110px] h-[110px]" src={user.profile_img.url} />
+          <img className="w-[110px] h-[110px] rounded-full" src={user.profile_img.url} />
         </div>
         
         <div className="flex flex-col items-start ml-1" style={{ color: '#4D4295' }}>
