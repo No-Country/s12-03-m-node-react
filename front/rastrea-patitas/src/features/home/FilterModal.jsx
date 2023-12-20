@@ -34,13 +34,11 @@ import { useAlertsContext } from "../../context/useAlertsContext";
 
 function FilterModal({ handleClose, open, status }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [pet_img, setImages] = useState([])
 
-  const handleFilesChange = (e) => {
-    setSelectedImages(Array.from(e.target.files));
-    console.log(selectedImages);
+  const handleImages = (e) => {
+    setImages(Array.from(e.target.files));
   }
-  console.log(selectedImages)
 
   const { position } = useAlertsContext()
 
@@ -103,6 +101,36 @@ function FilterModal({ handleClose, open, status }) {
   const onSubmit = handleSubmit(async (formData) => {
     const geo_point = [position.lat, position.lng];
 
+    // const formDataToSend = new FormData();
+
+    // Object.keys(formData).forEach((key) => {
+    //   formDataToSend.append(key, formData[key]);
+    // })
+
+    // pet_img.forEach((image) => {
+    //   formDataToSend.append("image", image);
+    // })
+
+    // const formDataToSend = new FormData();
+    // selectedImages.forEach((image, index) => {
+    //   formDataToSend.append(`image_${index + 1}`, image);
+    // })
+
+    // formDataToSend.append("name", formData.name);
+    // formDataToSend.append("age", formData.age);
+    // formDataToSend.append("species", formData.species);
+    // formDataToSend.append("breed", formData.breed);
+    // formDataToSend.append("size", formData.size);
+    // formDataToSend.append("main_color", formData.main_color);
+    // formDataToSend.append("sex", formData.sex);
+    // formDataToSend.append("hair", formData.hair);
+    // formDataToSend.append("eyes", formData.eyes);
+    // formDataToSend.append("geo_point", JSON.stringify(geo_point));
+    // formDataToSend.append("status", formData.status);
+    // formDataToSend.append("date", new Date().toISOString());
+    // formDataToSend.append("alert_description", formData?.alert_description);
+    // formDataToSend.append("special_characteristics", formData?.special_characteristics);
+
     console.log(formData);
 
     try {
@@ -115,7 +143,7 @@ function FilterModal({ handleClose, open, status }) {
 
       console.log('Respuesta del servidor para /api/pets:', petResponse);
       const alertData = {
-        pet_id: petResponse.data._id,
+        pet_id: petResponse.data?._id,
         geo_point,
         status: formData.status,
         date: new Date().toISOString(),
@@ -186,13 +214,11 @@ function FilterModal({ handleClose, open, status }) {
                         <section className="">
                           <p>Añadir fotos</p>
                           <div className="flex gap-4 justify-center">
-                            <input
-                              type="file"
-                              multiple
-                              accept="image/*"
-                              {...register("pet_img.0")}
-                              onChange={handleFilesChange}
-                            />
+                            {/* <input type="file" multiple={false} accept="image/*" {...register('images')} />
+                            <input type="file" multiple={false} accept="image/*" {...register('images')} />
+                            <input type="file" multiple={false} accept="image/*" {...register('images')} /> */}
+
+                            <input type="file" multiple accept="image/*" {...register("pet_img")} onChange={handleImages} />
 
                           </div>
                           <p>Las fotos ayudan a identificar al animal</p>
