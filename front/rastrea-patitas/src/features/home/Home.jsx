@@ -6,9 +6,7 @@ import FilterModal from './FilterModal';
 import CardsHome from './CardsHome';
 import CreateAd from './CreateAd';
 import { useAlertsContext } from '../../context/useAlertsContext';
-//import Pagination from './Pagination';
-import { Helmet } from 'react-helmet';
-import Filtro2 from './Filtro2';
+import Pagination from './Pagination';
 
 
 const Home = () => {
@@ -54,57 +52,35 @@ const Home = () => {
             getAlertsStatus('reunido')
         }
 
-        // setCurrentPage(1);
+        setCurrentPage(1);
     };
 
 
-    // const filteredRandomAlerts = randomAlerts.filter((alert) =>
-    //     (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
-    //     (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    // );
-
-    const filteredPets = alerts
-        ? alerts.filter((alert) =>
-            (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
-            (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        )
-        : [];
-
-    //Extrae la info del filterModal
-    console.log(alerts)
-    const [filterData, setFilterData] = useState({});
-
-    useEffect(() => {
-       console.log(filterData)
-      }, [filterData]);
-      const filtroE= alerts? alerts.filter((alert)=>{alert.pet_id.age == filterData.age}
-      ):[];
-      console.log(alerts[0]?.pet_id.age)
+    const filteredRandomAlerts = randomAlerts.filter((alert) =>
+        (filter === 'all' || (alert.status && alert.status && alert.status.toLowerCase() === filter.toLowerCase())) &&
+        (alert.pet_id && alert.pet_id.name && alert.pet_id.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
 
     //Pagination
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [pets, setPets] = useState([])
-    // const petsPerPage = 9;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pets, setPets] = useState([])
+    const petsPerPage = 9;
 
-    // const paginate = (pageNumber) => {
-    //     setCurrentPage(pageNumber);
-    // };
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
-    // const indexOfLastPet = currentPage * petsPerPage;
-    // const indexOfFirstPet = indexOfLastPet - petsPerPage;
-    // const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
+    const indexOfLastPet = currentPage * petsPerPage;
+    const indexOfFirstPet = indexOfLastPet - petsPerPage;
+    const currentPets = filteredRandomAlerts.slice(indexOfFirstPet, indexOfLastPet);
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);
-    // }, [currentPage]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
 
     return (
         <>
-             <Helmet>
-                 <title>Home | Rastrea Patitas</title>
-             </Helmet>   
-             
             <div className='bg-[url("/src/assets/bg-patitas.svg")] flex flex-col items-center'>
                 <div className="flex flex-col items-center justify-center mb-8 w-[360px] md:w-[600px] lg:w-[900px] gap-6 mt-8 mx-2">
 
@@ -150,7 +126,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {filteredPets.length === 0 && (
+                    {filteredRandomAlerts.length === 0 && (
                         <div className='text-center' style={{ color: '#4D4295' }}>
                             ¡No se han encontrado coincidencias con el nombre proporcionado! <br /> Prueba usando el{' '}
                             <span className="cursor-pointer font-extrabold" onClick={handleOpen}>
@@ -162,7 +138,7 @@ const Home = () => {
 
                     {
                         alertFilter === null ?
-                            <CardsHome filteredPets={filteredPets} />
+                            <CardsHome filteredPets={currentPets} />
                             :
                             datosFiltrados !== null ?
                                 <CardsHome filteredPets={datosFiltrados} />
@@ -170,14 +146,13 @@ const Home = () => {
                                 <CardsHome filteredPets={alertFilter} />
                     }
 
-                    {/* <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} /> */}
+                    <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredRandomAlerts.length / petsPerPage)} paginate={paginate} />
 
                     <CreateAd />
 
                 </div>
             </div>
-            <FilterModal handleClose={handleClose} open={open} setFilter={setFilterData}  />
-          {/*  <Filtro2 handleClose={handleClose} open={open} setFilter={setFilterData} />*/}
+            <FilterModal handleClose={handleClose} open={open} />
         </>
     );
 };

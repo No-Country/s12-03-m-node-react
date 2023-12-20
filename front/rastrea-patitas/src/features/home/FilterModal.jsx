@@ -176,7 +176,6 @@ function FilterModal({ handleClose, open, status,setFilter }) {
   const onSubmit = (data) => {
     alertFilterInitial()
 
-
     let querysData = Object.keys(data).reduce((result, key) => {
       if (data[key] !== null && key !== 'geo_point' && data[key] !== "") {
         result[key] = data[key];
@@ -187,9 +186,8 @@ function FilterModal({ handleClose, open, status,setFilter }) {
     console.log(querysData);
     getAlertQuery(querysData)
 
-
-
   }
+  
   const handleButtonClick = () => {
     setShowModal(true);
 
