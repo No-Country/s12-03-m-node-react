@@ -5,9 +5,9 @@
 
 <div align="center">
 
-![Github Contributors](https://img.shields.io/github/contributors/No-Country/c14-46-m-csharp-react)
-![Github Stars](https://img.shields.io/github/stars/No-Country/c14-46-m-csharp-react)
-![Github Issues](https://img.shields.io/github/issues-raw/No-Country/c14-46-m-csharp-react)
+![Github Contributors](https://img.shields.io/github/contributors/No-Country/s12-03-m-node-react)
+![Github Stars](https://img.shields.io/github/stars/No-Country/s12-03-m-node-react)
+![Github Issues](https://img.shields.io/github/issues-raw/No-Country/s12-03-m-node-react)
 
 
 <br />
