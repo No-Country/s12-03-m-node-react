@@ -37,7 +37,7 @@ function PetCard({ editProfile, petData }) {
         )}
       </div>
       <img
-        src={petData.pet_id.pet_img[0]?.url}
+        src={petData.pet_id?.pet_img[0]?.url}
         alt="img not found"
         className="w-full h-[340px] object-cover md:h-[585px] md:w-[642px]"
       />

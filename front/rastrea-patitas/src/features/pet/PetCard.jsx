@@ -16,13 +16,13 @@ const PetCard = ({ petData }) => {
         <Image
           alt="Card background"
           className="object-cover rounded-xl md:w-[215px] md:h-[215px]"
-          src={petData.pet_id.pet_img[0]?.url}
+          src={petData.pet_id?.pet_img[0]?.url}
           width={150}
           height={150}
         ></Image>
       </CardBody>
       <CardHeader className="flex-col items-start">
-        <p className="text-tiny uppercase font-bold">{petData.pet_id.name}</p>
+        <p className="text-tiny uppercase font-bold">{petData.pet_id?.name}</p>
         <div className='flex justify-between w-full gap-1'>
           <small className="text-default-500 pb-2">Hace 2 dias</small>
           <div className='flex gap-1'><CiLocationOn /><small className="text-default-500 pb-2">{petData.last_location}</small></div>

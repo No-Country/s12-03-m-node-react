@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import { getAlertByID,getUserByID } from "../../services/api";
+import { getAlertByID, getUserByID } from "../../services/api";
 import formatDate from "../../utils/formatDate";
 import calculateDay from "../../utils/calculateDays";
 import Map from "./Map";
@@ -31,7 +31,7 @@ const LostAndFound = () => {
         setAlertPet(data);
         setIsLoading(false);
         setTotDays(calculateDay(data?.createdAt));
-		setIdUser(data?.user_id)
+        setIdUser(data?.user_id._id)
       })
       .catch((error) => {
         console.log(error);
@@ -39,18 +39,18 @@ const LostAndFound = () => {
   }, [id]);
 
   useEffect(() => {
-	  getUserByID(idUser)
-	  .then((data) => {
+    getUserByID(idUser)
+      .then((data) => {
         setUserData(data);
         setIsLoading(false);
-        
+
       })
-  },[alertPet])
+  }, [alertPet, idUser])
 
   const handleCall = () => {
-	window.location.href = `tel:${userData?.phone}`;
+    window.location.href = `tel:${userData?.phone}`;
   };
-  
+
   console.log(id);
   console.log(alertPet);
   console.log(`Days: ${totDays}`);
@@ -187,7 +187,7 @@ const LostAndFound = () => {
               <div className="flex gap-2">
                 <FaPhone className="text-moradoMain text-xl" />
                 <p className="text-sm text-letra font-bold">
-				{userData?.phone}
+                  {userData?.phone}
                 </p>
               </div>
               <Button onClick={handleCall} className="bg-white h-10 w-20 px-4 border-2 border-moradoMain text-moradoMain">

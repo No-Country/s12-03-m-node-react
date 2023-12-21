@@ -14,7 +14,7 @@ const MyPets = () => {
   const { user } = useUserContext();
   const { alerts } = useAlertsContext();
 
-  const userAlerts = alerts.filter((alert) => alert.user_id === user._id);
+  const userAlerts = alerts.filter((alert) => alert.user_id._id === user._id);
   const lostPets = userAlerts.filter((alert) => alert.status.toLowerCase() === 'perdido');
   const foundPets = userAlerts.filter((alert) => alert.status.toLowerCase() === 'encontrado');
   const metPets = userAlerts.filter((alert) => alert.status.toLowerCase() === 'reunido');
