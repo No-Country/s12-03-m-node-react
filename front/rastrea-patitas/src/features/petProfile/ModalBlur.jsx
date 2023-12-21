@@ -26,7 +26,7 @@ export default function ModalBlur({ pet }) {
   const [selectedRadio, setSelectedRadio] = useState(
     pet.status === "encontrado" ? "en casa" : pet.status
   );
-  const [name, setName] = useState(pet.pet_id.name);
+  const [name, setName] = useState(pet.pet_id?.name);
   const dateRegistred = formatDate(pet.createdAt);
 
   const handleNameChange = (e) => {

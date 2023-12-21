@@ -23,12 +23,12 @@ function PetCharacteristics({ pet }) {
             <div>
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
                 <li className="text-sm font-bold list-none">Tipo de animal </li>{" "}
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.species}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.species}</Chip>
               </div>
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
                 <p className="text-sm font-bold">sexo </p>{" "}
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.sex}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.sex}</Chip>
               </div>
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
@@ -48,26 +48,26 @@ function PetCharacteristics({ pet }) {
                     <BreadcrumbItem>Pelo</BreadcrumbItem>
                   </Breadcrumbs>{" "}
                 </li>{" "}
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.main_color}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.main_color}</Chip>
               </div>
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
                 <li className="text-sm font-bold list-none"> Edad</li>
-               
+
                 {/* //nose como viene de back */}
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.age}</Chip>{" "}
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.age}</Chip>{" "}
                 {/* //nose como viene de back */}
               </div>
 
               <div className="flex justify-between px-3 mb-2 border-b border-solid border-moradoMain">
                 <p className="text-sm font-bold">Color </p>{" "}
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.main_color}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.main_color}</Chip>
               </div>
 
               <div className="flex justify-between px-3">
                 <li className="text-sm font-bold list-none">Tamaño* </li>{" "}
                 <li className="text-sm font-normal list-none">25-40 cm</li>
-                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id.size}</Chip>
+                <Chip className=" bg-moradoActivo mb-2">{pet?.pet_id?.size}</Chip>
               </div>
               <li className="text-sm font-normal list-none">
                 *De acuerdo a la longitud que hay desde las patas hasta el lomo

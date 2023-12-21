@@ -23,7 +23,7 @@ import formatDate from "../../utils/formatDate";
 import { MdOutlineLocationOn } from "react-icons/md";
 
 import OnliMap from "./OnliMap";
-import ModalBlur from "./ModalBlur";import { Helmet } from "react-helmet";
+import ModalBlur from "./ModalBlur"; import { Helmet } from "react-helmet";
 
 import Swal from 'sweetalert2'
 
@@ -50,8 +50,8 @@ function PetProfile() {
   const registeredAgo = formatDate(alert?.createdAt);
   const state = alert?.status;
   const [editProfile, setEditProfile] = useState(false);
-  const idPet = alert?.pet_id._id;
-  const namePet = alert?.pet_id.name;
+  const idPet = alert?.pet_id?._id;
+  const namePet = alert?.pet_id?.name;
 
   function handlerEditProfile() {
     setEditProfile(true);
@@ -63,7 +63,7 @@ function PetProfile() {
 
   const handleDetetePet = async () => {
     console.log(`Pet to delete: nombre: ${namePet}, id: ${idPet}`);
-  
+
     try {
       const result = await Swal.fire({
         title: "¿Estás seguro?",
@@ -74,10 +74,10 @@ function PetProfile() {
         cancelButtonColor: "#d33",
         confirmButtonText: "Eliminar"
       });
-  
+
       if (result.isConfirmed) {
-      const response = 5
-  
+        const response = 5
+
         if (response.ok) {
           // Si la eliminación fue exitosa, mostrar un mensaje de éxito
           Swal.fire({
@@ -99,7 +99,7 @@ function PetProfile() {
       // Manejar errores de red u otros errores aquí
     }
   };
-  
+
 
 
   if (isLoading || !alert) {
@@ -108,22 +108,22 @@ function PetProfile() {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Perfil | Rastrea Patitas</title>
-    </Helmet>
+      </Helmet>
       {/* seccion para pantallas pequeñas */}
       <div className='bg-[url("/src/assets/bg-patitas.svg")] bg-repeat w-screen md:hidden'>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
           <>
-            <NavProfile name={alert.pet_id.name} />
+            <NavProfile name={alert.pet_id?.name} />
             <PetCard editProfile={editProfile} petData={alert} />
 
             {!editProfile ? (
               <div className=" flex justify-around my-4">
                 <Button
-                onClick={handleDetetePet}  
+                  onClick={handleDetetePet}
                   color="primary"
                   variant="bordered"
                   className="border-moradoMain text-letra font-medium w-36 "
@@ -161,7 +161,7 @@ function PetProfile() {
 
             <div className="mx-5">
               <p className=" text-lg font-bold  text-letra">
-                {alert.pet_id.name}
+                {alert.pet_id?.name}
               </p>
               <p className=" text-sm font-normal text-[#6B7A85]">
                 Registrado el {registeredAgo}
@@ -170,7 +170,7 @@ function PetProfile() {
 
             <InfoLocation ubicacion={alert.last_location} />
 
-            <PetState editProfile={editProfile} state={state}  petName={alert.pet_id.name}/>
+            <PetState editProfile={editProfile} state={state} petName={alert.pet_id?.name} />
 
             {editProfile ? (
               <EditPetCharacteristics />
@@ -178,7 +178,7 @@ function PetProfile() {
               <PetCharacteristics pet={alert} />
             )}
 
-            <QrCode qr={alert.pet_id.qr.url} />
+            <QrCode qr={alert.pet_id?.qr.url} />
           </>
         )}
       </div>
@@ -191,7 +191,7 @@ function PetProfile() {
               <div className="flex flex-row">
                 <div className="my-5 flex flex-col flex-1 ">
                   <p className=" text-[45px] font-bold  text-letra">
-                    {alert.pet_id.name}
+                    {alert.pet_id?.name}
                   </p>
                   <p className=" text-2xl font-bold text-[#6B7A85]">
                     Registrado el {registeredAgo}
@@ -200,7 +200,7 @@ function PetProfile() {
 
                 <div className=" flex justify-between w-1/2 mt-5  items-end my-5 ">
                   <Button
-                  onClick={handleDetetePet}  
+                    onClick={handleDetetePet}
                     color="primary"
                     variant="bordered"
                     className="border-moradoMain text-letra font-medium w-36 "
@@ -226,21 +226,21 @@ function PetProfile() {
                           Tipo de animal{" "}
                         </li>{" "}
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.species}
+                          {alert?.pet_id?.species}
                         </Chip>
                       </div>
 
                       <div className="flex justify-between  mb-3">
                         <p className="text-lg font-bold">Sexo </p>{" "}
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.sex}
+                          {alert?.pet_id?.sex}
                         </Chip>
                       </div>
 
                       <div className="flex justify-between  mb-3">
                         <li className="text-lg font-bold list-none"> Edad</li>
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.age}
+                          {alert?.pet_id?.age}
                         </Chip>{" "}
                       </div>
 
@@ -252,7 +252,7 @@ function PetProfile() {
                           25-40 cm
                         </li>
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.size}
+                          {alert?.pet_id?.size}
                         </Chip>
                       </div>
                     </div>
@@ -286,13 +286,13 @@ function PetProfile() {
                           </Breadcrumbs>{" "}
                         </li>{" "}
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.main_color}
+                          {alert?.pet_id?.main_color}
                         </Chip>
                       </div>
                       <div className="flex justify-between  mb-3 ">
                         <p className="text-lg font-bold">Color </p>{" "}
                         <Chip className=" bg-moradoActivo mb-3 text-lg">
-                          {alert?.pet_id.main_color}
+                          {alert?.pet_id?.main_color}
                         </Chip>
                       </div>
                     </div>
@@ -346,7 +346,7 @@ function PetProfile() {
               </Card>
 
               <Card className="w-[447px] h-[310px] ml-8 mt-4 md:mb-14">
-                <QrCode qr={alert.pet_id.qr.url} />
+                <QrCode qr={alert.pet_id?.qr.url} />
               </Card>
             </div>
           </div>
