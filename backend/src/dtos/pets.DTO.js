@@ -1,11 +1,13 @@
 export class PetsDTO {
-    constructor({ user_id, name, age, species, breed, size, main_color, secondary_color, sex, description, pet_img, qr }) {
+    constructor({ user_id, name, age, species, breed, size, eyes, hair, main_color, secondary_color, sex, description, pet_img, qr }) {
         this.user_id = user_id;
         this.name = name;
         this.age = age;
         this.species = species;
         this.breed = breed;
         this.size = size;
+        this.eyes = eyes,
+        this.hair = hair,
         this.main_color = main_color;
         this.sex = sex;
         this.description = description;
