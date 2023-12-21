@@ -15,7 +15,9 @@ export const uploadImage = async (data) =>   {
                 const transformation = {
                     height: 700,
                     width: 700,
-                    crop: "limit",
+                    gravity: 'face',
+                    crop: "thumb",
+                    zoom: '0.3',
                     format: 'jpg',
                     quality: 'auto:good'
                 }
