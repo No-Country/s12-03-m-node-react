@@ -362,6 +362,9 @@ O simplemente clickea en el link de
           <h4 style="margin-top: 1rem;">María José Pautassio</h4>
           <h4 style="margin-top: 1rem;">QA / PM</h4>
         </a>
+        <a href="https://github.com/MariaJosePau" target="_blank">
+          <img src="https://img.shields.io/static/v1?style=for-the-badge&message=GitHub&color=172B4D&logo=GitHub&logoColor=FFFFFF&label="/>
+        </a>
         <a href="https://www.linkedin.com/in/mariajosepautassio/" target="_blank">
           <img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
         </a>
